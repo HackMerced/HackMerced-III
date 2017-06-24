@@ -1,0 +1,44 @@
+{
+  "name": "Tomoe",
+  "version": "0.0.1",
+  "description": "Centralized API user platform for Hackathons",
+  "main": "production.js",
+  "scripts": {
+    "setup": "node ./setup/init.js live",
+    "setup-dev": "node ./setup/init.js dev",
+    "test-noenv": "mocha --timeout 10000",
+    "test": "node ./setup/init.js test-env mocha",
+    "start": "node ./server/index.js live",
+    "start-dev": "node ./server/index.js dev",
+    "start-test": "node ./server/index.js test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HackMerced/Tomoe.git"
+  },
+  "author": "Shubham Naik",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "chai": "^3.5.0",
+    "chai-nightwatch": "^0.1.1",
+    "chai-things": "^0.2.0",
+    "html-dnd": "^1.1.0",
+    "mocha": "^2.5.3",
+    "should": "^9.0.2",
+    "supertest": "^1.2.0"
+  },
+  "dependencies": {
+    "arangojs": "^5.4.2",
+    "body-parser": "^1.15.2",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "js-sha256": "^0.3.2",
+    "method-override": "^2.3.7",
+    "morgan": "^1.7.0",
+    "request": "^2.79.0"
+  }
+}
