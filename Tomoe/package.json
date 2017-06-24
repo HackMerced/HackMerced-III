@@ -17,7 +17,7 @@
     "url": "https://github.com/HackMerced/Tomoe.git"
   },
   "author": "Shubham Naik <shub@hackmerced.com>",
-  "license": "MIT",
+  "license": "Apache",
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",
     "chai": "^3.5.0",
