@@ -1,10 +1,8 @@
-<img src="/assets/images/logos/logo_blue.png" alt="Tomoe" width=250 >
+<img src="./assets/images/logos/logo_blue.png" alt="Tomoe" width=250 >
 # Hackathon Application Management API
 [![Code Climate](https://codeclimate.com/github/HackMerced/Tomoe/badges/gpa.svg)](https://codeclimate.com/github/HackMerced/Tomoe)
 [ ![Codeship Status for HackMerced/Tomoe](https://codeship.com/projects/37a7fc80-886a-0134-ba24-069b35d31ada/status?branch=master)](https://codeship.com/projects/183931)
 [![Test Coverage](https://codeclimate.com/github/HackMerced/Tomoe/badges/coverage.svg)](https://codeclimate.com/github/HackMerced/Tomoe/coverage)
-
-** **THIS PROJECT IS PRE-RELEASE AND CURRENTLY DOES NOT WORK IN ENTIRETY** **
 
 Tomoe is a scalable, open source API that allows Hackathon organizers to manage and monitor their applicants and staff. Tomoe was built for HackMerced's application management but has been extended and open-sourced for everyone. Tomoe is still in development and will be available for use this December.
 
@@ -33,7 +31,7 @@ Tomoe is a scalable, open source API that allows Hackathon organizers to manage 
 - **Email Utility**: Tomoe works with SendGrid to send application statuses, important updates, and other information to hackers.
 
 <br>
-**[⬆ back to top](#table-of-contents)**
+<b>[⬆ back to top](#table-of-contents)</b>
 
 # Installation
 Tomoe's runs on top of node.js and requires you to install `node.js`, `arangodb`, and `npm`
@@ -50,7 +48,7 @@ Access the server and gui locally at:
 http://localhost:4925
 ```
  <br>
-**[⬆ back to top](#table-of-contents)**
+[<b>⬆ back to top](#table-of-contents)</b>
 
 # Documentation
 ## Shortcuts
@@ -64,7 +62,7 @@ http://localhost:4925
 [**<code>DELETE</code> /hackers/{user-email}**](#delete-hackersuser-email)<br>
 [**<code>DELETE</code> /hackers/{user-id}**](#delete-hackersuser-id)<br>
  <br>
-**[⬆ back to top](#table-of-contents)**
+<b>[⬆ back to top](#table-of-contents)</b>
 
 ## The Hacker Object
 The Hacker Object is the core to Tomoe's hackathon management system. Hackers are the people who apply to your hackathon.
@@ -81,8 +79,8 @@ The Hacker Object is the core to Tomoe's hackathon management system. Hackers ar
 }
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 ###<code>GET</code> /hackers<br>
 Lists all hackers stored in your database
 
@@ -156,8 +154,8 @@ Array [
 ]
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 
 ###<code>GET</code> /hackers/{user-email}
 ###<code>GET</code> /hackers/{user-id}
@@ -181,8 +179,8 @@ GET https://{your-tomoe-server}/v1.0/hackers/john@ucmerced.edu
 }
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 
 ###<code>POST</code> /hackers
 Creates a hacker user
@@ -215,8 +213,8 @@ BODY: {
 }
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 
 ###<code>POST</code> /hackers/{user-email}
 ###<code>POST</code> /hackers/{user-id}
@@ -249,8 +247,8 @@ BODY: {
 }
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 
 ###<code>DELETE</code> /hackers/{user-email}
 ###<code>DELETE</code> /hackers/{user-id}
@@ -266,15 +264,15 @@ DELETE https://{your-tomoe-server}/v1.0/hackers/john@ucmerced.edu
 { deleted: true }
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
-**- [back to documentation](#documentation)**
+<b>[⬆ back to top](#table-of-contents)</b>
+<b>- [back to documentation](#documentation)</b>
 
 
 # Contributing
 Want to contribute to Tomoe? We would love if you were to contribute to the continued growth of our project. Just submit a branch request - if you're a UC Merced student, please [contact us](shub@hackmerced.com)! We're still looking to add developers to our mentorship program too!
 
 <br>
-**[⬆ back to top](#table-of-contents)**
+<b>[⬆ back to top](#table-of-contents)</b>
 
 
 
@@ -283,7 +281,7 @@ Want to contribute to Tomoe? We would love if you were to contribute to the cont
 The HackMerced Team is happy to help Hackathon organizers with setting up and configuring your application. Email us at [help@hackmerced.com](help@hackmerced.com).
 
 <br>
-**[⬆ back to top](#table-of-contents)**
+<b>[⬆ back to top](#table-of-contents)</b>
 
 # License
 ```
@@ -302,4 +300,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 <br>
-**[⬆ back to top](#table-of-contents)**
+<b>[⬆ back to top](#table-of-contents)</b>
