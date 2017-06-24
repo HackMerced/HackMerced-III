@@ -8,6 +8,7 @@
     "compile": "node ./src/app/build/scripts/compile",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "start": "cross-env NODE_ENV=development node ./src/app/build/scripts/start",
+    "api": "node ./src/server/index.js",
     "test": "cross-env NODE_ENV=test karma start ./src/app/build/karma.config",
     "test:watch": "npm test -- --watch",
     "lint": "eslint .",
@@ -28,7 +29,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.4.0",
-    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.20.0",
     "chai": "^3.5.0",
@@ -109,6 +110,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
+    "uuid": "^3.1.0",
     "whatwg-fetch": "^2.0.3"
   }
 }

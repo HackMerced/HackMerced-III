@@ -6,4 +6,5 @@ if(!fs.existsSync(ENV_PATH)){
   require('dotenv').config({path: ENV_PATH});
 }
 
-require('server.js');
+require( 'babel-core/register' );
+require('./src/server.js');
