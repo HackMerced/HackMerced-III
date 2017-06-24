@@ -1,4 +1,0 @@
-// base linter
-{
-  "extends": "airbnb"
-}
