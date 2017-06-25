@@ -7,9 +7,6 @@ export const env = {
   'MODE':{
     description: 'Set to either DEVELOPMENT or PRODUCTION',
     filter: Joi.string().valid('PRODUCTION', 'DEVELOPMENT').required()
-  },
-  'HACKATHON':{
-    description: 'The name of your Hackathon',
   }
 }
 
@@ -19,4 +16,14 @@ export const Definitions = {
     'PRODUCTION': 'Tomoe'
   },
   userTypes:['admin', 'hacker'],
+  apiVersion: '2.0',
+  defaultStatuses:[
+    'registered',
+    'applied',
+    'accepted',
+    'waitlisted',
+    'confirmed',
+    'attending',
+    'inactive'
+  ]
 }
