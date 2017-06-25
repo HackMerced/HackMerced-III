@@ -288,3 +288,6 @@ fastlane/test_output
 
 
 .DS_Store
+
+
+tomoe.config.js
