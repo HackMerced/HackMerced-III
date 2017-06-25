@@ -1,6 +1,6 @@
 const config = {
   apiVersion: '/2.0/',
-  hackathon: process.env.HACKATHON || "default",
+  hackathon: process.env.HACKATHON || 'default',
   statusTypes: [
     'registered',
     'in-progress',
