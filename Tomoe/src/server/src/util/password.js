@@ -1,4 +1,4 @@
-export function saltAndHashPassword(pass, resolve){
+export function saltAndHashPassword(password, resolve){
   function generateSalt(){
       let set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
       let salt = '';
@@ -10,12 +10,12 @@ export function saltAndHashPassword(pass, resolve){
   }
 
   let salt = generateSalt();
-  let new_pass = (salt + sha256(pass + salt));
+  let newPassword = (salt + sha256(password + salt));
 
   if(resolve){
-     resolve(new_pass);
+     resolve(newPassword);
   } else {
-    return new_pass;
+    return newPassword;
   }
 
 }
