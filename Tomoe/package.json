@@ -6,6 +6,8 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "node ./src/app/build/scripts/compile",
+    "setup": "npm run generate",
+    "generate": "node ./setup",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "start": "cross-env NODE_ENV=development node ./src/app/build/scripts/start",
     "api": "node ./src/server/index.js",

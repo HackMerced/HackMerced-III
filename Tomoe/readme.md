@@ -39,7 +39,7 @@ Tomoe is a scalable, open source API that allows Hackathon organizers to manage 
 # Installation
 Tomoe's runs on top of node.js and requires you to install `node.js`, `arangodb`, and `npm`
 
-Once you've installed the prerequistes you will need to run the following command to install your Tomoe instance. It will ask you a few questions and set up either a development or live environment as well as an admin account for the GUI.
+Once you've installed the prerequistes you will need to run the following command to install your Tomoe instance. It will ask you a few questions to set up a server.
 
 ```terminal
 npm install
@@ -49,6 +49,20 @@ npm run setup
 Access the server and gui locally at:
 ```terminal
 http://localhost:4925
+```
+
+### Local environmnet variables in development
+If you do not want to setup environmental variables globally, Tomoe allows you to locally set environmental variables by creating a `.env` file in the root Tomoe directory
+
+```terminal
+cd /path/to/tomoe/
+touch .env
+```
+
+In the `.env` file, you should add the following:
+```text
+DB_URI={Connection URI of your ArangoDB instance}
+MODE={Either DEVELOPMENT or PRODUCTIOn}
 ```
  <br>
 
