@@ -59,7 +59,7 @@ cd /path/to/tomoe/
 touch .env
 ```
 
-Now open up the `.env` file, you should add the following:
+Now open up the `.env` file - you should add the following:
 ```text
 DB_URI={Connection URI of your ArangoDB instance}
 NODE_ENV={Either DEVELOPMENT or PRODUCTIOn}

@@ -11,6 +11,7 @@ export const env = {
 }
 
 export const Definitions = {
+  configName:'tomoe.config',
   server:{
     development: 'Tomoe_dev',
     test: 'Tomoe_test',
@@ -28,7 +29,7 @@ export const Definitions = {
     'inactive'
   ],
   collections:[
-    'admins',
-    'hackers',
+    'admin',
+    'hacker',
   ]
 }

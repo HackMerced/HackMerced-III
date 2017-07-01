@@ -7,7 +7,7 @@ import { Database } from 'arangojs';
 import { Definitions } from '../../setup/setup.requirements';
 import { createCollections } from '../../setup/createCollections'
 
-const databaseName = Definitions.server[process.env.NODE_ENV];
+const databaseName = Definitions.server['test'];
 
 global.db = new Database({
   url: process.env.DB_URI

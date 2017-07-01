@@ -29,12 +29,13 @@ function createValidationError(validate){
 }
 
 const YESNO_CONTEXT = "\n Type 'Yes' or 'No' to continue: ".grey;
+const TOMOE_CONFIG_PATH = `./${Definitions.configName}.js`
+const databaseName = Definitions.server[process.env.NODE_ENV];
 
 let storedAnswers = {
   hackathon:'',
-  databaseName:'',
   beta: false,
-  errorTrack: false,
+  errorTrack: false
 }
 
 
@@ -104,27 +105,48 @@ const stage = {
 
       db.listDatabases((err, databaseList) => {
 
-        const databaseName = Definitions.server[process.env.NODE_ENV];
 
-        if(databaseList.includes(databaseName)){
+
+        if(databaseList.includes(databaseName) && fs.existsSync(TOMOE_CONFIG_PATH)){
           term('\nYou cannot re-run installation if you have already established your database, please destroy your database before re-running.'.red);
           return;
-        } else {
-          db.createDatabase(database).then(
-            info => {
-              createCollections().then(() => {
-                stage.next();
-              }).catch(err => {
-                term(err.red);
-              })
+        } else if(databaseList.includes(databaseName)){
+          // just in case someone fails installing
+          console.log('Cleaning up old failed tests...\n');
 
-            },
-            err => {
-              term(err.stack.red)
+          db.dropDatabase(databaseName).then(
+            info => {
+              stage.next();
             }
-          );
+          ).catch(err => {
+            term(err.stack.red)
+          })
+          return;
         }
+
+        stage.next();
       });
+    },
+    function createDatabase(){
+      db.createDatabase(databaseName).then(
+        info => {
+          db.useDatabase(databaseName);
+
+          createCollections().then(() => {
+            db.listCollections().then(() => {
+              stage.next();
+            }).catch(err => {
+              term(err.red);
+            })
+          }).catch(err => {
+            term(err.red);
+          })
+
+        },
+        err => {
+          term(err.stack.red)
+        }
+      );
     },
     function askHackathonName(){
       divider();
@@ -138,9 +160,9 @@ const stage = {
       let answer = readline.question("\nWould you like to use beta features?".magenta + YESNO_CONTEXT);
           answer = answer.toLowerCase();
 
-      if(answer === 'no'){
+      if(['no', 'n'].includes(answer)){
         storedAnswers.beta = false;
-      } else if(answer === 'yes'){
+      } else if(['yes', 'y'].includes(answer)){
         storedAnswers.beta = true;
       } else {
         stage.same();
@@ -153,9 +175,9 @@ const stage = {
       let answer = readline.question("\nCan Tomoe occasionally send error information to our servers?".magenta + YESNO_CONTEXT);
         answer = answer.toLowerCase();
 
-      if(answer === 'no'){
+      if(['no', 'n'].includes(answer)){
         storedAnswers.errorTrack = false;
-      } else if(answer === 'yes'){
+      } else if(['yes', 'y'].includes(answer)){
         storedAnswers.errorTrack = true;
       } else {
         stage.same();
@@ -165,7 +187,8 @@ const stage = {
       stage.next();
     },
     function addOtherConfigOptions(){
-      storedAnswers.server = Definitions.server[process.env.NODE_ENV];
+      storedAnswers.database = Definitions.server[process.env.NODE_ENV];
+      storedAnswers.server = storedAnswers.database;
       storedAnswers.apiVersion = `/${Definitions.apiVersion}/`;
       storedAnswers.userTypes = Definitions.userTypes;
       storedAnswers.defaultStatuses = Definitions.defaultStatuses;
@@ -235,7 +258,7 @@ const stage = {
       stage.prev();
     },
     function(){
-      term('Adding you as a user...\n');
+      term('\nAdding you as a user...\n');
       adminDetails.save().then((user) => {
         stage.next();
       },
@@ -246,9 +269,9 @@ const stage = {
     function(){
       term('Saving config...')
 
-      const configJS = `export Tomoe = ${JSON.stringify(storedAnswers, null, 4).replace(/"((?:\\.|[^"\\])*)":/g, ':$1')}`;
+      const configJS = `export Tomoe = ${JSON.stringify(storedAnswers, null, 4).replace(/"((?:\\.|[^"\\])*)":/g, '$1:')}`;
 
-      fs.writeFile("./tomoe.config.js", configJS, function(err){
+      fs.writeFile(TOMOE_CONFIG_PATH, configJS, function(err){
         if (err)
           throw err;
 
@@ -256,7 +279,11 @@ const stage = {
       });
     },
     function(){
-      term('Setup Complete!\nYou should run the following command to see Tomoe in action\n yarn start')
+      term('Setup Complete!'.green);
+      term('\nYou should run the following commands to see Tomoe in action:')
+      term('  npm start'.grey)
+      term('  npm run api'.grey)
+      term('\n') // padding lol
     }
   ]
 }
