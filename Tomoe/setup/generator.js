@@ -13,11 +13,14 @@ import figlet from 'figlet';
 import packageDetail from '../package.json';
 import colors from 'colors';
 import readline from 'readline-sync';
-import { env, Definitions } from './setup.requirements';
 import {Database, aql} from 'arangojs';
 import Joi from 'joi';
-import { Admin } from '../src/server/src/database';
 import fs from 'fs';
+
+import { Admin } from '../src/server/src/collections';
+import { createCollections } from './createCollections'
+import { env, Definitions } from './setup.requirements';
+
 
 const term = console.log; // easier to type
 function divider() {  term('\n==') };
@@ -85,6 +88,7 @@ const stage = {
           term(` ${missing.id}`, `# ${missing.value.description}`.grey);
         });
 
+        term('\nLearn how to create local ENV files at: https://github.com/HackMerced/HackMerced/tree/master/Tomoe#local-environmnet-variables-in-development'.red);
         term('\n');
         process.exit();
       }
@@ -100,15 +104,20 @@ const stage = {
 
       db.listDatabases((err, databaseList) => {
 
-        const database = Definitions.server[process.env.MODE];
+        const databaseName = Definitions.server[process.env.NODE_ENV];
 
-        if(databaseList.includes(database)){
+        if(databaseList.includes(databaseName)){
           term('\nYou cannot re-run installation if you have already established your database, please destroy your database before re-running.'.red);
           return;
         } else {
           db.createDatabase(database).then(
             info => {
-              stage.next();
+              createCollections().then(() => {
+                stage.next();
+              }).catch(err => {
+                term(err.red);
+              })
+
             },
             err => {
               term(err.stack.red)
@@ -156,7 +165,7 @@ const stage = {
       stage.next();
     },
     function addOtherConfigOptions(){
-      storedAnswers.server = Definitions.server[process.env.MODE];
+      storedAnswers.server = Definitions.server[process.env.NODE_ENV];
       storedAnswers.apiVersion = `/${Definitions.apiVersion}/`;
       storedAnswers.userTypes = Definitions.userTypes;
       storedAnswers.defaultStatuses = Definitions.defaultStatuses;

@@ -9,9 +9,11 @@
     "setup": "npm run generate",
     "generate": "node ./setup",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "start": "cross-env NODE_ENV=development node ./src/app/build/scripts/start",
+    "start": "node ./build/build.js && cross-env NODE_ENV=development node ./src/app/build/scripts/start",
     "api": "node ./src/server/index.js",
-    "test": "cross-env NODE_ENV=test karma start ./src/app/build/karma.config",
+    "test_server": "cross-env NODE_ENV=test node ./build/tests",
+    "test_app": "cross-env NODE_ENV=test karma start ./src/app/build/karma.config",
+    "test": "npm run test_server",
     "test:watch": "npm test -- --watch",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
@@ -115,6 +117,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
+    "sha256": "^0.2.0",
     "uuid": "^3.1.0",
     "whatwg-fetch": "^2.0.3"
   }

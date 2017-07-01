@@ -52,17 +52,17 @@ http://localhost:4925
 ```
 
 ### Local environmnet variables in development
-If you do not want to setup environmental variables globally, Tomoe allows you to locally set environmental variables by creating a `.env` file in the root Tomoe directory
+If you do not want to setup environmental variables globally, Tomoe allows you to locally set environmental variables by creating file called `.env` in the root directory of Tomoe
 
 ```terminal
 cd /path/to/tomoe/
 touch .env
 ```
 
-In the `.env` file, you should add the following:
+Now open up the `.env` file, you should add the following:
 ```text
 DB_URI={Connection URI of your ArangoDB instance}
-MODE={Either DEVELOPMENT or PRODUCTIOn}
+NODE_ENV={Either DEVELOPMENT or PRODUCTIOn}
 ```
  <br>
 
