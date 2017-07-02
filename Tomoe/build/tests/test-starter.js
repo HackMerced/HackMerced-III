@@ -4,10 +4,11 @@ import fs from 'fs';
 import path from 'path';
 import { Database } from 'arangojs';
 
-import { Definitions } from '../../setup/setup.requirements';
-import { createCollections } from '../../setup/createCollections'
+import { Definitions } from '../core/setup.requirements';
+import { Config } from '../core/config';
+import { createCollections } from '../core/setup/createCollections'
 
-const databaseName = Definitions.server['test'];
+const databaseName = Definitions.server;
 
 global.db = new Database({
   url: process.env.DB_URI
@@ -51,8 +52,11 @@ db.listDatabases((err, databaseList) => {
   createDatabase();
 });
 
+console.log('Generating tomoe.test.config.js...!');
 
-
+const configParams = { hackathon: 'testHackathon'};
+const newTestConfig = new Config(configParams);
+      newTestConfig.save();
 
 // Part two testing things
 const mocha = new Mocha()

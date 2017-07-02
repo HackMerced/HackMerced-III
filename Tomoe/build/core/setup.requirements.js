@@ -11,9 +11,9 @@ export const env = {
 }
 
 const configNames = {
-  development: 'tomoe.config',
-  production: 'tomoe.config',
-  test: 'tomoe.test.config'
+  development: 'tomoe',
+  production: 'tomoe',
+  test: 'tomoe-test'
 }
 
 const serverNames = {
@@ -23,7 +23,7 @@ const serverNames = {
 };
 
 export const Definitions = {
-  configName: configNames[process.env.NODE_ENV],
+  configName: configNames[process.env.NODE_ENV] + '.config.js',
   server: serverNames[process.env.NODE_ENV],
   userTypes:['admin', 'hacker'],
   apiVersion: '2.0',
@@ -40,5 +40,18 @@ export const Definitions = {
     'admin', // admin users
     'hacker', // hacker users
     'oauth', // oauth keys information
-  ]
+  ],
+  build:{
+    default: [
+      {
+        app:{
+          dist_folder:"./src/app/src/dist",
+          imports:{
+            "resources":["../UI/HackMerced-2017-Style/Resources", "scss/resources"]
+          },
+        }
+      }
+    ],
+    import: true
+  }
 }

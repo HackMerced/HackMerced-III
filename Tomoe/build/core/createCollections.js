@@ -1,6 +1,5 @@
 import { Definitions } from './setup.requirements';
 
-
 export function createCollections(additionalCollections = []){
   return new Promise((resolve, reject) => {
     const collections = Definitions.collections.concat(additionalCollections);

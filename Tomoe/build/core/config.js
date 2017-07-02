@@ -4,7 +4,7 @@ import fs from 'fs';
 
 import { Definitions } from './setup.requirements';
 
-const TOMOE_CONFIG_PATH = `./${Definitions.configName}.js`
+const TOMOE_CONFIG_PATH = `./${Definitions.configName}`
 
 export class Config{
   constructor(params = {}){
@@ -17,6 +17,7 @@ export class Config{
     this.apiVersion = params.apiVersion || Definitions.apiVersion;
     this.userTypes = params.userTypes || Definitions.userTypes;
     this.defaultStatuses = params.defaultStatuses || Definitions.defaultStatuses;
+    this.build = params.build || ((fs.existsSync('../.hackmerced')) ? Definitions.build.default : Definitions.build.import)
   }
 
   get(){

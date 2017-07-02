@@ -9,7 +9,7 @@
     "setup": "npm run generate",
     "generate": "node ./build/core",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
-    "start": "node ./build/build.js && cross-env NODE_ENV=development node ./src/app/build/scripts/start",
+    "start": "node ./build/imports && cross-env NODE_ENV=development node ./src/app/build/scripts/start",
     "api": "node ./src/server/index.js",
     "test_server": "cross-env NODE_ENV=test node ./build/tests",
     "test_app": "cross-env NODE_ENV=test karma start ./src/app/build/karma.config",
