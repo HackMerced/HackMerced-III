@@ -17,8 +17,8 @@
 */
 
 
-import 'joi';
-import 'boom';
+import Joi from 'joi';
+import Boom from 'boom';
 
 
 // [GET] /hackers
@@ -38,7 +38,7 @@ export const getHacker = {
     handler: ( request, reply ) => {
       const userData = encodeURIComponent(request.params.user);
 
-      if(Joi.validate({ content: userData }, { content: Joi.string().email() })) {
+      if(Joi.validate({ content: userData }, { content: Joi.string().email() })){
         // is email
 
         return reply();
@@ -48,13 +48,6 @@ export const getHacker = {
       return reply();
     }
 };
-
-path: '/hello/{user}',
-handler: function (request, reply) {
-    reply('Hello ' + encodeURIComponent(request.params.user) + '!');
-
-
-
 
 const hacker = [
   getHackers,

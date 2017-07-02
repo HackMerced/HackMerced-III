@@ -10,13 +10,21 @@ export const env = {
   }
 }
 
+const configNames = {
+  development: 'tomoe.config',
+  production: 'tomoe.config',
+  test: 'tomoe.test.config'
+}
+
+const serverNames = {
+  development: 'Tomoe_dev',
+  test: 'Tomoe_test',
+  production: 'Tomoe'
+};
+
 export const Definitions = {
-  configName:'tomoe.config',
-  server:{
-    development: 'Tomoe_dev',
-    test: 'Tomoe_test',
-    production: 'Tomoe'
-  },
+  configName: configNames[process.env.NODE_ENV],
+  server: serverNames[process.env.NODE_ENV],
   userTypes:['admin', 'hacker'],
   apiVersion: '2.0',
   defaultStatuses:[
@@ -29,7 +37,8 @@ export const Definitions = {
     'inactive'
   ],
   collections:[
-    'admin',
-    'hacker',
+    'admin', // admin users
+    'hacker', // hacker users
+    'oauth', // oauth keys information
   ]
 }

@@ -20,6 +20,7 @@ import fs from 'fs';
 import { Admin } from '../src/server/src/collections';
 import { createCollections } from './createCollections'
 import { env, Definitions } from './setup.requirements';
+import { Config } from './config'
 
 
 const term = console.log; // easier to type
@@ -30,14 +31,11 @@ function createValidationError(validate){
 
 const YESNO_CONTEXT = "\n Type 'Yes' or 'No' to continue: ".grey;
 const TOMOE_CONFIG_PATH = `./${Definitions.configName}.js`
-const databaseName = Definitions.server[process.env.NODE_ENV];
 
-let storedAnswers = {
-  hackathon:'',
-  beta: false,
-  errorTrack: false
-}
+const databaseName = Definitions.server;
 
+
+let storedAnswers = new Config();
 
 let adminDetails;
 
@@ -112,7 +110,7 @@ const stage = {
           return;
         } else if(databaseList.includes(databaseName)){
           // just in case someone fails installing
-          console.log('Cleaning up old failed tests...\n');
+          console.log('Cleaning up old failed installations...\n');
 
           db.dropDatabase(databaseName).then(
             info => {
@@ -184,14 +182,6 @@ const stage = {
         return;
       }
 
-      stage.next();
-    },
-    function addOtherConfigOptions(){
-      storedAnswers.database = Definitions.server[process.env.NODE_ENV];
-      storedAnswers.server = storedAnswers.database;
-      storedAnswers.apiVersion = `/${Definitions.apiVersion}/`;
-      storedAnswers.userTypes = Definitions.userTypes;
-      storedAnswers.defaultStatuses = Definitions.defaultStatuses;
       stage.next();
     },
     function startUserInfo(){
@@ -269,14 +259,11 @@ const stage = {
     function(){
       term('Saving config...')
 
-      const configJS = `export Tomoe = ${JSON.stringify(storedAnswers, null, 4).replace(/"((?:\\.|[^"\\])*)":/g, '$1:')}`;
-
-      fs.writeFile(TOMOE_CONFIG_PATH, configJS, function(err){
-        if (err)
-          throw err;
-
+      storedAnswers.save().then(() => {
         stage.next();
-      });
+      }).catch((err) => {
+        term(err);
+      })
     },
     function(){
       term('Setup Complete!'.green);
