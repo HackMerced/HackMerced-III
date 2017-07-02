@@ -22,6 +22,21 @@ const serverNames = {
   production: 'Tomoe'
 };
 
+const standardDBCollections = [
+  'admin', // admin users
+  'hacker', // hacker users
+  'oauth', // oauth keys information
+]
+
+const dbCollections = {
+  development: standardDBCollections,
+  production: standardDBCollections,
+  test: [
+    ...standardDBCollections,
+    'user-test'
+  ]
+}
+
 export const Definitions = {
   configName: configNames[process.env.NODE_ENV] + '.config.js',
   server: serverNames[process.env.NODE_ENV],
@@ -36,11 +51,7 @@ export const Definitions = {
     'attending',
     'inactive'
   ],
-  collections:[
-    'admin', // admin users
-    'hacker', // hacker users
-    'oauth', // oauth keys information
-  ],
+  collections: dbCollections[process.env.NODE_ENV],
   build:{
     default: [
       {
@@ -52,6 +63,6 @@ export const Definitions = {
         }
       }
     ],
-    import: true
+    import: false
   }
 }

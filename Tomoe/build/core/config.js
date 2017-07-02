@@ -48,4 +48,8 @@ export class Config{
       });
     })
   }
+
+  delete(){
+    fs.unlink(TOMOE_CONFIG_PATH);
+  }
 }

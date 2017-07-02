@@ -6,7 +6,7 @@ import { Database } from 'arangojs';
 
 import { Definitions } from '../core/setup.requirements';
 import { Config } from '../core/config';
-import { createCollections } from '../core/setup/createCollections'
+import { createCollections } from '../core/createCollections'
 
 const databaseName = Definitions.server;
 
@@ -52,11 +52,13 @@ db.listDatabases((err, databaseList) => {
   createDatabase();
 });
 
+// generating test config
 console.log('Generating tomoe.test.config.js...!');
 
 const configParams = { hackathon: 'testHackathon'};
 const newTestConfig = new Config(configParams);
       newTestConfig.save();
+
 
 // Part two testing things
 const mocha = new Mocha()
@@ -83,7 +85,18 @@ function startMochaTests() {
   // Now, you can run the tests.
   mocha.run(function(failures){
     process.on('exit', function () {
-      process.exit(failures)
+
+
+      startFrontEndTests(failures);
     })
   })
 }
+
+function startFrontEndTests (failures){
+  doneEverything(failures);
+};
+
+function doneEverything (failures){
+  newTestConfig.delete();
+  process.exit(failures);
+};
