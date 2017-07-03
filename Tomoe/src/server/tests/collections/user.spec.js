@@ -1,26 +1,7 @@
 import { assert } from 'chai';
 import { User, Admin, Hacker } from '../../src/collections/user';
+import { sampleUser, sampleUser2 } from '../constants'
 
-const sampleUser = {
-  name: 'Shubham Naik',
-  email: 'shub@hackmerced.com',
-  temp_password: 'testing2',
-  newName: 'Shubham D Naik',
-  permissions: 'rw',
-  details: {
-    age: 20
-  }
-}
-
-const sampleUser2 = {
-  name: 'Jan Tanja',
-  email: 'jan@hackmerced.com',
-  temp_password: 'testing3',
-  permissions: 'rw',
-  details: {
-    age: 20
-  }
-}
 
 describe('User', () =>  {
   let testUser;
@@ -254,8 +235,9 @@ describe('User', () =>  {
 
       User.query(params).then((users) => {
         assert.equal(users.length, 0);
-        done();
+        done()
       }).catch((err) => {
+
         done(err);
       });
     });
@@ -277,6 +259,21 @@ describe('User', () =>  {
       testUser.validate().then((user) => {
         assert.equal(user.name, sampleUser.newName);
         done();
+      }).catch((err) => {
+        done(err);
+      });
+    });
+  });
+
+  describe('#remove', () =>  {
+    it('can remove a user', (done) =>  {
+      testUser.remove().then(() => {
+        User.find({ email: testUser.email }).then(() => {
+          done('Should not be found');
+        }).catch((err) => {
+          assert.equal(err.message, 'No user found with that email exists');
+          done();
+        });
       }).catch((err) => {
         done(err);
       });

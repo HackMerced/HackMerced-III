@@ -1,13 +1,7 @@
 import Hapi from 'hapi';
 import routes from './routes';
 
-let ConfigRoute = 'tomoe.config.js'
-if(process.env.NODE_ENV === 'test'){
-  ConfigRoute = 'tomoe.test.config.js'
-}
-
-import { secretKey } from `../../../../${ConfigRoute}`;
-
+// start server
 const server = new Hapi.Server();
 
 server.connection( {
@@ -21,7 +15,7 @@ server.register( require( 'hapi-auth-jwt' ), ( err ) => {
     }
 
     server.auth.strategy( 'token', 'jwt', {
-        key: secretKey,
+        key: TOMOE_CONFIG.secretKey,
         verifyOptions: {
             algorithms: [ 'HS256' ]
         }
@@ -40,3 +34,5 @@ server.start( err => {
 
     console.log( `Server started at ${ server.info.uri }` );
 } );
+
+export { server };

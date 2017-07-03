@@ -19,14 +19,16 @@
 
 import Joi from 'joi';
 import Boom from 'boom';
+import { hackerHandlers } from '../handlers'
+import { hackerValidators } from '../validators'
 
 
 // [GET] /hackers
 export const getHackers = {
     path: '/hackers',
     method: 'GET',
-    handler: ( request, reply ) => {
-        return reply();
+    config: {
+      handler: hackerHandlers.getHackers,
     }
 };
 
@@ -35,23 +37,14 @@ export const getHackers = {
 export const getHacker = {
     path: '/hacker/{user}',
     method: 'GET',
-    handler: ( request, reply ) => {
-      const userData = encodeURIComponent(request.params.user);
-
-      if(Joi.validate({ content: userData }, { content: Joi.string().email() })){
-        // is email
-
-        return reply();
-      }
-
-
-      return reply();
+    config: {
+      handler: hackerHandlers.getHacker,
     }
 };
 
-const hacker = [
+const hackerRoutes = [
   getHackers,
-  getHacker
+  getHacker,
 ]
 
-export default hacker;
+export default hackerRoutes;

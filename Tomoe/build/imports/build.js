@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import { Definitions } from '../core/setup.requirements.js'
 const build = require('../' +  Definitions.configName).build;
 
+// files in the non-development version of Tomoe are pre-imported :)
 if(build){
   for(i in build){
     const config = build[i];

@@ -106,7 +106,7 @@ export class User{
         }
 
        cursor.all().then((users) => {
-         resolve(users);
+           resolve(users);
         }).catch((err) => {
           reject(Boom.badImplementation(err));
         });
@@ -255,7 +255,22 @@ export class User{
         reject(err);
       });
     });
+  }
 
+  remove(){
+    return new Promise((resolve, reject) => {
+      this.constructor.find({ email: this.email }).then((user) => {
+        this.constructor.getCollection().removeByKeys([user._key]).then(() => {
+            resolve();
+            return;
+        }).catch((err) => {
+          reject(Boom.badImplementation(err));
+          return;
+        });
+      }).catch((err) => {
+        reject(err);
+      });
+    });
   }
 }
 

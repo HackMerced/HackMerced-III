@@ -10,14 +10,14 @@
 */
 
 import figlet from 'figlet';
-import packageDetail from '../package.json';
+import packageDetail from '../../package.json';
 import colors from 'colors';
 import readline from 'readline-sync';
 import {Database, aql} from 'arangojs';
 import Joi from 'joi';
 import fs from 'fs';
 
-import { Admin } from '../src/server/src/collections';
+import { Admin } from '../../src/server/src/collections';
 import { createCollections } from './createCollections'
 import { env, Definitions } from './setup.requirements';
 import { Config } from './config'
@@ -30,7 +30,7 @@ function createValidationError(validate){
 }
 
 const YESNO_CONTEXT = "\n Type 'Yes' or 'No' to continue: ".grey;
-const TOMOE_CONFIG_PATH = `./${Definitions.configName}.js`
+const TOMOE_CONFIG_PATH = `./${Definitions.configName}`
 
 const databaseName = Definitions.server;
 

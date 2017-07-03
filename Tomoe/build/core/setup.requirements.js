@@ -52,6 +52,7 @@ export const Definitions = {
     'inactive'
   ],
   collections: dbCollections[process.env.NODE_ENV],
+  databaseUri: 'http://root:@127.0.0.1:8529',
   build:{
     default: [
       {

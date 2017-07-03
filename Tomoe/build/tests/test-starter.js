@@ -9,33 +9,16 @@ import { Config } from '../core/config';
 import { createCollections } from '../core/createCollections'
 
 const databaseName = Definitions.server;
+const SERVER_TESTS_DIR = './src/server/tests'
+
+// Part two testing things
+const mocha = new Mocha()
 
 global.db = new Database({
   url: process.env.DB_URI
 });
 
 console.log('Pre-generating database at "Tomoe_test" to test server code!'.green);
-
-function createDatabase(){
-  db.createDatabase(databaseName).then(
-    info => {
-      console.log('\nDatabase has been generated, begining tests!'.green);
-      db.useDatabase(databaseName);
-
-      createCollections([ 'user-test'] ).then(() => {
-        startMochaTests();
-      }).catch((err) => {
-        console.log('\n');
-        console.log(err.stack.red)
-      })
-
-    },
-    err => {
-      console.log('\n');
-      console.log(err.stack.red)
-    }
-  );
-}
 
 db.listDatabases((err, databaseList) => {
   if(databaseList.includes(databaseName)){
@@ -52,17 +35,51 @@ db.listDatabases((err, databaseList) => {
   createDatabase();
 });
 
-// generating test config
-console.log('Generating tomoe.test.config.js...!');
+function createDatabase(){
+  db.createDatabase(databaseName).then(
+    info => {
+      console.log('\nDatabase has been generated, begining tests!'.green);
+      db.useDatabase(databaseName);
 
-const configParams = { hackathon: 'testHackathon'};
-const newTestConfig = new Config(configParams);
-      newTestConfig.save();
+      createCollections([ 'user-test'] ).then(() => {
+        readTestConfig();
+      }).catch((err) => {
+        console.log('\n');
+        console.log(err.stack.red)
+      })
+
+    },
+    err => {
+      console.log('\n');
+      console.log(err.stack.red)
+    }
+  );
+}
+
+let newTestConfig;
 
 
-// Part two testing things
-const mocha = new Mocha()
-const SERVER_TESTS_DIR = './src/server/tests'
+function readTestConfig(){
+  // generating test config
+  console.log('Generating tomoe.test.config.js...!');
+
+  const configParams = { hackathon: 'testHackathon'};
+  newTestConfig = new Config(configParams);
+        newTestConfig.save().then(() => {
+          setTomoeData();
+        }).catch(err => {
+          console.log(err);
+        });
+
+}
+
+function setTomoeData(){
+  const Tomoe = require('../../tomoe-test.config.js').Tomoe;
+  global.TOMOE_CONFIG = Tomoe;
+
+  startMochaTests();
+}
+
 
 // make sure your tests are loaded before running the tests
 

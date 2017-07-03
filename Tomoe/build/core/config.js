@@ -12,7 +12,8 @@ export class Config{
     this.beta = params.beta || false;
     this.errorTrack = params.errorTrack || false;
     this.secretKey = params.secretKey || process.env.JWT_SECRET_KEY ||  crypto.randomBytes(64).toString('hex')
-    this.database = params.database || Definitions.server;
+    this.databaseName = params.databaseName || Definitions.server;
+    this.databaseUri = params.databaseName || process.env.DB_URI ||  Definitions.databaseUri;
     this.server = params.server || this.database;
     this.apiVersion = params.apiVersion || Definitions.apiVersion;
     this.userTypes = params.userTypes || Definitions.userTypes;
@@ -26,7 +27,8 @@ export class Config{
       beta: this.beta,
       errorTrack: this.errorTrack,
       secretKey: this.secretKey,
-      database: this.database,
+      databaseName: this.databaseName,
+      databaseUri: this.databaseUri,
       server: this.server,
       apiVersion: this.apiVersion,
       userTypes: this.userTypes,
@@ -36,7 +38,7 @@ export class Config{
 
   save(){
     return new Promise((resolve, reject) => {
-      const configJS = `export Tomoe = ${JSON.stringify(this.get(), null, 4).replace(/"((?:\\.|[^"\\])*)":/g, '$1:')}`;
+      const configJS = `exports.Tomoe = ${JSON.stringify(this.get(), null, 4).replace(/"((?:\\.|[^"\\])*)":/g, '$1:')}`;
 
       fs.writeFile(TOMOE_CONFIG_PATH, configJS, function(err){
         if (err){

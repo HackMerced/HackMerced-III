@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken';
-import hacker from './hacker';
+import hackerRoutes from './hacker';
 
 const routes = [
-  ...hacker
+  ...hackerRoutes
 ];
 
 export default routes;
