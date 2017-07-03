@@ -183,7 +183,7 @@ export class User{
   }
 
 
-  _modifyUserObject(newData, original = this, root = true){
+  static _modifyUserObject(newData, original = this, root = true){
 		for(let i in newData){
   		if(newData[i] && (newData[i].constructor === Object || newData[i].constructor === Array)){
       	original[i] = this._modifyUserObject(newData[i], original[i], false)
@@ -199,18 +199,33 @@ export class User{
     }
   }
 
-  update(newData){
+  update(){
     return new Promise((resolve, reject) => {
-      const collection = this.constructor.getCollection();
-      this.constructor.find({ id: this.id }).then((user) => {
-          this._modifyUserObject(newData);
-          let updatedUser = this._get();
-          delete updatedUser.id;
+      this.constructor.update({ id: this.id}, this).then((user) => {
+        this._setUserData(user);
+        resolve(user);
+      }).catch(err => {
+        reject(err);
+      })
+    });
+  }
 
-          collection.update(user, updatedUser).then((user) => {
+  static update(param, newData){
+    return new Promise((resolve, reject) => {
+      const collection = this.getCollection();
+
+      this.find(param).then((user) => {
+          const userKey = user._key;
+          let updatedUser = this._modifyUserObject(newData, user, false);
+
+          delete updatedUser.id;
+          delete updatedUser._key;
+          delete updatedUser._id;
+          delete updatedUser._rev;
+
+          collection.update(userKey, updatedUser).then((user) => {
             if(user){
-              this.constructor.find({ email: this.email }).then((user) => {
-                 this._setUserData(user);
+              this.find(param).then((user) => {
                  resolve(user);
                  return;
               }).catch((err) => {
@@ -259,8 +274,18 @@ export class User{
 
   remove(){
     return new Promise((resolve, reject) => {
-      this.constructor.find({ email: this.email }).then((user) => {
-        this.constructor.getCollection().removeByKeys([user._key]).then(() => {
+      this.constructor.remove({ email: this.email}).then((user) => {
+        resolve(user);
+      }).catch(err => {
+        reject(err);
+      })
+    });
+  }
+
+  static remove(param){
+    return new Promise((resolve, reject) => {
+      this.find(param).then((user) => {
+        this.getCollection().removeByKeys([user._key]).then(() => {
             resolve();
             return;
         }).catch((err) => {

@@ -3117,6 +3117,10 @@ hoek@4.x.x:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.1.1.tgz#9cc573ffba2b7b408fb5e9c2a13796be94cddce9"
 
+hoek@~4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.0.2.tgz#7b969f4c8a1af8a38ca2c666c66bfa6c42fe2cdd"
+
 hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
@@ -5478,6 +5482,12 @@ regjsparser@^0.1.4:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
+
+relish@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/relish/-/relish-0.2.4.tgz#a2111ba53af480f92a01f72e893cf22961c8512b"
+  dependencies:
+    hoek "~4.0.2"
 
 remove-trailing-separator@^1.0.1:
   version "1.0.1"

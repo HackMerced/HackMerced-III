@@ -35,16 +35,47 @@ export const getHackers = {
 // [GET] /hackers/{user-email}
 // [GET] /hackers/{user-id}
 export const getHacker = {
-    path: '/hacker/{user}',
+    path: '/hackers/{user}',
     method: 'GET',
     config: {
       handler: hackerHandlers.getHacker,
     }
 };
 
+// [POST] /hackers
+export const postHacker = {
+    path: '/hackers',
+    method: 'POST',
+    config: {
+      handler: hackerHandlers.postHacker,
+      validate: hackerValidators.postHacker
+    }
+};
+
+// [POST] /hackers
+export const updateHacker = {
+    path: '/hackers/{user}',
+    method: 'POST',
+    config: {
+      handler: hackerHandlers.updateHacker,
+    }
+};
+
+// [DELETE] /hackers
+export const deleteHacker = {
+    path: '/hackers/{user}',
+    method: 'DELETE',
+    config: {
+      handler: hackerHandlers.deleteHacker,
+    }
+};
+
 const hackerRoutes = [
   getHackers,
   getHacker,
+  postHacker,
+  updateHacker,
+  deleteHacker
 ]
 
 export default hackerRoutes;

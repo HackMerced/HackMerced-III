@@ -18,3 +18,18 @@ export const sampleUser2 = {
     age: 20
   }
 }
+
+export class sampleHacker{
+  constructor(){
+    return {
+      name: 'Jonathan Moran',
+      email: 'jonathan@hackmerced.com',
+      password: 'testing3',
+      confirmPassword: 'testing3',
+      details: {
+        age: 20
+      }
+    }
+  }
+
+}

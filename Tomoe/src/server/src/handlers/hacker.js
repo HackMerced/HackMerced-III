@@ -1,6 +1,7 @@
 import { Hacker } from '../collections'
 import { operatorSearch, respond, transformData } from '../util';
 import Joi from 'joi';
+import Boom from 'boom';
 
 export const hackerHandlers = {
   getHackers: ( request, reply ) => {
@@ -27,14 +28,67 @@ export const hackerHandlers = {
     const { user } = request.params;
     let param = {};
 
-    if(Joi.validate(user, Joi.string().email())){
-      param.email = user;
-    } else {
+    if(Joi.validate(user, Joi.string().email().required()).error){
       param.id = user;
+    } else {
+      param.email = user;
     }
 
     Hacker.find(param).then((user) => {
       return reply(respond(user))
+    }).catch((err) => {
+      return reply(err);
+    })
+
+  },
+  postHacker: ( request, reply ) => {
+    const { name, email, password, confirmPassword, details } = request.payload;
+
+    // if passwords do not match...
+    if(password !== confirmPassword){
+      return reply(Boom.badRequest('Your passwords do not match!'))
+    }
+
+    request.payload.temp_password = password;
+
+    const saveHacker = new Hacker(request.payload);
+
+    saveHacker.save().then((user) => {
+      return reply(respond(user, { created: true }, 201)).code(201);
+    }).catch((err) => {
+      return reply(err);
+    })
+  },
+  updateHacker: ( request, reply ) => {
+    const { user } = request.params;
+    const { payload } = request;
+    let param = {};
+
+    if(Joi.validate(user, Joi.string().email().required()).error){
+      param.id = user;
+    } else {
+      param.email = user;
+    }
+
+    Hacker.update(param, payload).then((user) => {
+      return reply(respond(user))
+    }).catch((err) => {
+      return reply(err);
+    })
+
+  },
+  deleteHacker: ( request, reply ) => {
+    const { user } = request.params;
+    let param = {};
+
+    if(Joi.validate(user, Joi.string().email().required()).error){
+      param.id = user;
+    } else {
+      param.email = user;
+    }
+
+    Hacker.remove(param).then((user) => {
+      return reply(respond({}, { deleted: true }, 204)).code(204);
     }).catch((err) => {
       return reply(err);
     })

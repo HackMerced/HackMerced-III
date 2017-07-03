@@ -135,7 +135,7 @@ describe('User', () =>  {
     }
 
     it('update a user object', () =>  {
-      const finalData = testUser._modifyUserObject(modify, originalData, false);
+      const finalData = User._modifyUserObject(modify, originalData, false);
       assert.equal(JSON.stringify(modifiedData), JSON.stringify(finalData));
     });
   });
