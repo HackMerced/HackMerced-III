@@ -10,7 +10,7 @@ export class User{
     this.name = data.name || null;
     this.email = data.email || null;
     this.password = null;
-    this.temp_password = null;
+    this.tempPassword = data.tempPassword || null;
   }
 
   static getCollection(){
@@ -26,11 +26,10 @@ export class User{
     }
   }
 
-  _validatePasswords(plainPass, hashedPass){
+  static _validatePasswords(plainPass, hashedPass){
 
     const salt = hashedPass.substr(0, 10);
     const validHash = salt + sha256(plainPass + salt);
-
     return hashedPass === validHash;
   }
 
@@ -46,15 +45,13 @@ export class User{
     }
 
     let salt = generateSalt();
-
     let newPassword = (salt + sha256(password + salt));
-
     return newPassword;
   }
 
   _securePassword(){
-   this.password = this._saltAndHashPassword(this.temp_password);;
-   this.temp_password = null; // sets any temp password to none
+   this.password = this._saltAndHashPassword(this.tempPassword);;
+   this.tempPassword = null; // sets any temp password to none
  }
 
  _setUserData(user){
@@ -73,12 +70,12 @@ export class User{
     this.name = name;
   }
 
-  setPassword(temp_password){
-    this.temp_password = temp_password;
+  setPassword(tempPassword){
+    this.tempPassword = tempPassword;
   }
 
   confirmPassword(confirmedPassword){
-    return confirmedPassword === this.temp_password;
+    return confirmedPassword === this.tempPassword;
   }
 
   static query(params){
@@ -165,17 +162,24 @@ export class User{
 
   validate(){
     return new Promise((resolve, reject) => {
-      this.constructor.find({ email: this.email }).then((user) => {
+      this.constructor.validate({ email: this.email}, this.tempPassword).then((user) => {
+        this._setUserData(user);
+        resolve(user);
+      }).catch(err => {
+        reject(err);
+      })
+    });
+  }
 
-        if(this._validatePasswords(this.temp_password, user.password)){
-
-
-          this._setUserData(user);
+  static validate(searchParam, tempPassword){
+    return new Promise((resolve, reject) => {
+      this.find(searchParam).then((user) => {
+        if(this._validatePasswords(tempPassword, user.password)){
           resolve(user);
           return;
         }
 
-        reject(Boom.badRequest('Passwords do not match'));
+        reject(Boom.unauthorized('Your email or password is incorrect!'));
       }).catch((err) => {
         reject(err);
       });
@@ -297,51 +301,4 @@ export class User{
       });
     });
   }
-}
-
-export class Admin extends User{
-  constructor(data = {}){
-    super(data);
-    this.permissions = data.permissions;
-
-  }
-
-  static getCollection(){
-    return db.collection('admin');
-  }
-
-  _get(){
-    return {
-      id: this.id,
-      name: this.name,
-      email:this.email,
-      password:this.password,
-      permissions: this.permissions
-    }
-  }
-}
-
-export class Hacker extends User{
-  constructor(data = {}){
-    super(data);
-
-    this.details = data.details || {};
-    this.status = data.status;
-  }
-
-  static getCollection(){
-    return db.collection('hacker');
-  }
-
-  _get(){
-    return {
-      id: this.id,
-      name: this.name,
-      email:this.email,
-      password:this.password,
-      status: this.status,
-      details: this.details
-    }
-  }
-
 }

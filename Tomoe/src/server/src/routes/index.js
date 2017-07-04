@@ -1,7 +1,9 @@
 import hackerRoutes from './hacker';
+import adminRoutes from './admin';
 
 const routes = [
-  ...hackerRoutes
+  ...hackerRoutes,
+  ...adminRoutes
 ];
 
 export default routes;

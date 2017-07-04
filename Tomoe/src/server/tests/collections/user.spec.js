@@ -1,44 +1,77 @@
 import { assert } from 'chai';
-import { User, Admin, Hacker } from '../../src/collections/user';
+import { User } from '../../src/collections';
 import { sampleUser, sampleUser2 } from '../constants'
-
+import { clearDocuments } from '../util'
 
 describe('User', () =>  {
+  let sampleUserData;
+  let sampleUserData2;
   let testUser;
+  let testUser2;
+  let userId;
+
+  beforeEach((done) => {
+    // create a user
+    sampleUserData = new sampleUser();
+    sampleUserData2 = new sampleUser2();
+    testUser = new User(sampleUserData);
+    testUser2 = new User(sampleUserData2);
+
+    testUser.save().then((user) => {
+      userId = user.id;
+      done();
+    }).catch((err) => {
+      done(err);
+    });
+  });
 
   describe('#constructor', () =>  {
-    it('accesss the User class', () =>  {
-      testUser = new User({ name: sampleUser.name} );
-      assert.equal(testUser.name, sampleUser.name);
+    const sampleUserData = new sampleUser();
+
+    it('access the User class', () =>  {
+      const testUser = new User({ name: sampleUserData.name});
+      assert.equal(testUser.name, sampleUserData.name);
     });
   });
 
   describe('#setEmail', () =>  {
+    const sampleUserData = new sampleUser();
+    const testUser = new User({ name: sampleUserData.name} );
+
     it('sets a user email', () =>  {
-      testUser.setEmail(sampleUser.email);
-      assert.equal(testUser.email, sampleUser.email);
+      testUser.setEmail(sampleUserData.email);
+
+      assert.equal(testUser.email, sampleUserData.email);
     });
   });
 
   describe('#setPassword', () =>  {
+    const sampleUserData = new sampleUser();
+    const testUser = new User({ name: sampleUserData.name} );
+
     it('sets a temporary password', () =>  {
-      testUser.setPassword(sampleUser.temp_password);
-      assert.equal(testUser.temp_password, sampleUser.temp_password);
+      testUser.setEmail(sampleUserData.email);
+      testUser.setPassword(sampleUserData.tempPassword);
+
+      assert.equal(testUser.tempPassword, sampleUserData.tempPassword);
     });
   });
 
   describe('#confirmPassword', () =>  {
+    const sampleUserData = new sampleUser();
+    const testUser = new User(sampleUserData);
+
     it('can confirm a password ', () =>  {
-      const confirmStatus = testUser.confirmPassword(sampleUser.temp_password);
+      const confirmStatus = testUser.confirmPassword(sampleUserData.tempPassword);
+
       assert.equal(confirmStatus, true);
     });
   });
 
   describe('#save', () =>  {
-
     it('can save a user to a database ', (done) =>  {
-      testUser.save().then((user) => {
-        assert.equal(testUser.name, sampleUser.name);
+      testUser2.save().then((user) => {
+        assert.equal(testUser2.name, sampleUserData2.name);
         done();
       }).catch((err) => {
         done(err);
@@ -56,12 +89,9 @@ describe('User', () =>  {
   });
 
   describe('#find', () =>  {
-    let catchUser;
-
     it('can find an existing user with email', (done) =>  {
-      User.find({email: sampleUser.email}).then((user) => {
-        catchUser = user;
-        assert.equal(catchUser.name, sampleUser.name);
+      User.find({email: sampleUserData.email}).then((user) => {
+        assert.equal(user.name, sampleUserData.name);
         done();
       }).catch((err) => {
         done(err);
@@ -69,8 +99,8 @@ describe('User', () =>  {
     });
 
     it('can find an existing user with id ', (done) =>  {
-      User.find({id: catchUser.id}).then((user) => {
-        assert.equal(testUser.name, catchUser.name);
+      User.find({id: userId}).then((user) => {
+        assert.equal(user.name, sampleUserData.name);
         done();
       }).catch((err) => {
         done(err);
@@ -140,10 +170,10 @@ describe('User', () =>  {
     });
   });
 
+
+
   describe('#update', () =>  {
-    let tempId;
     it('can not update a user if that user does not exists', (done) =>  {
-      tempId = testUser.id;
       testUser.id = 'blah';
       testUser.update().then(() => {
         done('This should not happen');
@@ -154,11 +184,11 @@ describe('User', () =>  {
     });
 
     it('can update your user account', (done) =>  {
-      testUser.id = tempId;
-      sampleUser.name = sampleUser.newName;
-      testUser.setName(sampleUser.name);
+      testUser.id = userId;
+      sampleUserData.name = sampleUserData.newName;
+      testUser.setName(sampleUserData.name);
       testUser.update().then((user) => {
-        assert.equal(user.name, sampleUser.name);
+        assert.equal(user.name, sampleUserData.name);
         done();
       }).catch((err) => {
         done(err);
@@ -167,22 +197,9 @@ describe('User', () =>  {
   });
 
   describe('#query', () =>  {
-    before((done) => {
-      // save another user
-      let testUser2 = new User({ name: sampleUser2.name, email: sampleUser2.email });
-
-      testUser2.setPassword(sampleUser2.temp_password);
-
-      testUser2.save().then(() => {
-         done();
-      }).catch((err) => {
-        throw 'Failed to create second user:' + err;
-      });
-    });
-
     it('can return a list of users', (done) =>  {
       User.query().then((users) => {
-        assert.equal(users.length, 2);
+        assert.equal(users.length, 1);
         done();
       }).catch((err) => {
         done(err);
@@ -193,7 +210,7 @@ describe('User', () =>  {
       const params = [
         {
           root: 'email',
-          data: sampleUser.email
+          data: sampleUserData.email
         }
       ]
 
@@ -209,11 +226,11 @@ describe('User', () =>  {
       const params = [
         {
           root: 'email',
-          data: sampleUser.email
+          data: sampleUserData.email
         },
         {
           root: 'name',
-          data: sampleUser.name
+          data: sampleUserData.name
         }
       ]
 
@@ -244,20 +261,20 @@ describe('User', () =>  {
   });
 
   describe('#validate', () =>  {
-    it('can notify if your passwords do not match', (done) =>  {
+    it('can notify if you are not validated', (done) =>  {
       testUser.setPassword('blah');
       testUser.validate().then(() => {
         done('This should not happen');
       }).catch((err) => {
-        assert.equal('Passwords do not match', err.message);
+        assert.equal('Your email or password is incorrect!', err.message);
         done();
       });
     });
 
     it('can validate your user account (login operation)', (done) =>  {
-      testUser.setPassword(sampleUser.temp_password);
+      testUser.setPassword(sampleUserData.tempPassword);
       testUser.validate().then((user) => {
-        assert.equal(user.name, sampleUser.newName);
+        assert.equal(user.name, sampleUserData.name);
         done();
       }).catch((err) => {
         done(err);
@@ -279,87 +296,13 @@ describe('User', () =>  {
       });
     });
   });
-});
 
-
-describe('Admin', () =>  {
-  let testAdmin;
-
-  describe('#constructor', () =>  {
-    it('accesss the Admin class', () =>  {
-      testAdmin = new Admin({ permissions: sampleUser.permissions} );
-      assert.equal(testAdmin.permissions, sampleUser.permissions);
+  afterEach((done) => {
+    // delete any created users!!
+    clearDocuments(db.collection('user-test')).then(() => {
+      done();
+    }).catch((err) => {
+      done(err);
     });
   });
-
-});
-
-describe('Hacker', () =>  {
-  let testHacker;
-
-  describe('#constructor', () =>  {
-    it('accesss the User class', () =>  {
-      const hackerData = {
-        name: sampleUser.name,
-        email: sampleUser.email,
-        details: {
-          age: sampleUser.details.age
-        }
-      }
-
-      testHacker = new Hacker(hackerData);
-      testHacker.setPassword(sampleUser.temp_password);
-
-      assert.include(testHacker, hackerData);
-    });
-  });
-
-  describe('#query', () =>  {
-    before((done) => {
-      testHacker.save().then(() => {
-        done();
-      }).catch((err) => {
-        throw 'Failed to create a hacker:' + err;
-      });
-    });
-
-    it('can query hackers with data inside of objects inside documents', (done) =>  {
-      const params = [
-        {
-          root: 'details',
-          option: 'age',
-          data: sampleUser.details.age
-        }
-      ]
-
-      Hacker.query(params).then((users) => {
-        assert.equal(users[0].details.age, params[0].data);
-        done();
-      }).catch((err) => {
-        done(err);
-      });
-     });
-
-     it('can query hackers with data inside of objects inside documents and normal values', (done) =>  {
-       const params = [
-         {
-           root: 'details',
-           option: 'age',
-           data: sampleUser.details.age
-         },
-         {
-           root: 'name',
-           data: sampleUser.name
-         }
-       ]
-
-       Hacker.query(params).then((users) => {
-         assert.equal(users[0].details.age, params[0].data);
-         done();
-       }).catch((err) => {
-         done(err);
-       });
-      });
-  });
-
 });

@@ -1,5 +1,5 @@
 import { Hacker } from '../collections'
-import { operatorSearch, respond, transformData } from '../util';
+import { operatorSearch, respond, transformData, setSearchParam } from '../util';
 import Joi from 'joi';
 import Boom from 'boom';
 
@@ -26,13 +26,7 @@ export const hackerHandlers = {
   },
   getHacker: ( request, reply ) => {
     const { user } = request.params;
-    let param = {};
-
-    if(Joi.validate(user, Joi.string().email().required()).error){
-      param.id = user;
-    } else {
-      param.email = user;
-    }
+    const param = setSearchParam(user);
 
     Hacker.find(param).then((user) => {
       return reply(respond(user))
@@ -42,16 +36,20 @@ export const hackerHandlers = {
 
   },
   postHacker: ( request, reply ) => {
-    const { name, email, password, confirmPassword, details } = request.payload;
+    const { name, email, password, confirmPassword, details, status } = request.payload;
 
     // if passwords do not match...
     if(password !== confirmPassword){
       return reply(Boom.badRequest('Your passwords do not match!'))
     }
 
-    request.payload.temp_password = password;
-
-    const saveHacker = new Hacker(request.payload);
+    const saveHacker = new Hacker({
+      tempPassword: password,
+      name: name,
+      email: email,
+      details: details,
+      status: status
+    });
 
     saveHacker.save().then((user) => {
       return reply(respond(user, { created: true }, 201)).code(201);
@@ -62,13 +60,7 @@ export const hackerHandlers = {
   updateHacker: ( request, reply ) => {
     const { user } = request.params;
     const { payload } = request;
-    let param = {};
-
-    if(Joi.validate(user, Joi.string().email().required()).error){
-      param.id = user;
-    } else {
-      param.email = user;
-    }
+    const param = setSearchParam(user);
 
     Hacker.update(param, payload).then((user) => {
       return reply(respond(user))
@@ -78,17 +70,33 @@ export const hackerHandlers = {
 
   },
   deleteHacker: ( request, reply ) => {
-    const { user } = request.params;
-    let param = {};
-
-    if(Joi.validate(user, Joi.string().email().required()).error){
-      param.id = user;
-    } else {
-      param.email = user;
-    }
+    const param = setSearchParam(user);
 
     Hacker.remove(param).then((user) => {
       return reply(respond({}, { deleted: true }, 204)).code(204);
+    }).catch((err) => {
+      return reply(err);
+    })
+
+  },
+  validateHacker: ( request, reply ) => {
+    const { user } = request.params;
+    const { password } = request.payload;
+    const param = setSearchParam(user);
+
+    Hacker.validate(param, password).then((user) => {
+      return reply(respond(user))
+    }).catch((err) => {
+      return reply(err);
+    })
+  },
+  updateHackerStatus: ( request, reply ) => {
+    const { user } = request.params;
+    const { status } = request.payload;
+    const param = setSearchParam(user);
+
+    Hacker.update(param, { status: status }).then((user) => {
+      return reply(respond(user))
     }).catch((err) => {
       return reply(err);
     })

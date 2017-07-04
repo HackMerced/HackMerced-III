@@ -8,7 +8,9 @@ const Relish = require('relish')({
   messages: {
     'email': 'You did not provide an email!',
     'password': 'You did not provide a password!',
-    'confirmPassword': 'You did not confirm your password!'
+    'confirmPassword': 'You did not confirm your password!',
+    'status': 'Please only enter the following statuses: ' + TOMOE_CONFIG.hackerStatuses.join(', '),
+    'permissions': 'Please only enter the following permissions: ' + TOMOE_CONFIG.adminPermissions.join(', ')
   }
 })
 
@@ -20,10 +22,6 @@ server.connection( {
       }
     }
 });
-
-
-
-
 
 server.register( require( 'hapi-auth-jwt' ), ( err ) => {
 

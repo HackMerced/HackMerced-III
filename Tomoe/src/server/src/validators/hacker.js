@@ -7,7 +7,18 @@ export const hackerValidators = {
       password: Joi.string().min(6).required(),
       confirmPassword: Joi.string().required(),
       name: Joi.string(),
-      details: Joi.object()
+      details: Joi.object(),
+      status: Joi.any().valid(TOMOE_CONFIG.hackerStatuses)
     }
-  }
+  },
+  validateHacker: {
+    payload: {
+      password: Joi.string().required()
+    }
+  },
+  updateHackerStatus: {
+    payload: {
+      status: Joi.any().valid(TOMOE_CONFIG.hackerStatuses).required()
+    }
+  },
 }

@@ -17,8 +17,9 @@ export class Config{
     this.server = params.server || this.database;
     this.apiVersion = params.apiVersion || Definitions.apiVersion;
     this.userTypes = params.userTypes || Definitions.userTypes;
-    this.defaultStatuses = params.defaultStatuses || Definitions.defaultStatuses;
+    this.hackerStatuses = params.hackerStatuses || Definitions.defaultHackerStatuses;
     this.build = params.build || ((fs.existsSync('../.hackmerced')) ? Definitions.build.default : Definitions.build.import)
+    this.adminPermissions = params.adminPermissions || Definitions.defaultAdminPermissions;
   }
 
   get(){
@@ -32,7 +33,8 @@ export class Config{
       server: this.server,
       apiVersion: this.apiVersion,
       userTypes: this.userTypes,
-      defaultStatuses: this.defaultStatuses
+      hackerStatuses: this.hackerStatuses,
+      adminPermissions: this.adminPermissions
     }
   }
 

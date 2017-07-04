@@ -52,7 +52,8 @@ export const postHacker = {
     }
 };
 
-// [POST] /hackers
+// [POST] /hackers/{user-email}
+// [POST] /hackers/{user-id}
 export const updateHacker = {
     path: '/hackers/{user}',
     method: 'POST',
@@ -61,7 +62,8 @@ export const updateHacker = {
     }
 };
 
-// [DELETE] /hackers
+// [DELETE] /hackers/{user-email}
+// [DELETE] /hackers/{user-id}
 export const deleteHacker = {
     path: '/hackers/{user}',
     method: 'DELETE',
@@ -70,12 +72,37 @@ export const deleteHacker = {
     }
 };
 
+// [POST] /hackers/{user-email}/validate
+// [POST] /hackers/{user-id}/validate
+export const validateHacker = {
+    path: '/hackers/{user}/validate',
+    method: 'POST',
+    config: {
+      handler: hackerHandlers.validateHacker,
+      validate: hackerValidators.validateHacker
+    }
+};
+
+// [POST] /hackers/{user-email}/status
+// [POST] /hackers/{user-id}/status
+export const updateHackerStatus = {
+    path: '/hackers/{user}/status',
+    method: 'POST',
+    config: {
+      handler: hackerHandlers.updateHackerStatus,
+      validate: hackerValidators.updateHackerStatus
+    }
+};
+
+
 const hackerRoutes = [
   getHackers,
   getHacker,
   postHacker,
   updateHacker,
-  deleteHacker
+  deleteHacker,
+  validateHacker,
+  updateHackerStatus
 ]
 
 export default hackerRoutes;

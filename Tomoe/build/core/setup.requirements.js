@@ -42,7 +42,7 @@ export const Definitions = {
   server: serverNames[process.env.NODE_ENV],
   userTypes:['admin', 'hacker'],
   apiVersion: '2.0',
-  defaultStatuses:[
+  defaultHackerStatuses:[
     'registered',
     'applied',
     'accepted',
@@ -50,6 +50,11 @@ export const Definitions = {
     'confirmed',
     'attending',
     'inactive'
+  ],
+  defaultAdminPermissions: [
+    'read',
+    'read+write', // read + write
+    'admin' // super admin (controls group settings)
   ],
   collections: dbCollections[process.env.NODE_ENV],
   databaseUri: 'http://root:@127.0.0.1:8529',
