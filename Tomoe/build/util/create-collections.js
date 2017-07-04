@@ -1,4 +1,4 @@
-import { Definitions } from './setup.requirements';
+import { Definitions } from '../templates';
 
 export function createCollections(additionalCollections = []){
   return new Promise((resolve, reject) => {

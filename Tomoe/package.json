@@ -105,6 +105,7 @@
     "js-sha256": "^0.3.2",
     "method-override": "^2.3.7",
     "morgan": "^1.7.0",
+    "nodemailer": "^4.0.1",
     "object-assign": "^4.1.1",
     "promise": "^7.1.1",
     "prop-types": "^15.5.10",

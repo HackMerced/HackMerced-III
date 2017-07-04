@@ -4,9 +4,9 @@ import fs from 'fs';
 import path from 'path';
 import { Database } from 'arangojs';
 
-import { Definitions } from '../core/setup.requirements';
+import { Definitions } from '../templates';
 import { Config } from '../core/config';
-import { createCollections } from '../core/createCollections'
+import { createCollections } from '../util'
 
 const databaseName = Definitions.server;
 const SERVER_TESTS_DIR = './src/server/tests'
@@ -102,9 +102,7 @@ function startMochaTests() {
   // Now, you can run the tests.
   mocha.run(function(failures){
     process.on('exit', function () {
-
-
-      startFrontEndTests(failures);
+      startFrontEndTests(failures);  
     })
   })
 }

@@ -18,8 +18,8 @@ import Joi from 'joi';
 import fs from 'fs';
 
 import { Admin } from '../../src/server/src/collections';
-import { createCollections } from './createCollections'
-import { env, Definitions } from './setup.requirements';
+import { createCollections } from '../util'
+import { env, Definitions } from '../templates';
 import { Config } from './config'
 
 

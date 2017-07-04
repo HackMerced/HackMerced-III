@@ -1,15 +1,3 @@
-import Joi from 'joi';
-
-export const env = {
-  'DB_URI': {
-    description: 'URI of your ArangoDB instance'
-  },
-  'NODE_ENV':{
-    description: 'Set to either production or development',
-    filter: Joi.string().valid('production', 'development').required()
-  }
-}
-
 const configNames = {
   development: 'tomoe',
   production: 'tomoe',
@@ -26,6 +14,7 @@ const standardDBCollections = [
   'admin', // admin users
   'hacker', // hacker users
   'oauth', // oauth keys information
+  'meta' // meta Tomoe information
 ]
 
 const dbCollections = {

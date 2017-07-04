@@ -346,8 +346,4 @@ describe('route: hacker', () => {
       done(err);
     });
   });
-
-  after(() => {
-    server.stop();
-  });
 });

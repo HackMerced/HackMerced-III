@@ -1,6 +1,5 @@
 import Joi from 'joi';
 
-console.log
 export const adminValidators = {
   postAdmin: {
     payload: {

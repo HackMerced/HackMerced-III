@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 
 
-import { Definitions } from './setup.requirements';
+import { Definitions } from '../templates';
 
 const TOMOE_CONFIG_PATH = `./${Definitions.configName}`
 

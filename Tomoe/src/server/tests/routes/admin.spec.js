@@ -289,7 +289,6 @@ describe('route: admin', () => {
           .post('/admins/' + sampleAdminData.email + '/permissions')
           .send({permissions: sampleAdminData.permissions})
           .end((err, res) => {
-            console.log(res.body);
             res.should.have.status(200);
             res.body.results.should.be.a('object');
             assert.equal(sampleAdminData.permissions, res.body.results.permissions);
@@ -347,7 +346,4 @@ describe('route: admin', () => {
     });
   });
 
-  after(() => {
-    server.stop();
-  });
 });
