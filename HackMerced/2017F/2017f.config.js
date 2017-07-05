@@ -30,4 +30,12 @@ module.exports = {
     'redux-thunk',
     'react-router',
   ],
+  build:{
+      app:{
+        dist_folder:"./src/dist",
+        imports:{
+          "resources":["UI/HackMerced-2017-Style/Resources", "scss/resources"]
+        },
+      }
+    }
 }

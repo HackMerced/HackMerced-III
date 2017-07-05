@@ -3,7 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const logger = require('../lib/logger')
 const webpackConfig = require('../webpack.config')
-const project = require('../../project.config')
+const project = require('../../2017f.config')
 const compress = require('compression')
 
 const app = express()
