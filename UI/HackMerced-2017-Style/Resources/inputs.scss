@@ -1,0 +1,35 @@
+$input-label-width: 86px;
+$input-block-padding: 15px;
+
+.input-block {
+  width: 100%;
+  border: 1px solid $border-color-on-light;
+  display: flex;
+  padding: $input-block-padding;
+  justify-content: space-between;
+
+  label {
+    display: block;
+    font-size: $font-size-small;
+    width: $input-label-width;
+    margin-left: $input-block-padding;
+  }
+}
+
+
+.input-block__content {
+  width: calc(100% - ($input-label-width + $input-block-padding));
+}
+
+.input-block__content__option{
+
+}
+
+
+input{
+  font-family: inherit;
+
+  &[type='text']{
+
+  }
+}
