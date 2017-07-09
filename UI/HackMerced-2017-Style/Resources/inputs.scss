@@ -1,24 +1,49 @@
-$input-label-width: 86px;
+$input-label-width: 120px;
 $input-block-padding: 15px;
 
-.input-block {
+.input-block__container{
+  margin-bottom: 25px;
+}
+
+.input-block__helper{
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: -10px;
+  color: #c1c1c1;
+}
+
+.input-block{
   width: 100%;
   border: 1px solid $border-color-on-light;
-  display: flex;
-  padding: $input-block-padding;
   justify-content: space-between;
+  display: flex;
+  border-radius: 3px;
 
+
+  &:focus{
+
+  }
   label {
+    background-color: $primary-color-light-grey;
+    transition: background-color 250ms ease-in;
+    border-radius: 0px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 48px;
     display: block;
-    font-size: $font-size-small;
-    width: $input-label-width;
-    margin-left: $input-block-padding;
+    width: 120px;
+  }
+}
+
+.input-block--focused{
+  label{
+    background-color: $primary-color-gold;
   }
 }
 
 
 .input-block__content {
-  width: calc(100% - ($input-label-width + $input-block-padding));
+  width: calc(100% - 120px);
 }
 
 .input-block__content__option{
@@ -28,8 +53,19 @@ $input-block-padding: 15px;
 
 input{
   font-family: inherit;
+  font-size: 15px;
+  border: 0px;
+  padding-left: 20px;
+  width: 100%;
 
-  &[type='text']{
+  &[type='text'],
+  &[type='password'],
+  &[type='email']{
+    line-height: 48px;
+  }
 
+  &:focus{
+    outline:0;
+    border: 0px;
   }
 }

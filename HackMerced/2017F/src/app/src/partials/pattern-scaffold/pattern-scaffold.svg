@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>Pattern</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-15.000000, -11.000000)">
+            <g id="Group" transform="translate(15.000000, 11.000000)">
+                <g id="Pattern">
+                    <rect id="Rectangle" fill="#232648" x="0" y="0" width="5" height="5"></rect>
+                    <circle id="Oval" fill="#232648" cx="9.5" cy="9.5" r="2.5"></circle>
+                    <polygon id="Path-2" fill="#FFD344" transform="translate(2.500000, 9.500000) rotate(90.000000) translate(-2.500000, -9.500000) " points="0 12 2.5 7 5 12"></polygon>
+                    <polygon id="Path-2" fill="#FFD344" transform="translate(9.500000, 2.500000) rotate(-90.000000) translate(-9.500000, -2.500000) " points="7 5 9.5 0 12 5"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

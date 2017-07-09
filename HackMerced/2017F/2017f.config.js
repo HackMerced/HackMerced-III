@@ -4,7 +4,7 @@ module.exports = {
   /** The environment to use when building the project */
   env: NODE_ENV,
   /** The full path to the project's root directory */
-  basePath: __dirname,
+  basePath: __dirname + '/src/app',
   /** The name of the directory containing the application source code */
   srcDir: 'src',
   /** The file name of the application's entry point */
@@ -32,7 +32,7 @@ module.exports = {
   ],
   build:{
       app:{
-        dist_folder:"./src/dist",
+        dist_folder:"./src/app/dist",
         imports:{
           "resources":["UI/HackMerced-2017-Style/Resources", "scss/resources"]
         },

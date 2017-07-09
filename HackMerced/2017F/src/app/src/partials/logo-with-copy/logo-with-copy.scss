@@ -1,0 +1,22 @@
+@import '../../dist/scss/resources/index.scss';
+
+.logo-with-copy__name,
+.logo-with-copy__date {
+  margin: 5px 0px;
+}
+
+.logo-with-copy__name{
+  margin-top: 25px;
+  font-family: $font-family-heading;
+}
+
+.logo-with-copy__date{
+  margin-bottom: 25px;
+}
+
+.logo-with-copy__divider{
+  height: 3px;
+  background-color: $primary-color-gold;
+  width: 250px;
+  margin: 0 auto;
+}

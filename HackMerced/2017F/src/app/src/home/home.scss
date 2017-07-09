@@ -1,0 +1,19 @@
+@import '../../dist/scss/resources/index.scss';
+
+.home-action{
+  top: calc(50% - 48px);
+  transform: translateY(-50%);
+
+  font-family: $font-family-heading;
+  position: relative;
+
+  button {
+    width: 200px;
+    margin: 25px auto;
+  }
+
+}
+
+.home-action__event-description{
+  margin: 25px 0px;
+}

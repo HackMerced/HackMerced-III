@@ -1,8 +1,46 @@
+@mixin gold-button {
+  background-color: $primary-color-gold;
+  transition: background-color 100ms ease-in;
+}
+
+@mixin blue-button {
+  background-color: $primary-color-blue;
+  color: $white;
+}
+
 button{
   display: block;
-  width: 200px;
+  min-width: 200px;
+  padding: 0px 40px;
   height: 50px;
-  border-radius: 100%:
-  font-weight:600;
+  border-radius: 3px;
+  font-weight: 600;
+  border: 0px;
+  font-size: 15px;
   font-family: $font-family-heading;
+  cursor: pointer;
+  background-color: $primary-color-light-grey;
+
+  &:focus{
+    border: 0;
+    outline: 0;
+  }
+
+  &.button--active{
+    @include gold-button;
+  }
+}
+
+.button--gold{
+  @include gold-button;
+
+
+    &:hover{
+      background-color: $primary-color-blue;
+      color: #fff;
+    }
+}
+
+.button--blue{
+  @include blue-button;
 }

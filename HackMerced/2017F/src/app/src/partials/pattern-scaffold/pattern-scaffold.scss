@@ -1,0 +1,22 @@
+
+.pattern-scaffold{
+  background-image: url('./pattern-scaffold.png');
+  width: 14px;
+  height: 100%;
+
+  position: absolute;
+  height: 100%;
+  background-repeat-x: no-repeat;
+  top: 0;
+  background-size: 14px;
+
+}
+
+
+.pattern-scaffold--left{
+  left: 20px;
+}
+
+.pattern-scaffold--right{
+  right: 20px;
+}

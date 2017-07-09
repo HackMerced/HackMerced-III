@@ -1,0 +1,14 @@
+@import '../../dist/scss/resources/index.scss';
+
+header {
+  padding: 15px auto;
+
+  a {
+    margin: 0px 15px;
+    position: relative;
+
+    &.header__link--active::before{
+      @include link--active;
+    }
+  }
+}
