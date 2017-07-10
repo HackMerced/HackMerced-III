@@ -1,9 +1,7 @@
-import hackerRoutes from './hacker';
-import adminRoutes from './admin';
+import authorizationRoutes from './authorization';
 
 const routes = [
-  ...hackerRoutes,
-  ...adminRoutes
+  ...authorizationRoutes,
 ];
 
 export default routes;

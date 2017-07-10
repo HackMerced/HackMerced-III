@@ -25,7 +25,7 @@ class App extends Component {
         <div style={{ height: '100%' }}>
           <Router history={browserHistory}>
             <Route path="/" component={Home} />
-            <Route path="/apply" component={Signup} />
+            <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
           </Router>
         </div>

@@ -89,6 +89,7 @@
   },
   "dependencies": {
     "arangojs": "^5.4.2",
+    "axios": "^0.16.2",
     "body-parser": "^1.15.2",
     "boom": "^5.1.0",
     "chai-http": "^3.0.0",
@@ -100,13 +101,16 @@
     "express-session": "^1.14.2",
     "figlet": "^1.2.0",
     "hapi": "^16.4.3",
+    "hapi-auth-cookie": "^7.0.0",
     "hapi-auth-jwt": "^4.0.0",
+    "inert": "^4.2.0",
     "joi": "^10.6.0",
     "js-sha256": "^0.3.2",
     "method-override": "^2.3.7",
     "morgan": "^1.7.0",
     "nodemailer": "^4.0.1",
     "object-assign": "^4.1.1",
+    "path": "^0.12.7",
     "promise": "^7.1.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -118,9 +122,10 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "relish": "^0.2.4",
-    "request": "^2.79.0",
     "sha256": "^0.2.0",
     "uuid": "^3.1.0",
-    "whatwg-fetch": "^2.0.3"
+    "vision": "^4.1.1",
+    "whatwg-fetch": "^2.0.3",
+    "zxcvbn": "^4.4.2"
   }
 }

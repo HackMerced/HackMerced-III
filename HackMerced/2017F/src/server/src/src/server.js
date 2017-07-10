@@ -6,6 +6,9 @@ const server = new Hapi.Server();
 const Relish = require('relish')({
   stripQuotes: true,
   messages: {
+    'email': 'You did not provide an email!',
+    'password': 'You did not provide a password!',
+    'confirmPassword': 'You did not confirm your password!',
     'status': 'Please only enter the following statuses: ' + TOMOE_CONFIG.hackerStatuses.join(', '),
     'permissions': 'Please only enter the following permissions: ' + TOMOE_CONFIG.adminPermissions.join(', ')
   }
@@ -15,10 +18,7 @@ server.connection( {
     port: process.env.PORT || '1738',
     routes: {
       validate: {
-        failAction: Relish.failAction,
-        options: {
-            abortEarly: false
-        }
+        failAction: Relish.failAction
       }
     }
 });

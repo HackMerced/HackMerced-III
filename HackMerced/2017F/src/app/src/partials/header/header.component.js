@@ -25,7 +25,7 @@ export class Header extends Component{
           ) : (
             <span>
               <span style={{margin: "0px 15px"}}>|</span>
-              <Link to='/apply' activeClassName='header__link--active'>Apply</Link>
+              <Link to='/signup' activeClassName='header__link--active'>Apply</Link>
               <Link to='/login' activeClassName='header__link--active'>Check Application Status</Link>
             </span>
           )

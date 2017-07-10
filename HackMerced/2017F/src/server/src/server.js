@@ -1,44 +1,61 @@
 import Hapi from 'hapi';
+import Inert from 'inert';
+import Vision from 'vision'
+import Path from 'path';
 import routes from './routes';
 
 // start server
 const server = new Hapi.Server();
-const Relish = require('relish')({
-  stripQuotes: true,
-  messages: {
-    'email': 'You did not provide an email!',
-    'password': 'You did not provide a password!',
-    'confirmPassword': 'You did not confirm your password!',
-    'status': 'Please only enter the following statuses: ' + TOMOE_CONFIG.hackerStatuses.join(', '),
-    'permissions': 'Please only enter the following permissions: ' + TOMOE_CONFIG.adminPermissions.join(', ')
-  }
-})
+
 
 server.connection( {
-    port: process.env.PORT || '1738',
-    routes: {
-      validate: {
-        failAction: Relish.failAction
+    port: process.env.PORT || '1954',
+    routes:{
+      cors: {
+          origin: ['*'],
+          additionalHeaders: ['cache-control', 'x-requested-with']
       }
     }
 });
 
-server.register( require( 'hapi-auth-jwt' ), ( err ) => {
+server.register([Vision, require('hapi-auth-cookie'), Inert], ( err ) => {
 
-    if( !err ) {
-        console.log( 'Loaded JWT' );
-    }
+  if(err){
+    throw err;
+  }
 
-    server.auth.strategy( 'token', 'jwt', {
-        key: TOMOE_CONFIG.secretKey,
-        verifyOptions: {
-            algorithms: [ 'HS256' ]
-        }
+  const cache = server.cache(
+    {
+      segment: 'sessions',
+      expiresIn: 3 * 24 * 60 * 60 * 1000
     });
+  server.app.cache = cache;
 
-    routes.forEach( ( route ) => {
-        server.route( route );
-    } );
+  server.auth.strategy('session', 'cookie', {
+    password: process.env.COOKIE_SECRET, //  secret
+    cookie: process.env.COOKIE_NAME,
+    ttl: 24 * 60 * 60 * 1000  * 30,
+    redirectTo: '/contribute',
+    isSecure: false,
+    validateFunc: (request, session, callback) => {
+          cache.get(session.sid, (err, cached) => {
+
+              if (err) {
+                  return callback(err, false);
+              }
+
+              if (!cached) {
+                  return callback(null, false);
+              }
+
+              return callback(null, true, cached.account);
+          });
+      }
+  });
+
+  routes.forEach( ( route ) => {
+      server.route( route );
+  } );
 } );
 
 
