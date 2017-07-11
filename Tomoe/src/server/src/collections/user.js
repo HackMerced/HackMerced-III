@@ -26,6 +26,20 @@ export class User{
     }
   }
 
+  static _get(user, protectSenstiveData = true){
+    let data = {
+      id: user.id,
+      name: user.name,
+      email:user.email
+    }
+
+    if(!protectSenstiveData){
+      data.password = user.password;
+    }
+
+    return data;
+  }
+
   static _validatePasswords(plainPass, hashedPass){
 
     const salt = hashedPass.substr(0, 10);
@@ -78,7 +92,7 @@ export class User{
     return confirmedPassword === this.tempPassword;
   }
 
-  static query(params){
+  static query(params, protectSenstiveData = true){
     return new Promise((resolve, reject) => {
 
       const collection = this.getCollection();
@@ -103,7 +117,9 @@ export class User{
         }
 
        cursor.all().then((users) => {
-           resolve(users);
+           resolve(users.map(user => {
+             return this._get(user, protectSenstiveData);
+           }));
         }).catch((err) => {
           reject(Boom.badImplementation(err));
         });
@@ -113,7 +129,7 @@ export class User{
     });
   }
 
-  static find(userData, doNotFind = false){
+  static find(userData, doNotFind = false, protectSenstiveData = true){
     return new Promise((resolve, reject) => {
       const collection = this.getCollection();
 
@@ -137,11 +153,23 @@ export class User{
          cursor.all().then((users) => {
             if(users && users[0] && users[0].email){
               if(doNotFind) {
-                reject(Boom.badRequest(`A user exists with this ${searchBy}!`));
+                const errMessage = `A user exists with this ${searchBy}!`
+                const err = Boom.badRequest(errMessage);
+                      err.output.payload.validation = {
+                        errors: [{
+                          key: searchBy,
+                          constraint: searchBy,
+                          message: errMessage,
+                          type: 'any'
+                        }]
+                      }
+
+                reject(err);
                 return;
+                // TODO: add validator extension somewhere
               }
 
-              resolve(users[0]);
+              resolve(this._get(users[0], protectSenstiveData));
               return;
             }
 
@@ -150,7 +178,17 @@ export class User{
               return;
             }
 
-            reject(Boom.notFound(`No user found with that ${searchBy} exists`));
+            const err = Boom.notFound(errMessage);
+                  err.output.payload.validation = {
+                    errors: [{
+                      key: searchBy,
+                      constraint: searchBy,
+                      message: errMessage,
+                      type: 'any'
+                    }]
+                  }
+
+            reject(err);
           }).catch((err) => {
             reject(Boom.badImplementation(err));
           });
@@ -173,7 +211,7 @@ export class User{
 
   static validate(searchParam, tempPassword){
     return new Promise((resolve, reject) => {
-      this.find(searchParam).then((user) => {
+      this.find(searchParam, false, false).then((user) => {
         if(this._validatePasswords(tempPassword, user.password)){
           resolve(user);
           return;

@@ -23,4 +23,20 @@ export class Hacker extends User{
     }
   }
 
+  static _get(user, protectSenstiveData = true){
+    let data = {
+      id: user.id,
+      name: user.name,
+      email:user.email,
+      status: user.status,
+      details: user.details
+    }
+
+    if(!protectSenstiveData){
+      data.password = user.password;
+    }
+
+    return data;
+  }
+
 }

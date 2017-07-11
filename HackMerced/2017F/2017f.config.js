@@ -8,7 +8,7 @@ module.exports = {
   /** The name of the directory containing the application source code */
   srcDir: 'src',
   /** The file name of the application's entry point */
-  main: 'main',
+  main: 'index',
   /** The name of the directory in which to emit compiled assets */
   outDir: 'dist',
   /** The base path for all projects assets (relative to the website root) */
@@ -32,7 +32,7 @@ module.exports = {
   ],
   build:{
       app:{
-        dist_folder:"./src/app/dist",
+        dist_folder:"./src/app/src/dist",
         imports:{
           "resources":["UI/HackMerced-2017-Style/Resources", "scss/resources"]
         },

@@ -1,0 +1,96 @@
+import axios from 'axios';
+
+
+export const auth = {
+  saveUser(response, resolve) {
+    const user = response.data.results;
+
+    localStorage.token = response.data.meta.token;
+    localStorage.userName = user.name;
+    localStorage.userId = user.id;
+
+    resolve(user);
+  },
+  login(user) {
+    return new Promise((resolve, reject) => {
+      if (this.loggedIn()) {
+        resolve();
+        return;
+      }
+
+      let headers = new Headers();
+          headers.append('Content-Type', 'application/json');
+          headers.append('Accept', 'application/json');
+
+      axios.post('http://localhost:1954/login', user)
+      .then((response) => {
+        auth.saveUser(response, resolve);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
+  fetchUser() {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'get',
+        url: 'http://localhost:1954/me',
+        data: {
+          id: localStorage.userId
+        }
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        }
+      })
+      .then((response) => {
+        auth.saveUser(response, resolve);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
+  logout(callback) {
+    return new Promise((resolve, reject) => {
+
+      let headers = new Headers();
+          headers.append('Content-Type', 'application/json');
+
+      axios.post('http://localhost:1954/logout')
+      .then((response) => {
+        localStorage.removeItem('token');
+        resolve();
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+
+    })
+  },
+  loggedIn() {
+    return !!localStorage.token;
+  },
+  userName() {
+    return localStorage.userName;
+  },
+  userName() {
+    return localStorage.userId;
+  },
+  signup(user) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+          headers.append('Content-Type', 'application/json');
+          headers.append('Accept', 'application/json');
+
+      axios.post('http://localhost:1954/signup', user)
+      .then((response) => {
+        auth.saveUser(response, resolve);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
+  onChange() {}
+}

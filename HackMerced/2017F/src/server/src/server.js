@@ -1,8 +1,9 @@
 import Hapi from 'hapi';
-import Inert from 'inert';
-import Vision from 'vision'
 import Path from 'path';
 import routes from './routes';
+import Boom from 'boom';
+import axios from 'axios';
+const TOMOE_URI = process.env.TOMOE_URI;
 
 // start server
 const server = new Hapi.Server();
@@ -13,45 +14,34 @@ server.connection( {
     routes:{
       cors: {
           origin: ['*'],
-          additionalHeaders: ['cache-control', 'x-requested-with']
+          additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type", "CORELATION_ID"],
       }
     }
 });
 
-server.register([Vision, require('hapi-auth-cookie'), Inert], ( err ) => {
+server.register(require('hapi-auth-jwt'), function (err) {
 
   if(err){
     throw err;
   }
 
-  const cache = server.cache(
-    {
-      segment: 'sessions',
-      expiresIn: 3 * 24 * 60 * 60 * 1000
+  const validate = function (request, decodedToken, callback) {
+
+    axios
+      .get(TOMOE_URI + '/hackers/' + decodedToken.accountId)
+      .then((response) => {
+        return callback(false, true, response.data)
+      }).catch((err) => {
+        callback(Boom.unauthorized('Invalid Token'), false, {});
+      });
+    };
+
+
+  server.auth.strategy('token', 'jwt', {
+        key: process.env.COOKIE_SECRET,
+        validateFunc: validate,
+        verifyOptions: { algorithms: [ 'HS256' ] }
     });
-  server.app.cache = cache;
-
-  server.auth.strategy('session', 'cookie', {
-    password: process.env.COOKIE_SECRET, //  secret
-    cookie: process.env.COOKIE_NAME,
-    ttl: 24 * 60 * 60 * 1000  * 30,
-    redirectTo: '/contribute',
-    isSecure: false,
-    validateFunc: (request, session, callback) => {
-          cache.get(session.sid, (err, cached) => {
-
-              if (err) {
-                  return callback(err, false);
-              }
-
-              if (!cached) {
-                  return callback(null, false);
-              }
-
-              return callback(null, true, cached.account);
-          });
-      }
-  });
 
   routes.forEach( ( route ) => {
       server.route( route );

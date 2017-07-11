@@ -106,6 +106,7 @@
     "inert": "^4.2.0",
     "joi": "^10.6.0",
     "js-sha256": "^0.3.2",
+    "jsonwebtoken": "^7.4.1",
     "method-override": "^2.3.7",
     "morgan": "^1.7.0",
     "nodemailer": "^4.0.1",

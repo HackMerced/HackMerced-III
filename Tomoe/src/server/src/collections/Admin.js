@@ -20,4 +20,21 @@ export class Admin extends User{
       permissions: this.permissions
     }
   }
+
+
+    static _get(user, protectSenstiveData = true){
+      let data = {
+        id: user.id,
+        name: user.name,
+        email:user.email,
+        permissions: user.permissions
+      }
+
+      if(!protectSenstiveData){
+        data.password = user.password;
+      }
+
+      return data;
+    }
+
 }
