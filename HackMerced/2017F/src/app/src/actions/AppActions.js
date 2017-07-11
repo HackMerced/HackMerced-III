@@ -61,6 +61,7 @@ export function login(user) {
 export function fetchUser(){
   return (dispatch) => {
     auth.fetchUser().then((user) => {
+      dispatch(setUserName());
       dispatch(updateUserData({
         name: user.name,
         email: user.email,
@@ -136,11 +137,11 @@ export function setAuth() {
   return { type: SET_AUTH  };
 }
 
-export function setUserNameAsFalse() {
+export function setUserIdAsFalse() {
   return { type: SET_USER_ID_AS_FALSE  };
 }
 
-export function setAuth() {
+export function setUserId() {
   return { type: SET_USER_ID  };
 }
 

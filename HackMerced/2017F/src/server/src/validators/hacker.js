@@ -9,7 +9,7 @@ export const hackerValidators = {
   },
   getMe:{
     payload:{
-      token: Joi.string().required()
+      id: Joi.string().required()
     }
 
   }

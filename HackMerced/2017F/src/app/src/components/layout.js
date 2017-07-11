@@ -17,11 +17,11 @@ class LayoutComponent extends Component {
   constructor(props){
     super(props);
 
-    this.props.dispatch(fetchUser());
 
-    setInterval(() => {
+    if(this.props.data.loggedIn){
       this.props.dispatch(fetchUser());
-    }, 10000);
+    }
+
   }
 
   render() {

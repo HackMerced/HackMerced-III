@@ -35,16 +35,17 @@ export const auth = {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
-        url: 'http://localhost:1954/me',
-        data: {
-          id: localStorage.userId
-        }
+        url: 'http://localhost:1954/me?id=' + localStorage.userId,
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         }
       })
       .then((response) => {
-        auth.saveUser(response, resolve);
+        const user = response.data.results;
+
+        localStorage.userName = user.name;
+
+        resolve(user);
       })
       .catch((error) => {
         reject(error.response.data);
@@ -74,7 +75,7 @@ export const auth = {
   userName() {
     return localStorage.userName;
   },
-  userName() {
+  userId() {
     return localStorage.userId;
   },
   signup(user) {

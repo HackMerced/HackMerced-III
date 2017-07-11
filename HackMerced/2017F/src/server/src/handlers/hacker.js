@@ -40,9 +40,8 @@ export function parseError(err){
 
 export const hackerHandlers = {
   getMe: (req, reply) => {
-    console.log(req)
     axios
-      .get(TOMOE_URI + '/hackers/' + req.payload.token)
+      .get(TOMOE_URI + '/hackers/' + (req.query.id || 'bad'))
       .then((response) => {
         const user = response.data;
         reply(user);
