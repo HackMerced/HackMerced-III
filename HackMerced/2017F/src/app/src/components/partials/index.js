@@ -3,3 +3,4 @@ export * from './pattern-scaffold';
 export * from './logo';
 export * from './logo-with-copy';
 export * from './input-block-text';
+export * from './apply-step';

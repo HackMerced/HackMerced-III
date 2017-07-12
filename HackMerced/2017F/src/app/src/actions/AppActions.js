@@ -23,10 +23,12 @@
  *    created in the second step
  */
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID } from '../constants/AppConstants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP } from '../constants/AppConstants';
 import * as errorMessages  from '../constants/MessageConstants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
+
+
 
 export function login(user) {
   return (dispatch) => {
@@ -38,6 +40,7 @@ export function login(user) {
       dispatch(updateUserData({
         name: user.name,
         email: user.email,
+        status: user.status,
         details: user.details
       }));
       dispatch(updateLoginForm({
@@ -65,6 +68,7 @@ export function fetchUser(){
       dispatch(updateUserData({
         name: user.name,
         email: user.email,
+        status: user.status,
         details: user.details
       }));
     }).catch(err => {
@@ -97,6 +101,7 @@ export function signup(user) {
        dispatch(updateUserData({
          name: user.name,
          email: user.email,
+         status: user.status,
          details: user.details
        }));
        dispatch(updateSignupForm({
@@ -119,6 +124,17 @@ export function signup(user) {
      });
    }
  }
+
+export function updateApplyStep(index, data){
+  const applyStepMap = [
+    updateApplyStepOne(data),
+    updateApplyStepTwo(data),
+    updateApplyStepThree(data),
+    updateApplyStepFour(data),
+  ]
+
+  return applyStepMap[index - 1] || applyStepMap[0]
+}
 
 export function setAuthState(newState) {
   return { type: SET_AUTH, newState };
@@ -149,6 +165,10 @@ export function setUserName(newState) {
   return { type: SET_USER_NAME, newState };
 }
 
+export function setCurrentApplyStep(newState) {
+  return { type: SET_CURRENT_APPLY_STEP, newState };
+}
+
 export function updateSignupForm(newState) {
   return { type: UPDATE_SIGNUP_FORM, newState };
 }
@@ -167,6 +187,20 @@ export function updateLoginErrors(newState) {
 
 export function updateUserData(newState) {
   return { type: UPDATE_USER_DATA, newState };
+}
+
+export function updateApplyStepOne(newState) {
+  return { type: UPDATE_APPLY_STEP_ONE, newState };
+}
+export function updateApplyStepTwo(newState) {
+  console.log(newData);
+  return { type: UPDATE_APPLY_STEP_TWO, newState };
+}
+export function updateApplyStepThree(newState) {
+  return { type: UPDATE_APPLY_STEP_THREE, newState };
+}
+export function updateApplyStepFour(newState) {
+  return { type: UPDATE_APPLY_STEP_FOUR, newState };
 }
 
 
