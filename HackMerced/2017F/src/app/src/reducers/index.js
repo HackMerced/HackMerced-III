@@ -39,25 +39,21 @@ const initialState = {
   applyStepOne:{
     age:'',
     status: '',
-    university: '',
-    high_school: '',
+    // university: '',
+    // high_school: '',
     shirt_size: ''
   },
   applyStepTwo:{
-    region:'',
-    location:'',
-    location_coordinates:'',
-    travel_question:'',
+    general_location:'',
   },
   applyStepThree:{
     resume:'',
     question:'',
-    tech:'',
+    experience:'',
     dietary:'',
     allergies:''
   },
   applyStepFour:{
-    release: '',
     mlh: '',
   },
   applyStep: 1

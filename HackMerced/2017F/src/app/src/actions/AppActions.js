@@ -193,7 +193,6 @@ export function updateApplyStepOne(newState) {
   return { type: UPDATE_APPLY_STEP_ONE, newState };
 }
 export function updateApplyStepTwo(newState) {
-  console.log(newData);
   return { type: UPDATE_APPLY_STEP_TWO, newState };
 }
 export function updateApplyStepThree(newState) {

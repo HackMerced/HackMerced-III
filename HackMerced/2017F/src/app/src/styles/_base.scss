@@ -1,1 +1,14 @@
-@import '../dist/scss/resources/index.scss'
+@import '../dist/scss/resources/index.scss';
+@import '../dist/js/myriagon/myriagon.css';
+
+
+.myr-container{
+  margin-top: -50px !important;
+  min-width: 338px !important;
+  width: 338px !important;
+
+  .myr-item{
+    font-size: inherit;
+    margin: 10px 0px;
+  }
+}

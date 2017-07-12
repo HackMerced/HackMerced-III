@@ -1,8 +1,9 @@
 class myriagon{
-  constructor(file_location, auto_location){
+  constructor(file_location, auto_location, options){
     let that = this; // transfer access
     let input = "";
 
+    this.onChangeCustom = options.onChange;
     this.location = file_location;
     this.universities = [];
     this.input = input = document.getElementById(auto_location) ;
@@ -33,6 +34,12 @@ class myriagon{
       }
       that.hide();
     });
+  }
+
+  onChange(value){
+    if(this.onChangeCustom){
+      this.onChangeCustom(this.input, value)
+    }
   }
 
   hide(){
@@ -107,9 +114,11 @@ class myriagon{
                 myr_item.innerHTML = "<span class='myr-item-query'>" +
                                       otext +
                                      "</span>"
-
+                // sets the input
                 myr_item.onclick = function(e){
-                  that.input.value = this.innerText;
+                  const value = this.innerText;
+                  that.input.value = value;
+                  that.onChange(value);
                 }
 
             this.container.appendChild(myr_item);
@@ -146,5 +155,8 @@ class myriagon{
     }
     file.send(null);
   }
+}
 
+if(module && module.exports){
+  module.exports = myriagon;
 }

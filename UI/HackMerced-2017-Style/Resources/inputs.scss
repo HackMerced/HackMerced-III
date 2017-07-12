@@ -5,6 +5,20 @@ $input-block-padding: 15px;
   margin-bottom: 25px;
 }
 
+.input-block__container--large-label {
+  .input-block{
+    display: block;
+
+    label {
+      width: 100%
+    }
+
+    .input-block__content{
+      width: 100%;
+    }
+  }
+}
+
 .input-block__helper{
   text-align: left;
   margin-top: 5px;
@@ -79,20 +93,89 @@ $input-block-padding: 15px;
   top: 0;
 }
 
-.input-block__content__option{
+.input-block__options__item{
 
+  padding: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.input-block__options--large {
+  .input-block__options__item {
+    width: 100%;
+
+    &::after{
+      background-color: $primary-color-light-grey;
+      width: 3px;
+      height: 100%;
+      position: absolute;
+      border-radius: 0;
+      content: "";
+      top: 0px;
+      left: 0px;
+    }
+
+    &:hover::after{
+      background-color: $secondary-color-yellow-1;
+    }
+  }
+
+  .input-block__options__item--active{
+    font-weight: 600;
+    background-color: $secondary-color-grey-1;
+
+    &::after{
+      background-color: $primary-color-gold;
+
+    }
+  }
+}
+
+.input-block__options--small {
+  .input-block__options__item {
+    float: left;
+    width: 25%;
+    text-align: center;
+
+    &::after{
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      border: 2px solid transparent;
+    }
+
+    &:hover::after{
+      border-color: $secondary-color-yellow-1;
+    }
+  }
+
+
+
+  .input-block__options__item--active{
+    font-weight: 600;
+
+    &::after{
+      border-color: $primary-color-gold;
+
+    }
+  }
 }
 
 
 input{
   font-family: inherit;
-  font-size: 15px;
+  font-size: inherit;
   border: 0px;
   padding-left: 20px;
   width: 100%;
 
   &[type='text'],
   &[type='password'],
+  &[type='number'],
   &[type='email']{
     line-height: 48px;
   }
