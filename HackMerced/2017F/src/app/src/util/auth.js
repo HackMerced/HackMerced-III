@@ -35,7 +35,7 @@ export const auth = {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
-        url: 'http://localhost:1954/me?id=' + localStorage.userId,
+        url: 'http://localhost:1954/me',
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         }
@@ -45,6 +45,28 @@ export const auth = {
 
         localStorage.userName = user.name;
 
+        resolve(user);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
+  updateUser(details) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'http://localhost:1954/me',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+        data: {
+          details: details
+        }
+      })
+      .then((response) => {
+        const user = response.data.results;
+        localStorage.userName = user.name;
         resolve(user);
       })
       .catch((error) => {

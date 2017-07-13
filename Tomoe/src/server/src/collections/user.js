@@ -35,6 +35,8 @@ export class User{
 
     if(!protectSenstiveData){
       data.password = user.password;
+      data._key = user._key;
+      data._id = user._id;
     }
 
     return data;
@@ -256,14 +258,9 @@ export class User{
     return new Promise((resolve, reject) => {
       const collection = this.getCollection();
 
-      this.find(param).then((user) => {
+      this.find(param, false, false).then((user) => {
           const userKey = user._key;
           let updatedUser = this._modifyUserObject(newData, user, false);
-
-          delete updatedUser.id;
-          delete updatedUser._key;
-          delete updatedUser._id;
-          delete updatedUser._rev;
 
           collection.update(userKey, updatedUser).then((user) => {
             if(user){

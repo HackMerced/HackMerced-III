@@ -10,7 +10,9 @@ $input-block-padding: 15px;
     display: block;
 
     label {
-      width: 100%
+      width: 100%;
+      border-right: 0px;
+      border-bottom: 1px solid $primary-color-light-grey;
     }
 
     .input-block__content{
@@ -34,18 +36,21 @@ $input-block-padding: 15px;
   border-radius: 3px;
 
 
+
   &:focus{
 
   }
   label {
-    background-color: $primary-color-light-grey;
-    transition: background-color 250ms ease-in;
-    border-radius: 0px;
-    text-align: center;
+    transition: background-color .25s ease-in;
+    border-radius: 0;
+    text-align: left;
+    background-color: transparent;
     font-weight: 600;
     line-height: 48px;
     display: block;
+    padding: 0px 20px;
     width: 120px;
+    border-right: 1px solid $primary-color-light-grey;
   }
 }
 
@@ -100,7 +105,10 @@ $input-block-padding: 15px;
   position: relative;
 }
 
+
+
 .input-block__options--large {
+
   .input-block__options__item {
     width: 100%;
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
 import myriagon from '../../dist/js/myriagon/myriagon';
-import { setCurrentApplyStep } from '../../actions/AppActions';
+import { setCurrentApplyStep } from '../../actions';
 
 export class StepOne extends Component {
   componentDidUpdate(){
@@ -24,10 +24,10 @@ export class StepOne extends Component {
   }
 
   render() {
-    const { age, status, university, high_school, shirt_size } = this.props.data;
+    const { age, status, university, expected_graduation, high_school, shirt_size } = this.props.data;
 
     return (
-      <div>
+      <div id='applyForm-1'>
         <TextInputBlock
           value={age}
           name='age'
@@ -48,13 +48,32 @@ export class StepOne extends Component {
             'Other - Age 14 to 25'
           ]}/>
         {['Undergraduate University Student','Graduate University Student'].includes(status) ?
-          (<TextInputBlock
-            value={university}
-            name='university'
-            type='text'
-            label='University'
-            placeholder="Start typing a your university's name..."
-            autoCorrect="off" autoCapitalize="off" spellCheck="false" autoComplete="off"/>)
+          (<div>
+            <TextInputBlock
+              value={university}
+              name='university'
+              type='text'
+              label='University'
+              placeholder="Start typing a your university's name..."
+              autoCorrect="off" autoCapitalize="off" spellCheck="false" autoComplete="off"/>
+            <TextInputBlock
+              value={expected_graduation}
+              label='What is your expected graduation year?'
+              labelType='large'
+              name='expected_graduation'
+              type='options'
+              optionsType='small'
+              onChange={this.props.onChange}
+              options={[
+                '2017',
+                '2018',
+                '2019',
+                '2020',
+                '2021',
+                '2022',
+                '2023',
+              ]}/>
+          </div>)
         :
           ''
         }

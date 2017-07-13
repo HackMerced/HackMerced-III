@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateApplyStep } from '../../actions/AppActions';
+import { updateApplyStep, update } from '../../actions';
 import { StepOne, StepTwo, StepThree, StepFour } from './';
 
 const assign = Object.assign || require('object.assign');
+let timeChecker;
 
 export class ApplicationLayout extends Component {
 
@@ -65,8 +66,7 @@ export class ApplicationLayout extends Component {
         ui: (<StepFour
                 data={applyStepFour}
                 onChange={this._onChange.bind(this)}
-                dispatch={this.props.dispatch}
-              />),
+                />),
       },
     ]
 
@@ -91,7 +91,16 @@ export class ApplicationLayout extends Component {
 
   // Emits a change of the form state to the application state
   _emitChange(data, newState) {
-    const { applyStep } = data;
+    const { applyStep, userIsUpdating } = data;
+
+    if(!userIsUpdating){
+      clearTimeout(timeChecker);
+
+      timeChecker = setTimeout(() => {
+        this.props.dispatch(update(newState));
+
+      }, 1000)
+    }
 
     this.props.dispatch(updateApplyStep(applyStep, newState));
   }

@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { setCurrentApplyStep } from '../../actions/AppActions';
+import { setCurrentApplyStep } from '../../actions';
 
 
 export class StepThree extends Component {
+
+  componentDidMount(){
+    filepicker.setKey(process.env.FILESTACK_API_KEY);
+
+  }
+
   render() {
-    const { resume, question, experience, dietary, allergies, github, linkedin, devpost } = this.props.data;
+    const { resume, question, experience, dietary_restrictions, allergies, github, linkedin, devpost } = this.props.data;
 
     return (
-      <div>
+      <div id='applyForm-3'>
         <TextInputBlock
           value={resume}
           name='resume'
@@ -43,7 +49,7 @@ export class StepThree extends Component {
           placeholder='https://github.com/'
           autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
         <TextInputBlock
-          value={experience}
+          value={dietary_restrictions}
           label='Do you have any dietary restrictions?'
           labelType='large'
           name='experience'

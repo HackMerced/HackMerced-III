@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { IndexLink, Link } from 'react-router'
-import { logout } from '../../../actions/AppActions';
+import { logout } from '../../../actions';
 import { Logo } from '../'
 import './header.scss'
 

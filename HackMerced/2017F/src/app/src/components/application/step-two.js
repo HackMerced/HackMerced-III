@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { setCurrentApplyStep } from '../../actions/AppActions';
+import { setCurrentApplyStep } from '../../actions';
 
 
 export class StepTwo extends Component {
@@ -13,7 +13,7 @@ export class StepTwo extends Component {
     ]
 
     return (
-      <div>
+      <div id='applyForm-2'>
         <TextInputBlock
           value={general_location}
           label='Where do you live?'

@@ -6,7 +6,7 @@ export class StepFour extends Component {
     const { mlh, release } = this.props.data;
 
     return (
-      <div>
+      <div id='applyForm-4'>
         <a style={{display:'block', marginBottom:'20px'}} target='_blank' href='https://static.mlh.io/docs/mlh-code-of-conduct.pdf'>MLH Code of Conduct</a>
         <TextInputBlock
           value={mlh}
