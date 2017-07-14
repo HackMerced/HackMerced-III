@@ -1,7 +1,9 @@
-@import '../../dist/scss/resources/index.scss';
+@import '../dist/scss/resources/index.scss';
 
 header {
-  padding: 15px auto;
+  padding: 20px 0px;
+  width: 100%;
+  position: absolute;
 
   a {
     margin: 0px 15px;
@@ -9,6 +11,38 @@ header {
 
     &.header__link--active::before{
       @include link--active;
+    }
+  }
+
+}
+
+
+.header__logo-with-copy{
+  display: none;
+}
+
+.header--wide{
+  padding: 20px;
+  box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.10);
+
+  .header__logo-only-copy{
+    display:none;
+  }
+  .header__logo-with-copy{
+    display: block;
+    float: left;
+
+    .logo{
+      height: 20px;
+      background-size: auto 20px;
+      width: 30px;
+      position: absolute;
+      margin-top: -1px;
+    }
+
+    a {
+      margin-left: 30px;
+      font-weight: 500;
     }
   }
 }

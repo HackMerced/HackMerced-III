@@ -41,11 +41,22 @@ export function parseError(err){
 export const hackerHandlers = {
   getMe: (req, reply) => {
     axios
-      .get(TOMOE_URI + '/hackers/' + (req.query.id || 'bad'))
+      .get(TOMOE_URI + '/hackers/' + req.auth.credentials.id)
       .then((response) => {
         const user = response.data;
         reply(user);
-        // TODO update user session
+      }).catch((err) => {
+        reply(err);
+      });
+  },
+  postMe: (req, reply) => {
+    axios
+      .post(TOMOE_URI + '/hackers/' + req.auth.credentials.id, {
+        details: req.payload.details || {}
+      })
+      .then((response) => {
+        const user = response.data;
+        reply(user);
       }).catch((err) => {
         reply(err);
       });

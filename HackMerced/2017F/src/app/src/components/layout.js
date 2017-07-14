@@ -25,11 +25,10 @@ class LayoutComponent extends Component {
   }
 
   render() {
-    const { user, loggedIn } = this.props.data;
-
+    const { user, loggedIn, location } = this.props.data;
     return(
       <div style={{height:"100%"}}>
-        <Header user={user} loggedIn={loggedIn} dispatch={this.props.dispatch} />
+        <Header user={user} loggedIn={loggedIn} location={this.props.location}  dispatch={this.props.dispatch} />
         { this.props.children }
       </div>
     )

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { InputOptions } from '../'
 
 export class TextInputBlock extends Component{
   constructor(props){
@@ -21,15 +22,37 @@ export class TextInputBlock extends Component{
     e.target.parentNode.parentNode.classList.remove('input-block--focused')
   }
 
+  _updateRelativeInput(event){
+    const { name, option } = event.target.dataset;
+    this.props.onChange({
+      target:{
+        name: name,
+        value: option
+      }
+    })
+  }
 
   render(){
+    const inputOverlayMap = {
+      'options' : ( <InputOptions
+                      updateRelativeInput={this._updateRelativeInput.bind(this)}
+                      options={this.props.options}
+                      current={this.props.value}
+                      optionsType={this.props.optionsType}
+                      name={this.props.name}/>)
+    }
+
+    const { labelType = 'small', type = 'text' } = this.props;
+
+    const inputOverlay = inputOverlayMap[type] || false;
     return (
-      <div className='input-block__container'>
+      <div className={ 'input-block__container input-block__container--' + labelType + '-label'  }>
         <div className={'input-block' + ((this.props.error) ? ' input-block--error' : '')}>
           <label>{this.props.label}</label>
           <div className='input-block__content' >
+            {(inputOverlay) ? inputOverlay : '' }
             <input
-              onChange={this._removeErrors}
+              hidden={(inputOverlay) ? 'hidden' : ''}
               onFocus={this._setParentFocused}
               spellCheck={this.props.spellCheck}
               autoCorrect={this.props.autoCorrect}
@@ -37,8 +60,11 @@ export class TextInputBlock extends Component{
               value={this.props.value}
               onChange={this.props.onChange}
               name={this.props.name}
+              id={this.props.name}
               onBlur={this._setParentBlur}
-              type={this.props.type ? this.props.type : 'text'} placeholder={this.props.placeholder}
+              type={type}
+              autoComplete={this.props.autoComplete}
+              placeholder={this.props.placeholder}
             />
             {this._pushEmoji(this.props.error, this.props.emoji)}
           </div>

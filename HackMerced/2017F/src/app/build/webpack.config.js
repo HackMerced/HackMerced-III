@@ -4,6 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const project = require('../../../2017f.config')
 
+const fs = require('fs');
+
+// support for local .env files
+if(!fs.existsSync('../.env')){
+  require('dotenv').config({path: './.env'});
+}
+
 const inProject = path.resolve.bind(path, project.basePath)
 const inProjectSrc = (file) => inProject(project.srcDir, file)
 
@@ -39,7 +46,10 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin(Object.assign({
-      'process.env': { NODE_ENV: JSON.stringify(project.env) },
+      'process.env': {
+        NODE_ENV: JSON.stringify(project.env),
+        FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY)
+      },
       __DEV__,
       __TEST__,
       __PROD__,

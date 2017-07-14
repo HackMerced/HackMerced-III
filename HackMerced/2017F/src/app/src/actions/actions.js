@@ -23,27 +23,84 @@
  *    created in the second step
  */
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID } from '../constants/AppConstants';
-import * as errorMessages  from '../constants/MessageConstants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS } from '../constants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
+
+
+function mapUserDetailsToApplication(dispatch, details){
+  dispatch(updateApplyStepOne({
+    age: details.age,
+    status: details.status,
+    university: details.university,
+    expected_graduation: details.expected_graduation,
+    high_school: details.high_school,
+    shirt_size: details.shirt_size
+  }))
+
+  dispatch(updateApplyStepTwo({
+    general_location: details.general_location,
+    city_of_residence: details.city_of_residence,
+    pay_20_for_bus: details.pay_20_for_bus,
+  }))
+
+  dispatch(updateApplyStepThree({
+    resume: details.resume,
+    experience: details.experience,
+    linkedin: details.linkedin,
+    github: details.github,
+    dietary_restrictions: details.dietary_restrictions,
+    allergies: details.allergies,
+  }))
+
+  dispatch(updateApplyStepFour({
+    mlh: details.mlh,
+  }))
+}
+
+export function updateUserReducer(dispatch, user){
+  dispatch(setUserName());
+
+  dispatch(updateUserData({
+    name: user.name,
+    email: user.email,
+    status: user.status,
+    details: user.details
+  }));
+
+  mapUserDetailsToApplication(dispatch, user.details);
+}
+
+export function afterAuthorization(dispatch, user){
+  dispatch(setAuth());
+  dispatch(setUserId());
+  updateUserReducer(dispatch, user);
+}
+
+export function update(details) {
+  return (dispatch) => {
+    dispatch(updateUserUpdatingStatus(true));
+    auth.updateUser(details).then((user) => {
+      setTimeout(() => {
+        dispatch(updateUserUpdatingStatus(false));
+      }, 2000)
+    }).catch(err => {
+      dispatch(updateUserUpdatingStatus(false));
+    });
+  }
+}
 
 export function login(user) {
   return (dispatch) => {
 
     auth.login(user).then((user) => {
-      dispatch(setAuth());
-      dispatch(setUserName());
-      dispatch(setUserId());
-      dispatch(updateUserData({
-        name: user.name,
-        email: user.email,
-        details: user.details
-      }));
+      afterAuthorization(dispatch, user);
+
       dispatch(updateLoginForm({
         email: "",
         password: "",
       }));
+
       forwardTo('/apply');
     }).catch(err => {
       let errorSet = {};
@@ -61,12 +118,7 @@ export function login(user) {
 export function fetchUser(){
   return (dispatch) => {
     auth.fetchUser().then((user) => {
-      dispatch(setUserName());
-      dispatch(updateUserData({
-        name: user.name,
-        email: user.email,
-        details: user.details
-      }));
+      updateUserReducer(dispatch, user)
     }).catch(err => {
 
     });
@@ -91,14 +143,8 @@ export function signup(user) {
    return (dispatch) => {
 
      auth.signup(user).then((user) => {
-       dispatch(setAuth());
-       dispatch(setUserName());
-       dispatch(setUserId());
-       dispatch(updateUserData({
-         name: user.name,
-         email: user.email,
-         details: user.details
-       }));
+       afterAuthorization(dispatch, user);
+
        dispatch(updateSignupForm({
          email: "",
          name: "",
@@ -106,6 +152,7 @@ export function signup(user) {
          password: "",
          passwordStrength: ""
        }));
+
        forwardTo('/apply');
      }).catch(err => {
        let errorSet = {};
@@ -119,6 +166,17 @@ export function signup(user) {
      });
    }
  }
+
+export function updateApplyStep(index, data){
+  const applyStepMap = [
+    updateApplyStepOne(data),
+    updateApplyStepTwo(data),
+    updateApplyStepThree(data),
+    updateApplyStepFour(data),
+  ]
+
+  return applyStepMap[index - 1] || applyStepMap[0]
+}
 
 export function setAuthState(newState) {
   return { type: SET_AUTH, newState };
@@ -149,6 +207,10 @@ export function setUserName(newState) {
   return { type: SET_USER_NAME, newState };
 }
 
+export function setCurrentApplyStep(newState) {
+  return { type: SET_CURRENT_APPLY_STEP, newState };
+}
+
 export function updateSignupForm(newState) {
   return { type: UPDATE_SIGNUP_FORM, newState };
 }
@@ -167,6 +229,23 @@ export function updateLoginErrors(newState) {
 
 export function updateUserData(newState) {
   return { type: UPDATE_USER_DATA, newState };
+}
+
+export function updateApplyStepOne(newState) {
+  return { type: UPDATE_APPLY_STEP_ONE, newState };
+}
+export function updateApplyStepTwo(newState) {
+  return { type: UPDATE_APPLY_STEP_TWO, newState };
+}
+export function updateApplyStepThree(newState) {
+  return { type: UPDATE_APPLY_STEP_THREE, newState };
+}
+export function updateApplyStepFour(newState) {
+  return { type: UPDATE_APPLY_STEP_FOUR, newState };
+}
+
+export function updateUserUpdatingStatus(newState) {
+  return { type: UPDATE_USER_UPDATING_STATUS, newState };
 }
 
 

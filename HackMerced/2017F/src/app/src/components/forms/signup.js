@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateSignupForm, signup } from '../../actions/AppActions';
+import { updateSignupForm, signup } from '../../actions';
 import zxcvbn from 'zxcvbn';
 
 const assign = Object.assign || require('object.assign');

@@ -30,7 +30,7 @@ server.register(require('hapi-auth-jwt'), function (err) {
     axios
       .get(TOMOE_URI + '/hackers/' + decodedToken.accountId)
       .then((response) => {
-        return callback(false, true, response.data)
+        return callback(false, true, response.data.results)
       }).catch((err) => {
         callback(Boom.unauthorized('Invalid Token'), false, {});
       });

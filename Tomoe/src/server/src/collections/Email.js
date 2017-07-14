@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true, // secure:true for port 465, secure:false for port 587
     auth: {
-        user: TOMOE_CONFIG.email.Username,
+        user: TOMOE_CONFIG.email.username,
         pass: TOMOE_CONFIG.email.password
     }
 });
@@ -22,16 +22,7 @@ export class Email {
   }
 
   static init(){
-    this.getCollection().
+    this.getCollection()
   }
 
-  _get(){
-    return {
-      id: this.id,
-      name: this.name,
-      email:this.email,
-      password:this.password,
-      permissions: this.permissions
-    }
-  }
 }

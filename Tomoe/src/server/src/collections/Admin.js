@@ -32,6 +32,8 @@ export class Admin extends User{
 
       if(!protectSenstiveData){
         data.password = user.password;
+        data._key = user._key;
+        data._id = user._id;
       }
 
       return data;

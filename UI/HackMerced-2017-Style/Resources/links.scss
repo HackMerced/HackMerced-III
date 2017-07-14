@@ -1,0 +1,29 @@
+@mixin link--active {
+  background: $primary-color-gold;
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  opacity: 1;
+  bottom: -6px;
+  z-index: 0;
+}
+
+
+a {
+  text-decoration: none;
+  color: $primary-color-blue;
+  position: relative;
+}
+
+a:not(.disable-hover){
+  &::before{
+    content: "";
+    transition: 500ms width ease-in-out;
+    width: 0%;
+  }
+
+  &:hover::before{
+    @include link--active;
+  }
+}
