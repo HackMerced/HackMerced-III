@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
+import { notMercedOptions } from '../../constants';
+
 import { setCurrentApplyStep } from '../../actions';
 
 
 export class StepTwo extends Component {
   render() {
     const { general_location, city_of_residence, pay_20_for_bus } = this.props.data;
-    const notMercedOptions = [
-      'I do not live in Merced and I require a reimbursment to visit',
-      'I do not live in Merced and I require a partial reimbursment to visit',
-      'I do not live in Merced and I do not require a reimbursment to visit',
-    ]
+
 
     return (
       <div id='applyForm-2'>

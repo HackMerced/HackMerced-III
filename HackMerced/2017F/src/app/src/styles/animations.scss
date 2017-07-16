@@ -1,0 +1,101 @@
+@include keyframes(fadeout) {
+  0% {
+      opacity: 1;
+  }
+  100% {
+      opacity : 0;
+  }
+}
+
+@include keyframes(startscroll) {
+  100% {
+      overflow-y: scroll;
+  }
+}
+
+@include keyframes(die) {
+  100% {
+      top:-9999px;
+  }
+}
+
+@include keyframes(live) {
+  100% {
+      margin-top:0px;
+  }
+}
+
+
+@include keyframes(fadein) {
+  0% {
+      opacity: 0;
+      margin-top: 0px;
+  }
+  100% {
+      opacity : 1;
+   }
+}
+
+
+@include keyframes(home__sudo__start__whitespace) {
+  0% {
+      width: 100%;
+  }
+  100% {
+      width: 0px;
+   }
+}
+
+@include keyframes(home__sudo__start__forward) {
+  0% {
+      left: 0;
+  }
+  100% {
+      left: 100%;
+   }
+}
+
+@include keyframes(home__sudo__start__forward) {
+  0% {
+      left: 0;
+  }
+  100% {
+      left: 100%;
+   }
+}
+
+@include keyframes(blinker) {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+@include keyframes(show_header) {
+  0% {
+      top: -60px;
+  }
+  70% {
+      top: 10px;
+   }
+
+  100% {
+    top: 0px;
+  }
+}
+
+@include keyframes(icon_animation) {
+  0% {
+      left: -100%;
+  }
+
+  50% {
+    left: 0%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}

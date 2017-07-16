@@ -1,5 +1,7 @@
 @import '_base';
 
+
+
 .home-action{
   top: calc(50% - 48px);
   transform: translateY(-50%);
@@ -16,4 +18,170 @@
 
 .home-action__event-description{
   margin: 25px 0px;
+}
+
+
+.home__panel {
+  height: 100%;
+  width: 100%;
+}
+
+
+.home__panel--gold{
+  background-color: $primary-color-gold;
+}
+
+.heading--with-divider{
+  position: relative;
+
+  &::after{
+    position: absolute;
+    content: '';
+  }
+}
+
+.home__sudo__start {
+  color: $primary-color-blue;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 221px;
+  font-weight: 600;
+  margin-left: -110.5px;
+  margin-top: -10px;
+
+  @include animation('fadeout 2s forwards 3s, die 0s forwards 5s');
+
+  &::before,
+  &::after {
+    content: '';
+  }
+
+  &::before{
+    width: 0px;
+    position: absolute;
+    background: $background-color-white;
+    height: 100%;
+    right: 0;
+    @include animation('home__sudo__start__whitespace 2s forwards');
+  }
+
+  &::after {
+    width: 7px;
+    height: 100%;
+    position: absolute;
+    margin-left: 2px;
+    background-color: $primary-color-gold;
+    @include animation('blinker 800ms infinite, home__sudo__start__forward 2s forwards');
+    }
+}
+
+.home__action__container {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 40px;
+ opacity: 0;
+
+  @include animation('fadein 1500ms forwards 4.5s');
+}
+
+.home__border {
+  padding: 20px;
+  border: 8px solid $primary-color-gold;
+  height: calc(100% - 100px);
+  width: calc(100% - 40px);
+  margin: 20px;
+  top: 60px;
+  z-index: 15;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+
+  @include animation('fadein 500ms forwards 4s');
+}
+
+.home__hider {
+  width: 100%;
+  height: calc(100% - 60px);
+  position: fixed;
+  border: 20px solid #fff;
+  z-index: 15;
+  pointer-events: none;
+  top: 60px;
+}
+
+
+p {
+  line-height: 2;
+}
+
+
+.home__block {
+  background-color: $background-color-white;
+  padding: 50px;
+  z-index: 9;
+  position: relative;
+  border-top: 8px solid $primary-color-gold;
+}
+
+.home {
+  .home__content {
+    width: 600px;
+  }
+}
+
+
+.icon-cirle{
+  background-color: $primary-color-gold;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  left: 50%;
+  overflow: hidden;
+  border: 4px solid $secondary-color-gold-2;
+  position: relative;
+  margin-left: -40px;
+  margin-bottom: 50px;
+}
+
+.home__faq__icon-circle{
+
+}
+
+.icon-circle__object {
+  background-size: auto 100%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-position: 50%;
+  background-repeat: no-repeat;
+
+}
+
+.icon-circle__object:nth-child(1) {
+  left: 50%;
+  @include animation('icon_animation 5s infinite');
+}
+
+.icon-circle__object:nth-child(2) {
+  left: 150%;
+  @include animation('icon_animation 5s infinite 2.5s');
+}
+
+.quehackmerced__projects {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 50px 0px;
+}
+
+.home__faq {
+  height: 100%;
+
+  article{
+    padding: 20px 0px;
+
+  }
 }

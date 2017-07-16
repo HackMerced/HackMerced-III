@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import { ApplyStep } from './partials'
 import { ApplicationLayout } from './application'
+import { update } from '../actions'
+
 import '../styles/apply.scss'
 
 export class ApplyComponenet extends Component {
@@ -13,6 +15,13 @@ export class ApplyComponenet extends Component {
     }
 
     return statusMap[status] || 'Continue your application below'
+  }
+
+  _onClick(){
+    // const { data } = this.props;
+    //
+    // this.props.dispatch(updateStatus());
+    //
   }
 
   render() {
@@ -34,13 +43,17 @@ export class ApplyComponenet extends Component {
               { this._determineStatusInfo(user.status) }
             </div> */}
           </div>
-          <div className='apply__status__steps'>
+          <div className='apply__status__steps__container'>
             <h4>Your Application</h4>
-            <ApplyStep dispatch={dispatch} steps={applyStepOne} step={1} currentStep={applyStep} name='About You' description='Basic Demographic Information'/>
-            <ApplyStep dispatch={dispatch} steps={applyStepTwo} step={2} currentStep={applyStep} name='Travel' description='Reimbursements and Transport'/>
-            <ApplyStep dispatch={dispatch} steps={applyStepThree} step={3} currentStep={applyStep} name='More You' description='Resumes, questions, and more'/>
-            <ApplyStep dispatch={dispatch} steps={applyStepFour} step={4} currentStep={applyStep} name='Legal' description='Some ground rules.'/>
+            <div className='apply__status__steps'>
+            <div className={'apply__step__container__bar apply__step__container__bar--' + applyStep }></div>
+              <ApplyStep dispatch={dispatch} steps={applyStepOne} step={1} currentStep={applyStep} name='About You' description='Basic Demographic Information'/>
+              <ApplyStep dispatch={dispatch} steps={applyStepTwo} step={2} currentStep={applyStep} name='Travel' description='Reimbursements and Transport'/>
+              <ApplyStep dispatch={dispatch} steps={applyStepThree} step={3} currentStep={applyStep} name='More You' description='Resumes, questions, and more'/>
+              <ApplyStep dispatch={dispatch} steps={applyStepFour} step={4} currentStep={applyStep} name='Legal' description='Some ground rules.'/>
+            </div>
           </div>
+          <button className='apply__submit-button' onClick={this._onClick.bind(this)}>Submit Application</button>
         </sidebar>
         <content>
           <ApplicationLayout dispatch={dispatch} data={this.props.data} />

@@ -74,6 +74,28 @@ export const auth = {
       });
     })
   },
+  updateUserStatus(status) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'http://localhost:1954/me',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+        data: {
+          status: status
+        }
+      })
+      .then((response) => {
+        const user = response.data.results;
+        localStorage.userName = user.name;
+        resolve(user);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
   logout(callback) {
     return new Promise((resolve, reject) => {
 

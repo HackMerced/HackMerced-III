@@ -11,11 +11,14 @@ export class ApplyStep extends Component{
         stepCount = 0;
 
     for(let i in steps){
-      if(steps[i] || steps[i] === false){
-        stepsCompleted++;
+      if( steps[i] !== null){
+        if((steps[i] || steps[i] === false)){
+          stepsCompleted++;
+        }
+
+        stepCount++;
       }
 
-      stepCount++;
     }
 
     return Math.floor((stepsCompleted/stepCount) * 100);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
 import { updateApplyStep, update } from '../../actions';
 import { StepOne, StepTwo, StepThree, StepFour } from './';
+import { notMercedOptions } from '../../constants';
 
 const assign = Object.assign || require('object.assign');
 let timeChecker;
@@ -75,12 +76,42 @@ export class ApplicationLayout extends Component {
 
   _onChange(event){
     const { data } = this.props;
+    const { name, value } = event.target;
+    let newState = {};
 
-    let newState = this._mergeWithCurrentState(data, {
-      [event.target.name]: event.target.value
+    if( name === 'general_location' ){
+      const isNotMerced = notMercedOptions.includes(value);
+      newState = this._mergeWithCurrentState(data, {
+        [ name ]: value,
+        city_of_residence: isNotMerced  ? '' : null,
+        pay_20_for_bus: isNotMerced ? '' : null,
+      });
+
+      this._emitChange(data, newState);
+      return;
+    }
+
+    if( name === 'status' ){
+      const isCollege = ['Undergraduate University Student','Graduate University Student'].includes(value)
+      const isHighSchool = ['High School Student'].includes(value)
+
+      newState = this._mergeWithCurrentState(data, {
+        [ name ]: value,
+        university: isCollege  ? '' : null,
+        expected_graduation: isCollege  ? '' : null,
+        high_school: isHighSchool ? '' : null,
+      });
+
+      this._emitChange(data, newState);
+      return;
+    }
+
+    newState = this._mergeWithCurrentState(data, {
+      [ name ]: value
     });
 
     this._emitChange(data, newState);
+    return;
   }
 
   // Merges the current state with a change

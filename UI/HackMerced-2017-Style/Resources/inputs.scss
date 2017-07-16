@@ -49,7 +49,7 @@ $input-block-padding: 15px;
     line-height: 48px;
     display: block;
     padding: 0px 20px;
-    width: 120px;
+    width: 135px;
     border-right: 1px solid $primary-color-light-grey;
   }
 }
@@ -85,8 +85,17 @@ $input-block-padding: 15px;
 }
 
 .input-block__content {
-  width: calc(100% - 120px);
+  width: calc(100% - 135px);
   position: relative;
+}
+
+.input-block__file-upload {
+  position: absolute;
+  top: -51px;
+  left: 0px;
+  width: 100%;
+  height: 51px;
+  cursor: pointer;
 }
 
 .input-block__emoji{
@@ -124,7 +133,7 @@ $input-block-padding: 15px;
     }
 
     &:hover::after{
-      background-color: $secondary-color-yellow-1;
+      background-color: $secondary-color-gold-1;
     }
   }
 
@@ -157,7 +166,7 @@ $input-block-padding: 15px;
     }
 
     &:hover::after{
-      border-color: $secondary-color-yellow-1;
+      border-color: $secondary-color-gold-1;
     }
   }
 

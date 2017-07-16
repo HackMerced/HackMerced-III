@@ -31,7 +31,6 @@ export class LoginForm extends Component {
           type='password'
           label='Password'
           emoji={this.props.data.passwordStrength}
-          helper='Passwords must be at least 6 characters long'
           placeholder='Enter a password'/>
 
         <button style={{ marginTop: '30px' }} className='object--center button--gold'>Return to your Application</button>

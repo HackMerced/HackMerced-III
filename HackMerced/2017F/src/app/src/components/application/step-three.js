@@ -5,10 +5,6 @@ import { setCurrentApplyStep } from '../../actions';
 
 export class StepThree extends Component {
 
-  componentDidMount(){
-    filepicker.setKey(process.env.FILESTACK_API_KEY);
-
-  }
 
   render() {
     const { resume, question, experience, dietary_restrictions, allergies, github, linkedin, devpost } = this.props.data;
@@ -18,8 +14,9 @@ export class StepThree extends Component {
         <TextInputBlock
           value={resume}
           name='resume'
-          type='text'
-          label='Click below to add your resume:'
+          type='fileupload'
+          label={(resume) ? 'Resume uploaded - click to change.' : 'Click here to upload a resume!'}
+          onChange={this.props.onChange}
           labelType='large'
           autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
         <TextInputBlock
@@ -52,11 +49,12 @@ export class StepThree extends Component {
           value={dietary_restrictions}
           label='Do you have any dietary restrictions?'
           labelType='large'
-          name='experience'
+          name='dietary_restrictions'
           type='options'
           optionsType='small'
           onChange={this.props.onChange}
           options={[
+            'None',
             'Vegetarian',
             'Vegan',
             'Halal',
@@ -81,7 +79,7 @@ export class StepThree extends Component {
 
   _goToNextStep(e){
     e.preventDefault()
-    this.props.dispatch(setCurrentApplyStep(3));
+    this.props.dispatch(setCurrentApplyStep(4));
 
   }
 }

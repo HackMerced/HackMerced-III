@@ -26,23 +26,34 @@
 import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS } from '../constants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
-
+import { notMercedOptions } from '../constants'
 
 function mapUserDetailsToApplication(dispatch, details){
-  dispatch(updateApplyStepOne({
+  let stepOne = {
     age: details.age,
     status: details.status,
-    university: details.university,
-    expected_graduation: details.expected_graduation,
-    high_school: details.high_school,
     shirt_size: details.shirt_size
-  }))
+  }
 
-  dispatch(updateApplyStepTwo({
+  if(['Undergraduate University Student','Graduate University Student'].includes(details.status)){
+    stepOne.university = details.university;
+    stepOne.expected_graduation = details.expected_graduation;
+  } else if(['High School Student'].includes(status)){
+    stepOne.high_school = details.high_school;
+  }
+
+  dispatch(updateApplyStepOne(stepOne))
+
+  let stepTwo = {
     general_location: details.general_location,
-    city_of_residence: details.city_of_residence,
-    pay_20_for_bus: details.pay_20_for_bus,
-  }))
+
+  }
+  if(notMercedOptions.includes(details.general_location)){
+    stepTwo.city_of_residence = details.city_of_residence;
+    stepTwo.pay_20_for_bus = details.pay_20_for_bus;
+  }
+
+  dispatch(updateApplyStepTwo(stepTwo));
 
   dispatch(updateApplyStepThree({
     resume: details.resume,

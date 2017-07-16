@@ -3,7 +3,10 @@
 header {
   padding: 20px 0px;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  z-index: 99;
+  background-color: #fff;
+
 
   a {
     margin: 0px 15px;
@@ -14,14 +17,6 @@ header {
     }
   }
 
-}
-
-
-.header__logo-with-copy{
-  display: none;
-}
-
-.header--wide{
   padding: 20px;
   box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.10);
 
@@ -45,4 +40,25 @@ header {
       font-weight: 500;
     }
   }
+
+}
+
+.header__nav--center{
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+}
+
+
+
+.header__logo-with-copy{
+  display: none;
+}
+
+
+
+.header--at-path-home {
+  top: -60px;
+
+  @include animation('show_header 1s forwards 4s')
 }

@@ -5,3 +5,5 @@ export * from './logo-with-copy';
 export * from './input-block-text';
 export * from './apply-step';
 export * from './input-options';
+export * from './input-file-upload';
+export * from './hackathon-project-icon';

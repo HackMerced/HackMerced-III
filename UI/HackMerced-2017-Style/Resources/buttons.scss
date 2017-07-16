@@ -1,6 +1,6 @@
 @mixin gold-button {
   background-color: $primary-color-gold;
-  transition: background-color 100ms ease-in;
+  transition: background-color 250ms ease-in;
 }
 
 @mixin blue-button {
@@ -16,7 +16,7 @@ button{
   border-radius: 3px;
   font-weight: 600;
   border: 0px;
-  font-size: 15px;
+  font-size: inherit;
   font-family: $font-family-heading;
   cursor: pointer;
   background-color: $primary-color-light-grey;
@@ -24,6 +24,11 @@ button{
   &:focus{
     border: 0;
     outline: 0;
+  }
+
+  &:hover{
+    transition: background-color 250ms ease-in;
+    background-color: $primary-color-gold;
   }
 
   &.button--active{
