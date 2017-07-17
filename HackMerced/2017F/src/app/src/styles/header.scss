@@ -49,18 +49,15 @@ header {
   position: absolute;
 }
 
-
-
 .header__logo-with-copy {
   display: none;
 }
 
-.header--at-path-home {
+.header--at-path-home:not(.header--cull-animation) {
   top: -60px;
 
   @include animation('show_header 1s forwards 4s')
 }
-
 
 .header__hamburger-menu {
   right: 25px;

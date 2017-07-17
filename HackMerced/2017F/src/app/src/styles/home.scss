@@ -229,6 +229,24 @@ p {
 }
 
 
+.home--cull-animation {
+  .home__sudo__start {
+    display: none;
+  }
+
+  .home__action__container {
+    @include animation('fadein 1500ms forwards 0s');
+  }
+
+  .home__border {
+    @include animation('fadein 500ms forwards 0s');
+  }
+
+  .quehackmerced {
+    top: 0;
+  }
+}
+
 @media (max-width: 600px) {
   h1 {
     margin-top: 40px;
