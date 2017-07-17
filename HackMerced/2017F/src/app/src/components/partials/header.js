@@ -15,12 +15,6 @@ export class Header extends Component{
           <Logo />
           <IndexLink className='disable-hover' to='/' activeClassName='header__link--active'>HackMerced</IndexLink>
         </div>
-        <nav className='header__nav--center text--center'>
-          <Link to='/sponsor' activeClassName='header__link--active'>Sponsorships</Link>
-          <Link to='/team' activeClassName='header__link--active'>Team</Link>
-          <Link to='/volunteer' activeClassName='header__link--active'>Volunteer</Link>
-          <Link to='/contact' activeClassName='header__link--active'>Contact</Link>
-        </nav>
         <nav className='header__nav--right text--right'>
           { this.props.loggedIn ? (
               <span>
