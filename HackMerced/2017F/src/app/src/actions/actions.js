@@ -23,7 +23,7 @@
  *    created in the second step
  */
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS } from '../constants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW } from '../constants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
 import { notMercedOptions } from '../constants'
@@ -113,6 +113,8 @@ export function submit(details) {
         status: user.status,
         details: user.details
       }));
+      dispatch(updateSubmittedView(true));
+
       dispatch(updateApplyErrors([]));
       setTimeout(() => {
         dispatch(updateUserUpdatingStatus(false));
@@ -311,6 +313,9 @@ export function updateMobileMenuStatus(newState) {
   return { type: UPDATE_MOBILE_MENU_STATUS, newState };
 }
 
+export function updateSubmittedView(newState) {
+  return { type: UPDATE_SUBMITTED_VIEW, newState };
+}
 
 
 function forwardTo(location) {

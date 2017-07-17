@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { Header, PatternScaffold, LogoWithCopy, HackathonProjectIcon } from './partials'
+import { onUnload } from '../util'
 import phone from './assets/phone.png';
 import computer from './assets/computer.png';
 
 
 export class Home extends Component {
+  componentDidMount(){
+    onUnload().then(() => {
+      window.sessionStorage.reduceRefresh = true;
+    });
+
+    setTimeout(() => {
+      window.sessionStorage.reduceRefresh = true;
+    }, 4000);
+  }
+
   render() {
+    const cullAnimation = (window.sessionStorage.reduceRefresh) ? ' home--cull-animation' : '';
+
     return (
-      <div className='home' style={{height: "100%"}}>
+      <div className={'home' + cullAnimation} style={{height: "100%"}}>
         <div className='home__sudo__start'>sudo service restart hackmerced</div>
         <div className='home__hider'></div>
         <div className='home__border'></div>
