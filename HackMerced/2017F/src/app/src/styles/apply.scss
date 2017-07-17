@@ -29,7 +29,7 @@ sidebar{
 .apply__sidebar__header{
   background: $primary-color-gold;
   padding: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .apply__status {
@@ -54,6 +54,10 @@ sidebar{
   line-height: 20px;
   margin: 20px;
   width: calc(100% - 40px);
+
+  &:hover {
+    color: $primary-color-dark-grey;
+  }
 }
 
 .apply__status__info {
@@ -113,7 +117,7 @@ sidebar{
 }
 
 
-.apply__step__value{
+.apply__step__value {
   width: 36px;
   height: 36px;
   position: relative;
@@ -130,7 +134,7 @@ sidebar{
     width: 36px;
     height: 36px;
     border-radius: 100%;
-    border-color: #ffd344;
+    border-color:$primary-color-gold;
     border-style: solid;
     left: -2px;
     top: -2px;
@@ -141,10 +145,15 @@ sidebar{
   }
 
   &::after{
-    border-color: $primary-color-gold;
     position: absolute;
     transform: rotate(180deg);
+  }
+}
 
+.apply__step__value--error {
+  &::after,
+  &::before {
+    border-color: $alert-color;
   }
 }
 
@@ -212,4 +221,20 @@ content{
   display: block;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+.apply__submit-button--error {
+  background-color: $alert-color;
+  color: #fff;
+}
+
+.apply__submit-notification{
+  box-sizing: border-box;
+  font-size: 13px;
+  text-align: center;
+  padding: 0px 25px;
+}
+
+.apply__submit-button--submitted{
+  background-color: $secondary-color-gold-1;
 }

@@ -23,7 +23,7 @@
  *    created in the second step
  */
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS } from '../constants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS } from '../constants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
 import { notMercedOptions } from '../constants'
@@ -58,10 +58,11 @@ function mapUserDetailsToApplication(dispatch, details){
   dispatch(updateApplyStepThree({
     resume: details.resume,
     experience: details.experience,
-    linkedin: details.linkedin,
-    github: details.github,
+    linkedin: details.linkedin || null,
+    github: details.github || null,
+    devpost: details.devpost || null,
     dietary_restrictions: details.dietary_restrictions,
-    allergies: details.allergies,
+    allergies: details.allergies || null,
   }))
 
   dispatch(updateApplyStepFour({
@@ -101,6 +102,41 @@ export function update(details) {
   }
 }
 
+
+export function submit(details) {
+  return (dispatch) => {
+    dispatch(updateUserUpdatingStatus(true));
+    auth.submitApplication(details).then((user) => {
+      dispatch(updateUserData({
+        name: user.name,
+        email: user.email,
+        status: user.status,
+        details: user.details
+      }));
+      dispatch(updateApplyErrors([]));
+      setTimeout(() => {
+        dispatch(updateUserUpdatingStatus(false));
+      }, 500)
+    }).catch(err => {
+      let errorSet = {};
+      if(err.validation && err.validation.errors){
+        err.validation.errors.forEach((error) => {
+          if(['github', 'linkedin', 'devpost'].includes(error.key)){
+            error.message = 'Please properly format your profile link (provide the whole url)'
+          }
+          if(error.key === 'mlh'){
+            error.message = 'Your application will be rejected if you do not accept our code of conduct!'
+          }
+          errorSet[error.key] = error.message;
+        })
+      }
+
+      dispatch(updateApplyErrors(errorSet));
+      dispatch(updateUserUpdatingStatus(false));
+    });
+  }
+}
+
 export function login(user) {
   return (dispatch) => {
 
@@ -114,6 +150,7 @@ export function login(user) {
 
       forwardTo('/apply');
     }).catch(err => {
+
       let errorSet = {};
       if(err.validation){
         err.validation.forEach((error) => {
@@ -229,6 +266,11 @@ export function updateSignupForm(newState) {
 export function updateSignupErrors(newState) {
   return { type: UPDATE_SIGNUP_ERRORS, newState };
 }
+
+export function updateApplyErrors(newState) {
+  return { type: UPDATE_APPLY_ERRORS, newState };
+}
+
 
 export function updateLoginForm(newState) {
   return { type: UPDATE_LOGIN_FORM, newState };

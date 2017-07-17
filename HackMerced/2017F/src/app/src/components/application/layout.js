@@ -28,7 +28,7 @@ export class ApplicationLayout extends Component {
   }
 
   _mapContent(data, req){
-    const { applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour } = data;
+    const { applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour, applyErrors } = data;
 
     const applyDataMap = [
       {
@@ -37,6 +37,7 @@ export class ApplicationLayout extends Component {
         data: applyStepOne,
         ui: (<StepOne
               data={applyStepOne}
+              errors={applyErrors}
               dispatch={this.props.dispatch}
               onChange={this._onChange.bind(this)} />),
       },
@@ -46,6 +47,7 @@ export class ApplicationLayout extends Component {
         data: applyStepTwo,
         ui: (<StepTwo
                 data={applyStepTwo}
+                errors={applyErrors}
                 onChange={this._onChange.bind(this)}
                 dispatch={this.props.dispatch}
               />),
@@ -56,6 +58,7 @@ export class ApplicationLayout extends Component {
         data: applyStepThree,
         ui: (<StepThree
                 data={applyStepThree}
+                errors={applyErrors}
                 onChange={this._onChange.bind(this)}
                 dispatch={this.props.dispatch}
               />),
@@ -66,6 +69,7 @@ export class ApplicationLayout extends Component {
         data: applyStepFour,
         ui: (<StepFour
                 data={applyStepFour}
+                errors={applyErrors}
                 onChange={this._onChange.bind(this)}
                 />),
       },
@@ -107,7 +111,7 @@ export class ApplicationLayout extends Component {
     }
 
     newState = this._mergeWithCurrentState(data, {
-      [ name ]: value
+      [ name ]: ( ['github', 'allergies', 'linkedin', 'devpost'].includes(name) ? ( value || null ) : value)
     });
 
     this._emitChange(data, newState);

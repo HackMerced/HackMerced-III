@@ -14,6 +14,7 @@ export class StepTwo extends Component {
       <div id='applyForm-2'>
         <TextInputBlock
           value={general_location}
+          error={this.props.errors.general_location}
           label='Where do you live?'
           labelType='large'
           name='general_location'
@@ -27,6 +28,7 @@ export class StepTwo extends Component {
           (<div>
             <TextInputBlock
               value={city_of_residence}
+              error={this.props.errors.city_of_residence}
               name='city_of_residence'
               type='text'
               label='What city would you start from if you were coming to HackMerced?'
@@ -35,6 +37,7 @@ export class StepTwo extends Component {
               autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
             <TextInputBlock
               value={pay_20_for_bus}
+              error={this.props.errors.pay_20_for_bus}
               label='Would you pay $10-$20 for a round-trip bus to Merced?'
               labelType='large'
               name='pay_20_for_bus'

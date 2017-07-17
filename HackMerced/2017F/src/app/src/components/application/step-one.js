@@ -30,6 +30,7 @@ export class StepOne extends Component {
       <div id='applyForm-1'>
         <TextInputBlock
           value={age}
+          error={this.props.errors.age}
           name='age'
           type='number'
           label='Age'
@@ -40,6 +41,7 @@ export class StepOne extends Component {
           label='I am a...'
           name='status'
           type='options'
+          error={this.props.errors.status}
           onChange={this.props.onChange}
           options={[
             'Undergraduate University Student',
@@ -51,6 +53,7 @@ export class StepOne extends Component {
           (<div>
             <TextInputBlock
               value={university}
+              error={this.props.errors.university}
               name='university'
               type='text'
               label='University'
@@ -58,6 +61,7 @@ export class StepOne extends Component {
               autoCorrect="off" autoCapitalize="off" spellCheck="false" autoComplete="off"/>
             <TextInputBlock
               value={expected_graduation}
+              error={this.props.errors.expected_graduation}
               label='What is your expected graduation year?'
               labelType='large'
               name='expected_graduation'
@@ -90,6 +94,7 @@ export class StepOne extends Component {
         }
         <TextInputBlock
           value={shirt_size}
+          error={this.props.errors.shirt_size}
           label='Shirt Size'
           name='shirt_size'
           type='options'

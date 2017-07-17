@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import { ApplyStep } from './partials'
 import { ApplicationLayout } from './application'
-import { update } from '../actions'
+import { update, submit } from '../actions'
 
 import '../styles/apply.scss'
 
@@ -18,15 +18,21 @@ export class ApplyComponenet extends Component {
   }
 
   _onClick(){
-    // const { data } = this.props;
-    //
-    // this.props.dispatch(updateStatus());
-    //
+    const { applyStepOne, applyStepTwo, applyStepThree, applyStepFour } = this.props.data;
+
+    const data = {
+      ...applyStepOne,
+      ...applyStepTwo,
+      ...applyStepThree,
+      ...applyStepFour,
+    }
+
+    this.props.dispatch(submit(data));
   }
 
   render() {
     const dispatch = this.props.dispatch;
-    const { user, applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour } = this.props.data;
+    const { user, applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour, applyErrors } = this.props.data;
 
     return (
       <div className='apply'>
@@ -47,13 +53,76 @@ export class ApplyComponenet extends Component {
             <h4>Your Application</h4>
             <div className='apply__status__steps'>
             <div className={'apply__step__container__bar apply__step__container__bar--' + applyStep }></div>
-              <ApplyStep dispatch={dispatch} steps={applyStepOne} step={1} currentStep={applyStep} name='About You' description='Basic Demographic Information'/>
-              <ApplyStep dispatch={dispatch} steps={applyStepTwo} step={2} currentStep={applyStep} name='Travel' description='Reimbursements and Transport'/>
-              <ApplyStep dispatch={dispatch} steps={applyStepThree} step={3} currentStep={applyStep} name='More You' description='Resumes, questions, and more'/>
-              <ApplyStep dispatch={dispatch} steps={applyStepFour} step={4} currentStep={applyStep} name='Legal' description='Some ground rules.'/>
+              <ApplyStep
+                dispatch={dispatch}
+                steps={applyStepOne}
+                step={1}
+                currentStep={applyStep}
+                name='About You'
+                errors={
+                  [
+                    applyErrors.age,
+                    applyErrors.status,
+                    applyErrors.university,
+                    applyErrors.expected_graduation,
+                    applyErrors.high_school,
+                    applyErrors.shirt_size
+                  ]
+                }
+                description='Basic Demographic Information'/>
+              <ApplyStep
+                dispatch={dispatch}
+                steps={applyStepTwo}
+                step={2}
+                currentStep={applyStep}
+                name='Travel'
+                errors={
+                  [  applyErrors.general_location,  applyErrors.city_of_residence,  applyErrors.pay_20_for_bus ]
+                }
+                description='Reimbursements and Transport'/>
+              <ApplyStep
+                dispatch={dispatch}
+                steps={applyStepThree}
+                step={3}
+                currentStep={applyStep}
+                name='More You'
+                errors={
+                  [ applyErrors.resume,  applyErrors.experience,  applyErrors.linkedin,  applyErrors.github,  applyErrors.devpost,  applyErrors.dietary_restrictions, applyErrors.allergies ]
+                }
+                description='Resumes, questions, and more'/>
+              <ApplyStep
+                dispatch={dispatch}
+                steps={applyStepFour}
+                errors={
+                  [ applyErrors.mlh ]
+                }
+                step={4}
+                currentStep={applyStep}
+                name='Legal'
+                description='Some ground rules.'/>
             </div>
           </div>
-          <button className='apply__submit-button' onClick={this._onClick.bind(this)}>Submit Application</button>
+          {Object.keys(applyErrors).length ?
+            <div>
+              <button className='apply__submit-button apply__submit-button--error' onClick={this._onClick.bind(this)}>Submit Application</button>
+              <div className='apply__submit-notification'>There seems to be some errors in your application</div>
+            </div>
+            :
+            <div>
+
+              { user.status !== 'registered' ?
+                <div>
+                  <button className='apply__submit-button apply__submit-button--submitted' onClick={this._onClick.bind(this)}>Re-submit Application</button>
+                  <div className='apply__submit-notification'>You have succesfully submitted your application!</div>
+                </div>
+
+                :
+                <button className='apply__submit-button' onClick={this._onClick.bind(this)}>Submit Application</button>
+              }
+            </div>
+          }
+
+
         </sidebar>
         <content>
           <ApplicationLayout dispatch={dispatch} data={this.props.data} />

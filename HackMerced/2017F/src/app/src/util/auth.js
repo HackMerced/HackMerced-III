@@ -74,21 +74,18 @@ export const auth = {
       });
     })
   },
-  updateUserStatus(status) {
+  submitApplication(details) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
-        url: 'http://localhost:1954/me',
+        url: 'http://localhost:1954/submit',
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         },
-        data: {
-          status: status
-        }
+        data: details,
       })
       .then((response) => {
         const user = response.data.results;
-        localStorage.userName = user.name;
         resolve(user);
       })
       .catch((error) => {

@@ -1,8 +1,9 @@
 $input-label-width: 120px;
 $input-block-padding: 15px;
 
-.input-block__container{
+.input-block__container {
   margin-bottom: 25px;
+  position: relative;
 }
 
 .input-block__container--large-label {
@@ -71,13 +72,12 @@ $input-block-padding: 15px;
 }
 
 .input-block__error{
-  text-align: left;
   color: $alert-color;
-  position: absolute;
-  left: 100%;
+  position: relative;
   width: 100%;
-  margin-top: -35px;
   margin-left: 20px;
+  left: 0px;
+  margin: 15px 10px 0px 15px;
 
   &::first-letter{
     text-transform: capitalize;

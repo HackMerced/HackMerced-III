@@ -45,11 +45,10 @@
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 221px;
-  font-weight: 600;
+  font-weight: 700;
   margin-left: -110.5px;
   margin-top: -10px;
-
+  display: inline-block;
   @include animation('fadeout 2s forwards 3s, die 0s forwards 5s');
 
   &::before,
@@ -100,6 +99,11 @@
   pointer-events: none;
 
   @include animation('fadein 500ms forwards 4s');
+}
+
+.quehackmerced {
+  top: -999999px;
+  @include animation('exist 0s forwards 4s');
 }
 
 .home__hider {

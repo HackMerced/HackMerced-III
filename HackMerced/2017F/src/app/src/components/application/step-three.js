@@ -13,6 +13,7 @@ export class StepThree extends Component {
       <div id='applyForm-3'>
         <TextInputBlock
           value={resume}
+          error={this.props.errors.resume}
           name='resume'
           type='fileupload'
           label={(resume) ? 'Resume uploaded - click to change.' : 'Click here to upload a resume!'}
@@ -23,6 +24,7 @@ export class StepThree extends Component {
           value={experience}
           label='What is your level of experience at programming?'
           labelType='large'
+          error={this.props.errors.experience}
           name='experience'
           type='options'
           onChange={this.props.onChange}
@@ -37,16 +39,27 @@ export class StepThree extends Component {
           name='linkedin'
           type='text'
           placeholder='https://linkedin.com/in/'
+          error={this.props.errors.linkedin}
           autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
         <TextInputBlock
           value={github}
           label='GitHub URL'
           name='github'
           type='text'
+          error={this.props.errors.github}
           placeholder='https://github.com/'
           autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
         <TextInputBlock
+          value={devpost}
+          label='Devpost URL'
+          name='devpost'
+          type='text'
+          error={this.props.errors.devpost}
+          placeholder='https://devpost.com/'
+          autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+        <TextInputBlock
           value={dietary_restrictions}
+          error={this.props.errors.dietary_restrictions}
           label='Do you have any dietary restrictions?'
           labelType='large'
           name='dietary_restrictions'
@@ -64,6 +77,7 @@ export class StepThree extends Component {
           ]}/>
         <TextInputBlock
           value={allergies}
+          error={this.props.errors.allergies}
           label='List any allergies below:'
           labelType='large'
           name='allergies'

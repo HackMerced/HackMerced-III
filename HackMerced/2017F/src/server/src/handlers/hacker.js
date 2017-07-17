@@ -87,6 +87,22 @@ export const hackerHandlers = {
          reply(parseError(err.response.data));
       });
   },
+  postSubmit: (req, reply) => {
+    axios
+      .post(TOMOE_URI + '/hackers/' + req.auth.credentials.id, {
+        status: 'submitted',
+        details: req.payload 
+      })
+      .then((response) => {
+        createUserSession(req, response).then((user) => {
+          reply(user);
+        }).catch((err) => {
+          reply(err);
+        });
+      }).catch((err) => {
+         reply(parseError(err.response.data));
+      });
+  },
   postLogout: (req, reply) => {
 
     reply();

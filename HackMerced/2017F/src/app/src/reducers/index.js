@@ -10,7 +10,7 @@
  *   });
  */
 
-import { UPDATE_SIGNUP_FORM, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH, SENDING_REQUEST, SET_ERROR_MESSAGE, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS } from '../constants';
+import { UPDATE_SIGNUP_FORM, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH, SENDING_REQUEST, SET_ERROR_MESSAGE, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS } from '../constants';
 // Object.assign is not yet fully supported in all browsers, so we fallback to
 // a polyfill
 const assign = Object.assign || require('object.assign');
@@ -46,13 +46,14 @@ const initialState = {
   },
   applyStepThree:{
     resume:'',
-    question:'',
     experience:'',
     dietary:'',
-    allergies:''
   },
   applyStepFour:{
     mlh: '',
+  },
+  applyErrors: {
+
   },
   applyStep: 1,
   userIsUpdating: false,
@@ -144,6 +145,10 @@ export function homeReducer(state = initialState, action) {
     case UPDATE_USER_DATA:
       return assign({}, state, {
         user: action.newState
+      });
+    case UPDATE_APPLY_ERRORS:
+      return assign({}, state, {
+        applyErrors: action.newState
       });
     case SET_AUTH:
       return assign({}, state, {

@@ -73,6 +73,12 @@
    }
 }
 
+@include keyframes(exist) {
+  100% {
+      top: 0px;
+   }
+}
+
 @include keyframes(show_header) {
   0% {
       top: -60px;

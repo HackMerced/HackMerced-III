@@ -9,13 +9,23 @@ const TOMOE_URI = process.env.TOMOE_URI;
 const server = new Hapi.Server();
 
 
+const Relish = require('relish')({
+  stripQuotes: true,
+})
+
 server.connection( {
     port: process.env.PORT || '1954',
     routes:{
       cors: {
           origin: ['*'],
           additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type", "CORELATION_ID"],
-      }
+      },
+      validate: {
+        failAction: Relish.failAction,
+        options: {
+            abortEarly: false
+        },
+      },
     }
 });
 

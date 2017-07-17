@@ -5,7 +5,7 @@ import { setCurrentApplyStep } from '../../actions';
 const assign = Object.assign || require('object.assign');
 
 export class ApplyStep extends Component{
-  _getStepCompletionStatus(steps){
+  _getStepCompletionStatus(steps, errCount){
 
     let stepsCompleted = 0,
         stepCount = 0;
@@ -21,18 +21,33 @@ export class ApplyStep extends Component{
 
     }
 
-    return Math.floor((stepsCompleted/stepCount) * 100);
+    return Math.floor(((stepsCompleted - errCount)/stepCount) * 100);
+  }
+
+
+  _checkArrayForUndef(arr){
+    let undef = 0;
+
+    arr.forEach(data => {
+      if(data){
+        undef++;
+      }
+    });
+
+    return undef;
   }
 
   render(){
-    const { steps, name, description, currentStep, step } = this.props;
+    const { steps, name, description, currentStep, step, errors } = this.props;
+    const errCount = (this._checkArrayForUndef(errors));
+    const ifErr = (errCount) ? ' apply__step__value--error' : '';
 
-    const stepStatus = this._getStepCompletionStatus(steps);
+    const stepStatus = this._getStepCompletionStatus(steps, errCount);
 
     return (
       <div onClick={this._setApplyStep.bind(this)}
            className={(currentStep === step) ? 'apply__step__container apply__step__container--active' : 'apply__step__container'}>
-        <div className={'apply__step__value apply__step__value--' + stepStatus} >{stepStatus}%</div>
+        <div className={'apply__step__value apply__step__value--' + stepStatus + ifErr}  >{stepStatus}%</div>
         <div className='apply__step__content'>
           <div className='apply__step__name'>{name}</div>
           <div className='apply__step__description'>{description}</div>

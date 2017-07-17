@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import { Definitions } from '../templates'
-const build = require('../' +  Definitions.configName).build;
+const build = require('../../' +  Definitions.configName).build;
 
 // files in the non-development version of Tomoe are pre-imported :)
 if(build){

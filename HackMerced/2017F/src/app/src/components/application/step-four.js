@@ -40,7 +40,8 @@ export class StepFour extends Component {
 
         <TextInputBlock
           value={mlh}
-          label="Do you agree to ours and MLH's code of conduct above?"
+          error={this.props.errors.mlh}
+          label="Do you agree to HackMerced's and MLH's code of conduct above?"
           labelType='large'
           name='mlh'
           type='options'
