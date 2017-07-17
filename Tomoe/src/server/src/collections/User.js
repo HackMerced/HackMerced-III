@@ -180,6 +180,7 @@ export class User{
               return;
             }
 
+            const errMessage = `A user with this ${searchBy} does not exist!`
             const err = Boom.notFound(errMessage);
                   err.output.payload.validation = {
                     errors: [{

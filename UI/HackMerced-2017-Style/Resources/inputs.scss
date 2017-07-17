@@ -202,3 +202,47 @@ input{
     border: 0px;
   }
 }
+
+
+@media (max-width: 600px) {
+  .input-block {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    display: block;
+
+    label {
+      width: 100%;
+      border-bottom: 1px solid #e4e4e4;
+      border-right: 0px;
+
+    }
+
+    input,
+    .input-block__content {
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+
+  .input-block__emoji {
+    position: absolute;
+    height: 0;
+    font-size: 23px;
+    line-height: 52px;
+    right: 15px;
+    margin-top: -50px;
+    top: 0;
+  }
+
+
+  .input-block__options--small {
+    .input-block__options__item {
+      width: 50%;
+    }
+  }
+
+  .input-block__helper {
+    text-align: center;
+     margin-top: 10px;
+  }
+}

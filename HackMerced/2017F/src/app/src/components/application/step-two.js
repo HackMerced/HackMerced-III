@@ -52,6 +52,8 @@ export class StepTwo extends Component {
           ''
         }
         <button onClick={this._goToNextStep.bind(this)}>Continue</button>
+        <button className='button--go-back' onClick={this._goToPrevStep.bind(this)}>Go Back</button>
+
       </div>
 
     );
@@ -61,6 +63,10 @@ export class StepTwo extends Component {
   _goToNextStep(e){
     e.preventDefault()
     this.props.dispatch(setCurrentApplyStep(3));
+  }
 
+  _goToPrevStep(e){
+    e.preventDefault()
+    this.props.dispatch(setCurrentApplyStep(1));
   }
 }

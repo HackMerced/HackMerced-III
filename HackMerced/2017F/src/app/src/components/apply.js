@@ -17,7 +17,9 @@ export class ApplyComponenet extends Component {
     return statusMap[status] || 'Continue your application below'
   }
 
-  _onClick(){
+  _submitApplication(e){
+    e.preventDefault();
+
     const { applyStepOne, applyStepTwo, applyStepThree, applyStepFour } = this.props.data;
 
     const data = {
@@ -104,7 +106,7 @@ export class ApplyComponenet extends Component {
           </div>
           {Object.keys(applyErrors).length ?
             <div>
-              <button className='apply__submit-button apply__submit-button--error' onClick={this._onClick.bind(this)}>Submit Application</button>
+              <button className='apply__submit-button apply__submit-button--error' onClick={this._submitApplication.bind(this)}>Submit Application</button>
               <div className='apply__submit-notification'>There seems to be some errors in your application</div>
             </div>
             :
@@ -112,12 +114,12 @@ export class ApplyComponenet extends Component {
 
               { user.status !== 'registered' ?
                 <div>
-                  <button className='apply__submit-button apply__submit-button--submitted' onClick={this._onClick.bind(this)}>Re-submit Application</button>
+                  <button className='apply__submit-button apply__submit-button--submitted' onClick={this._submitApplication.bind(this)}>Re-submit Application</button>
                   <div className='apply__submit-notification'>You have succesfully submitted your application!</div>
                 </div>
 
                 :
-                <button className='apply__submit-button' onClick={this._onClick.bind(this)}>Submit Application</button>
+                <button className='apply__submit-button' onClick={this._submitApplication.bind(this)}>Submit Application</button>
               }
             </div>
           }
@@ -125,7 +127,7 @@ export class ApplyComponenet extends Component {
 
         </sidebar>
         <content>
-          <ApplicationLayout dispatch={dispatch} data={this.props.data} />
+          <ApplicationLayout dispatch={dispatch} submitApplication={this._submitApplication} data={this.props.data} />
         </content>
       </div>
     )

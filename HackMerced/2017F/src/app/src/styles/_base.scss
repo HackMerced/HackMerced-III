@@ -5,6 +5,20 @@
 @import 'animations';
 
 
+$fontlocation: "../../public/fonts/league-spartan";
+
+@font-face {
+    font-family: 'League Spartan';
+    src: url($fontlocation + '/leaguespartan-bold.eot');
+    src: url($fontlocation + '/leaguespartan-bold.eot?#iefix') format('embedded-opentype'),
+         url($fontlocation + '/leaguespartan-bold.woff2') format('woff2'),
+         url($fontlocation + '/leaguespartan-bold.woff') format('woff'),
+         url($fontlocation + '/leaguespartan-bold.ttf') format('truetype'),
+         url($fontlocation + '/leaguespartan-bold.svg#league_spartanbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
 .myr-container{
   margin-top: -50px !important;
   min-width: 338px !important;

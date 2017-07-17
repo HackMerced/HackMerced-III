@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateApplyStep, update } from '../../actions';
+import { updateApplyStep, update, updateApplyErrors } from '../../actions';
 import { StepOne, StepTwo, StepThree, StepFour } from './';
 import { notMercedOptions } from '../../constants';
 
@@ -70,7 +70,10 @@ export class ApplicationLayout extends Component {
         ui: (<StepFour
                 data={applyStepFour}
                 errors={applyErrors}
+                dispatch={this.props.dispatch}
                 onChange={this._onChange.bind(this)}
+                data={this.props.data}
+                submitApplication={this.props.submitApplication}
                 />),
       },
     ]
@@ -82,6 +85,15 @@ export class ApplicationLayout extends Component {
     const { data } = this.props;
     const { name, value } = event.target;
     let newState = {};
+    let newErrorState = {}
+
+    newErrorState = assign(data.applyErrors, {
+       [ name ]: undefined
+    }),
+
+    this.props.dispatch(updateApplyErrors(newErrorState));
+
+
 
     if( name === 'general_location' ){
       const isNotMerced = notMercedOptions.includes(value);
@@ -105,6 +117,7 @@ export class ApplicationLayout extends Component {
         expected_graduation: isCollege  ? '' : null,
         high_school: isHighSchool ? '' : null,
       });
+
 
       this._emitChange(data, newState);
       return;

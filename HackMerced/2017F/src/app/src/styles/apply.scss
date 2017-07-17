@@ -238,3 +238,110 @@ content{
 .apply__submit-button--submitted{
   background-color: $secondary-color-gold-1;
 }
+
+
+button {
+  &.button--go-back,
+  &.button--submit-application-in-text{
+    display:none;
+
+  }
+}
+
+@media (max-width: 600px) {
+  content {
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  sidebar {
+    left: 0px;
+    position: fixed;
+    background: #fff;
+    z-index: 9;
+    height: 60px;
+    height: 100px;
+    bottom: 0px;
+    width: 100%;
+
+    .apply__sidebar__header {
+      display: none;
+    }
+
+    .apply__status {
+      display: flex;
+      background-color: #ffd344;
+      font-size: 13px;
+      justify-content: space-between;
+      padding: 5px 20px;
+
+      > * {
+        margin: 0px;
+      }
+    }
+
+    .apply__status__steps__container {
+      h4 {
+        display: none;
+      }
+
+    }
+
+    .apply__step__container__bar {
+      display: none;
+    }
+
+    .apply__status__steps {
+      display: flex;
+    }
+
+    .apply__step__container {
+      width: 25%;
+      display: block;
+      padding: 5px 0px 9px;
+
+      &::before{
+        height: 3px;
+        left: 0px;
+        width: 100%;
+        bottom: 0px;
+        top: auto;
+      }
+    }
+
+    .apply__step__content {
+      font-weight: 400;
+      text-align: center;
+      font-size: 11px;
+      margin: 0px;
+    }
+
+    .apply__step__value {
+      margin: 5px auto 2px;
+    }
+
+    .apply__step__description {
+      display: none;
+    }
+
+  }
+
+  .application {
+    .input-block{
+      margin: 0px;
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+
+      &.button--go-back,
+      &.button--submit-application-in-text{
+        display: block;
+        margin-top: 20px;
+        padding: 0px;
+      }
+    }
+
+  }
+}

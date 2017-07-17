@@ -21,7 +21,8 @@ export class ApplyStep extends Component{
 
     }
 
-    return Math.floor(((stepsCompleted - errCount)/stepCount) * 100);
+    const percentageDone = Math.floor(((stepsCompleted - errCount)/stepCount) * 100);
+    return (percentageDone < 0) ? 0 : percentageDone;
   }
 
 
