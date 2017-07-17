@@ -85,6 +85,8 @@ export class StepThree extends Component {
           placeholder='Peanuts'
           autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
           <button onClick={this._goToNextStep.bind(this)}>Continue</button>
+          <button className='button--go-back' onClick={this._goToPrevStep.bind(this)}>Go Back</button>
+
       </div>
 
     );
@@ -94,6 +96,10 @@ export class StepThree extends Component {
   _goToNextStep(e){
     e.preventDefault()
     this.props.dispatch(setCurrentApplyStep(4));
+  }
 
+  _goToPrevStep(e){
+    e.preventDefault()
+    this.props.dispatch(setCurrentApplyStep(2));
   }
 }

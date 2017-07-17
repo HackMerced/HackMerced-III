@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
+import { setCurrentApplyStep } from '../../actions';
+
 
 export class StepFour extends Component {
   render() {
-    const { mlh, release } = this.props.data;
+    const { mlh, release } = this.props.data.applyStepFour;
 
     return (
       <div id='applyForm-4'>
@@ -51,7 +53,14 @@ export class StepFour extends Component {
             'No',
           ]}/>
 
+        <button className='button--go-back' onClick={this._goToPrevStep.bind(this)}>Go Back</button>
+        <button className='button--submit-application-in-text' onClick={this.props.submitApplication.bind(this)}>Submit Application</button>
       </div>
     );
+  }
+
+  _goToPrevStep(e){
+    e.preventDefault()
+    this.props.dispatch(setCurrentApplyStep(3));
   }
 }

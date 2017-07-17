@@ -33,7 +33,7 @@ export class LoginForm extends Component {
           emoji={this.props.data.passwordStrength}
           placeholder='Enter a password'/>
 
-        <button style={{ marginTop: '30px' }} className='object--center button--gold'>Return to your Application</button>
+        <button style={{ margin: '30px 0px' }} className='object--center button--gold'>Return to your Application</button>
       </form>
     );
   }
