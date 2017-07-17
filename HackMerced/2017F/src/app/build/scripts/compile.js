@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const logger = require('../lib/logger')
 const webpackConfig = require('../webpack.config')
-const project = require('../../2017f.config')
+const project = require('../../../../2017f.config')
 
 const runWebpackCompiler = (webpackConfig) =>
   new Promise((resolve, reject) => {
