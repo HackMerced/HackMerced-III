@@ -18,7 +18,7 @@ import Joi from 'joi';
 import fs from 'fs';
 
 import { Admin } from '../../src/server/src/collections';
-import { createCollections } from '../util'
+import { createCollections, moveFile } from '../util'
 import { env, Definitions } from '../templates';
 import { Config } from './config'
 
@@ -258,7 +258,8 @@ const stage = {
     },
     function(){
       term('Saving config...')
-
+      moveFile('email.template.html');
+      
       storedAnswers.save().then(() => {
         stage.next();
       }).catch((err) => {
