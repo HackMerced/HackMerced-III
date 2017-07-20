@@ -12,6 +12,7 @@ export class Header extends Component{
         <a onClick={that._onClickHide.bind(that)} href='https://github.com/hackmerced' activeClassName='header__link--active'>Open Source</a>
         <a onClick={that._onClickHide.bind(that)} href='https://facebook.com/hackmerced' activeClassName='header__link--active'>Facebook</a>
         <a onClick={that._onClickHide.bind(that)} href='https://twitter.com/hackmerced' activeClassName='header__link--active'>Twitter</a>
+      	<a onClick={that._onClickHide.bind(that)} href='https://instagram.com/hackmerced' activeClassName='header__link--active'>Instagram</a>
       </nav>
     )
   }
