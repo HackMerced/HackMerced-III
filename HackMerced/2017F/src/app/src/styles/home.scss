@@ -203,7 +203,7 @@ p {
   cursor: pointer;
   position: relative;
   background-repeat: no-repeat;
-  margin-bottom: 20px;
+  margin: auto 10px 20px;
 
   &:hover::after{
     opacity: 1;
@@ -225,6 +225,7 @@ p {
     color: $primary-color-blue;
     font-weight: 700;
     bottom: -30px;
+    z-index: 999;
   }
 }
 
