@@ -22,7 +22,7 @@ export class Home extends Component {
 
     return (
       <div className={'home' + cullAnimation} style={{height: "100%"}}>
-        <div className='home__sudo__start'>sudo service restart hackmerced</div>
+        <div className='home__sudo__start'>sudo service hackmerced restart</div>
         <div className='home__hider'></div>
         <div className='home__border'></div>
         <div className='home__panel'>
