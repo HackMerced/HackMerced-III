@@ -261,6 +261,10 @@ p {
     top: 50%;
   }
 
+  .home__block {
+    border-top-width: 4px;
+  }
+
   .home__border {
     border: 4px solid $primary-color-gold;
     height: calc(100% - 72px);
@@ -274,4 +278,21 @@ p {
       padding: 0px 0;
     }
   }
+}
+
+@media (max-height: 540px) {
+  .home__action__container {
+    height: 540px;
+    position: absolute;
+  }
+
+  .home__panel {
+    height: 540px;
+  }
+
+  .header__mobile-menu {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+  }
+
 }
