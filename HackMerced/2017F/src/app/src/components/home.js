@@ -106,7 +106,7 @@ export class Home extends Component {
               <article>
                 <h3>Is there a prize?</h3>
                 <p>
-                  Yes, winning HackMerced will get you a sweet (unannouced) prize!
+                  Yes, winning HackMerced will get you a sweet (unannounced) prize!
                 </p>
               </article>
             </div>
