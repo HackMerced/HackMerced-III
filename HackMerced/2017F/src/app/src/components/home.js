@@ -61,7 +61,7 @@ export class Home extends Component {
             </div>
             <h1 className='text--center'>Sponsors</h1>
             <p>
-              HackMerced is a bridge between you and the hacker community on the west coast. If you're interested in growing brand awareness, looking for new hires or just want to help build something awesome reach out at <a className='link--underlined' href='sponsorship@hackmerced.com'>sponsorship@hackmerced.com</a>
+              HackMerced is a bridge between you and the hacker community on the west coast. If you're interested in growing brand awareness, looking for new hires or just want to help build something awesome reach out at <a className='link--underlined' href="mailto:sponsorship@hackmerced.com">sponsorship@hackmerced.com</a>
             </p>
             <h1 className='text--center'>Frequently Asked Questions</h1>
             <div className='home__faq'>
