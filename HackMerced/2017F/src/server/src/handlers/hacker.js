@@ -62,8 +62,10 @@ export const hackerHandlers = {
       });
   },
   postLogin: (req, reply) => {
+    const email = req.payload.email ? req.payload.email.toLowerCase() : 'bad'
+
     axios
-      .post(TOMOE_URI + '/hackers/' + (req.payload.email || 'bad') + '/validate', { password: req.payload.password })
+      .post(TOMOE_URI + '/hackers/' + email + '/validate', { password: req.payload.password })
       .then((response) => {
         createUserSession(req, response).then((user) => {
           reply(user);
@@ -75,6 +77,8 @@ export const hackerHandlers = {
       });
   },
   postSignup: (req, reply) => {
+    req.payload.email = req.payload.email.toLowerCase();
+
     axios
       .post(TOMOE_URI + '/hackers', req.payload)
       .then((response) => {
@@ -91,7 +95,7 @@ export const hackerHandlers = {
     axios
       .post(TOMOE_URI + '/hackers/' + req.auth.credentials.id, {
         status: 'submitted',
-        details: req.payload 
+        details: req.payload
       })
       .then((response) => {
         createUserSession(req, response).then((user) => {
