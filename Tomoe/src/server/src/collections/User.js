@@ -221,7 +221,18 @@ export class User{
           return;
         }
 
-        reject(Boom.unauthorized('Your email or password is incorrect!'));
+        const errMessage = `Your email or password is incorrect!`;
+        const err = Boom.unauthorized(errMessage);
+              err.output.payload.validation = {
+                errors: [{
+                  key: 'email',
+                  constraint: 'email',
+                  message: errMessage,
+                  type: 'any'
+                }]
+              }
+
+        reject(err);
       }).catch((err) => {
         reject(err);
       });
