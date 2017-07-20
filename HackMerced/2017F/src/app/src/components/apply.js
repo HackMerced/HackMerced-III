@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import { ApplyStep } from './partials'
 import { ApplicationLayout } from './application'
-import { update, submit } from '../actions'
+import { update, submit, updateSubmittedView } from '../actions'
+import { getErrorCount } from '../util';
 
 import '../styles/apply.scss'
 
@@ -34,7 +35,7 @@ export class ApplyComponenet extends Component {
 
   render() {
     const dispatch = this.props.dispatch;
-    const { user, applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour, applyErrors } = this.props.data;
+    const { user, submittedView, applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour, applyErrors } = this.props.data;
 
     return (
       <div className='apply'>
@@ -104,7 +105,7 @@ export class ApplyComponenet extends Component {
                 description='Some ground rules.'/>
             </div>
           </div>
-          {Object.keys(applyErrors).length ?
+          {getErrorCount(applyErrors) ?
             <div>
               <button className='apply__submit-button apply__submit-button--error' onClick={this._submitApplication.bind(this)}>Submit Application</button>
               <div className='apply__submit-notification'>There seems to be some errors in your application</div>
@@ -129,10 +130,38 @@ export class ApplyComponenet extends Component {
         <content>
           <ApplicationLayout dispatch={dispatch} submitApplication={this._submitApplication} data={this.props.data} />
         </content>
+        {
+          submittedView ? (
+            <div>
+              <div className='submitted-application__container'></div>
+              <div className='submitted-application'>
+                <div className='submitted-application__gif'></div>
+                <div className='submitted-application__content'>
+                  <h1>Yippie!</h1>
+                  <p>You have succesfully submitted your application, what would you like to do now? Remember that you can always edit your application!</p>
+                </div>
+                <div className='submitted-application__buttons'>
+                  <button onClick={this._returnToApplication.bind(this)}>Return to Application</button>
+                  <button className='button--gold'  onClick={this._goToVideo.bind(this)}>Watch some memes!</button>
+                </div>
+              </div>
+            </div>
+          ) : null
+        }
       </div>
     )
   }
+
+  _returnToApplication() {
+    this.props.dispatch(updateSubmittedView(false));
+  }
+
+  _goToVideo() {
+    window.open('https://www.youtube.com/watch?v=j20cTvQYe6s&list=PLgZby1RUaIzlN2HD9a-gnlCNZKWEsn4hl', '_target')
+  }
 }
+
+
 
 
 // Which props do we want to inject, given the global state?

@@ -10,8 +10,8 @@ export class Header extends Component{
     return (
       <nav className='header__nav--center text--center'>
         <a onClick={that._onClickHide.bind(that)} href='https://github.com/hackmerced' activeClassName='header__link--active'>Open Source</a>
-        <a onClick={that._onClickHide.bind(that)} href='https://twitter.com/hackmerced' activeClassName='header__link--active'>Facebook</a>
-        <a onClick={that._onClickHide.bind(that)} href='https://facebook.com/hackmerced' activeClassName='header__link--active'>Twitter</a>
+        <a onClick={that._onClickHide.bind(that)} href='https://facebook.com/hackmerced' activeClassName='header__link--active'>Facebook</a>
+        <a onClick={that._onClickHide.bind(that)} href='https://twitter.com/hackmerced' activeClassName='header__link--active'>Twitter</a>
       </nav>
     )
   }
@@ -47,13 +47,14 @@ export class Header extends Component{
   }
 
   render(){
+    const cullAnimation = (window.sessionStorage.reduceRefresh) ? ' header--cull-animation' : '';
 
     const { pathname } = this.props.location;
     const { mobileMenuStatus } = this.props.data;
     const location = ((pathname !== '/') ?  pathname : 'home');
 
     return (
-      <header className={'header--at-path-' + location.replace(/\//g, '')}>
+      <header className={'header--at-path-' + location.replace(/\//g, '') + cullAnimation}>
         <div className='header__logo-with-copy'>
           <Logo />
           <IndexLink className='disable-hover' to='/' activeClassName='header__link--active'>HackMerced</IndexLink>

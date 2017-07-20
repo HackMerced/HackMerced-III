@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IndexLink, Link } from 'react-router'
 import { setCurrentApplyStep } from '../../actions';
+import { getErrorCount } from '../../util';
 
 const assign = Object.assign || require('object.assign');
 
@@ -26,21 +27,9 @@ export class ApplyStep extends Component{
   }
 
 
-  _checkArrayForUndef(arr){
-    let undef = 0;
-
-    arr.forEach(data => {
-      if(data){
-        undef++;
-      }
-    });
-
-    return undef;
-  }
-
   render(){
     const { steps, name, description, currentStep, step, errors } = this.props;
-    const errCount = (this._checkArrayForUndef(errors));
+    const errCount = (getErrorCount(errors));
     const ifErr = (errCount) ? ' apply__step__value--error' : '';
 
     const stepStatus = this._getStepCompletionStatus(steps, errCount);
