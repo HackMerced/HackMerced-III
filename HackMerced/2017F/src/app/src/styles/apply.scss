@@ -91,6 +91,10 @@ sidebar{
     background-color: $primary-color-light-grey;
   }
 
+  &.apply__step__container--active {
+    background-color: $secondary-color-grey-1;
+  }
+
   &.apply__step__container--active::before{
     background-color: opacify($primary-color-gold, 0.5);
   }
@@ -112,7 +116,7 @@ sidebar{
 
 @for $i from 1 through 4 {
   .apply__step__container__bar--#{$i} {
-    top: 78px * ($i - 1);
+    top: 75px * ($i - 1);
   }
 }
 
@@ -239,6 +243,42 @@ content{
   background-color: $secondary-color-gold-1;
 }
 
+.submitted-application {
+  position: fixed;
+  background: #fff;
+  width: 600px;
+  height: 600px;
+  left: 50%;
+  top: 50%;
+  z-index: 9;
+  margin: -300px -300px;
+  box-shadow: 1px 2px 35px 1px rgba(0,0,0,.2);
+  text-align: center;
+  border-radius: 3px;
+
+  @include animation('fadein 400ms forwards');
+}
+
+.submitted-application__container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: 8;
+
+  @include animation('fadein 250ms forwards');
+}
+
+.submitted-application__gif {
+  background: url('https://media4.giphy.com/media/RDbZGZ3O0UmL6/giphy.gif');
+  width: 100%;
+  height: 50%;
+  margin: 0px;
+  background-position: 50%;
+  background-size: cover;
+}
 
 button {
   &.button--go-back,
@@ -246,6 +286,25 @@ button {
     display:none;
 
   }
+}
+
+.submitted-application__buttons {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+}
+
+.submitted-application__content {
+  padding: 40px;
+  height: 300px;
+  position: relative;
+
+  h1 {
+    margin: 0px;
+  }
+
 }
 
 @media (max-width: 600px) {
@@ -343,5 +402,29 @@ button {
       }
     }
 
+  }
+
+  .submitted-application {
+    width: 100%;
+    height: calc(100% - 50px);
+    left: 0px;
+    top: 50px;
+    overflow-y: scroll;
+    margin: 0px;
+    box-shadow: none;
+  }
+
+  .submitted-application__content {
+    height: auto;
+  }
+
+  .submitted-application__buttons {
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+
+    button:nth-child(1) {
+      margin-bottom: 20px;
+    }
   }
 }

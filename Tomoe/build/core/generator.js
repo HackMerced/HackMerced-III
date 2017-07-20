@@ -18,7 +18,7 @@ import Joi from 'joi';
 import fs from 'fs';
 
 import { Admin } from '../../src/server/src/collections';
-import { createCollections } from '../util'
+import { createCollections, moveFile } from '../util'
 import { env, Definitions } from '../templates';
 import { Config } from './config'
 
@@ -102,27 +102,31 @@ const stage = {
       });
 
       db.listDatabases((err, databaseList) => {
+        if(databaseList){
+          if(databaseList.includes(databaseName) && fs.existsSync(TOMOE_CONFIG_PATH)){
+            term('\nYou cannot re-run installation if you have already established your database, please destroy your database before re-running.'.red);
+            return;
+          } else if(databaseList.includes(databaseName)){
+            // just in case someone fails installing
+            term('Cleaning up old failed installations...\n');
 
+            db.dropDatabase(databaseName).then(
+              info => {
+                stage.next();
+              }
+            ).catch(err => {
+              term(err.stack.red)
+            })
+            return;
+          }
 
+          // no conflicts (fresh new database)
+          stage.next();
 
-        if(databaseList.includes(databaseName) && fs.existsSync(TOMOE_CONFIG_PATH)){
-          term('\nYou cannot re-run installation if you have already established your database, please destroy your database before re-running.'.red);
-          return;
-        } else if(databaseList.includes(databaseName)){
-          // just in case someone fails installing
-          console.log('Cleaning up old failed installations...\n');
-
-          db.dropDatabase(databaseName).then(
-            info => {
-              stage.next();
-            }
-          ).catch(err => {
-            term(err.stack.red)
-          })
           return;
         }
 
-        stage.next();
+        term('\nTomoe Installer cannot access your ArangoDB database...make sure your server is on and connection URI is properly setup!\n'.red);
       });
     },
     function createDatabase(){
@@ -257,8 +261,15 @@ const stage = {
       });
     },
     function(){
+      term('Saving templates...')
+      moveFile('email.template.html').then(() => {
+        stage.next();
+      }).catch((err) => {
+        term(err);
+      })
+    },
+    function(){
       term('Saving config...')
-
       storedAnswers.save().then(() => {
         stage.next();
       }).catch((err) => {

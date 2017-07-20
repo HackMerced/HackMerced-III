@@ -42,7 +42,7 @@ function checkAuth(nextState, replaceState) {
 }
 
 export class App extends Component{
-  render(){
+  render(){    
     return (
       <Provider store={store}>
         <Router history={browserHistory}>

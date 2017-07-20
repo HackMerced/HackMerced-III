@@ -108,12 +108,12 @@
 
 .home__hider {
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 57px);
   position: fixed;
-  border: 20px solid #fff;
+  border: 25px solid #fff;
   z-index: 15;
   pointer-events: none;
-  top: 60px;
+  top: 57px;
 }
 
 
@@ -229,9 +229,43 @@ p {
 }
 
 
+.home--cull-animation {
+  .home__sudo__start {
+    display: none;
+  }
+
+  .home__action__container {
+    @include animation('fadein 1500ms forwards 0s');
+  }
+
+  .home__border {
+    @include animation('fadein 500ms forwards 0s');
+  }
+
+  .quehackmerced {
+    top: 0;
+  }
+}
+
 @media (max-width: 600px) {
   h1 {
     margin-top: 40px;
+  }
+
+  .home__hider {
+    border-width: 8px;
+  }
+
+  .home-action {
+    top: 50%;
+  }
+
+  .home__border {
+    border: 4px solid $primary-color-gold;
+    height: calc(100% - 72px);
+    width: calc(100% - 16px);
+    margin: 8px;
+    top: 57px;
   }
 
   .home__faq {
