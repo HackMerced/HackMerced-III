@@ -15,6 +15,7 @@ export function createUserSession(req, response){
 export function parseError(err){
   const statusCode = err.statusCode;
   const validation = (err.validation && err.validation.errors) ? err.validation.errors : null;
+
   if(statusCode === 400){
     const boomMessage = Boom.badRequest(err.message);
 
@@ -27,6 +28,14 @@ export function parseError(err){
     return Boom.forbidden(err.message);
   } else if(statusCode === 404){
     const boomMessage = Boom.notFound(err.message);
+
+    if(validation){
+        boomMessage.output.payload.validation = validation;
+    }
+
+    return boomMessage;
+  } else if(statusCode === 401){
+    const boomMessage = Boom.unauthorized(err.message);
 
     if(validation){
         boomMessage.output.payload.validation = validation;
