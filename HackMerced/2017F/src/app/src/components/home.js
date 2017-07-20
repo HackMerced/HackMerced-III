@@ -72,11 +72,19 @@ export class Home extends Component {
                 </p>
               </article>
               <article>
+                <h3>Where will the hackathon be located?</h3>
+                <p>
+                 Like last year's hackathon, our venue will be held in UC Merced's COB1 and COB2 buildings. More details concering workshop locations, bus pickups, and a more comprehensive overview
+                 of our venue will be announced before the hackathon. 
+                </p>
+              </article>
+              <article>
                 <h3>What if I don’t know how to code?</h3>
                 <p>
                   Don't worry, many of our previous years attendees are new or beginning to code! It’s entirely irrelevant what your experience is going into a hackathon, it’s more about your interest in technology. Our event has many workshops and mentors to help you get started on creating an app!
                 </p>
               </article>
+              
               <article>
                 <h3>What if I don't have an idea?</h3>
                 <p>
