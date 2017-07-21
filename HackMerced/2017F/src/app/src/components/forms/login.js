@@ -34,6 +34,7 @@ export class LoginForm extends Component {
           emoji={this.props.data.passwordStrength}
           placeholder='Enter a password'/>
 
+<<<<<<< HEAD
 
 
       <button className='object--center button--gold'>Return to your Application</button>
@@ -42,6 +43,9 @@ export class LoginForm extends Component {
 
        
 
+=======
+        <button className='object--center button--gold'>Return to your Application</button>
+>>>>>>> refs/remotes/HackMerced/master
       </form>
     );
   }
