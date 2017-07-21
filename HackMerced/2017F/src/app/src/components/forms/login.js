@@ -42,9 +42,6 @@ export class LoginForm extends Component {
 
        
 
-
-        <button className='object--center button--gold'>Return to your Application</button>
-
       </form>
     );
   }

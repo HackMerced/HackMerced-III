@@ -80,11 +80,7 @@ export class Header extends Component{
           )
             : ''
         }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> refs/remotes/HackMerced/master
       </header>
     )
   }

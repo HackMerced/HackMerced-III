@@ -9,7 +9,7 @@ import { homeReducer } from './reducers';
 
 import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team , Forget} from './components'
 
-import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team } from './components'
+
 
 
 
