@@ -15,6 +15,7 @@ export function createUserSession(req, response){
 export function parseError(err){
   const statusCode = err.statusCode;
   const validation = (err.validation && err.validation.errors) ? err.validation.errors : null;
+
   if(statusCode === 400){
     const boomMessage = Boom.badRequest(err.message);
 
@@ -27,6 +28,14 @@ export function parseError(err){
     return Boom.forbidden(err.message);
   } else if(statusCode === 404){
     const boomMessage = Boom.notFound(err.message);
+
+    if(validation){
+        boomMessage.output.payload.validation = validation;
+    }
+
+    return boomMessage;
+  } else if(statusCode === 401){
+    const boomMessage = Boom.unauthorized(err.message);
 
     if(validation){
         boomMessage.output.payload.validation = validation;
@@ -62,8 +71,10 @@ export const hackerHandlers = {
       });
   },
   postLogin: (req, reply) => {
+    const email = req.payload.email ? req.payload.email.toLowerCase() : 'bad'
+
     axios
-      .post(TOMOE_URI + '/hackers/' + (req.payload.email || 'bad') + '/validate', { password: req.payload.password })
+      .post(TOMOE_URI + '/hackers/' + email + '/validate', { password: req.payload.password })
       .then((response) => {
         createUserSession(req, response).then((user) => {
           reply(user);
@@ -75,8 +86,26 @@ export const hackerHandlers = {
       });
   },
   postSignup: (req, reply) => {
+    req.payload.email = req.payload.email.toLowerCase();
+
     axios
       .post(TOMOE_URI + '/hackers', req.payload)
+      .then((response) => {
+        createUserSession(req, response).then((user) => {
+          reply(user);
+        }).catch((err) => {
+          reply(err);
+        });
+      }).catch((err) => {
+         reply(parseError(err.response.data));
+      });
+  },
+  postSubmit: (req, reply) => {
+    axios
+      .post(TOMOE_URI + '/hackers/' + req.auth.credentials.id, {
+        status: 'submitted',
+        details: req.payload
+      })
       .then((response) => {
         createUserSession(req, response).then((user) => {
           reply(user);

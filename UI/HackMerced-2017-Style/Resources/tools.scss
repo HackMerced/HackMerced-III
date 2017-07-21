@@ -1,4 +1,4 @@
-.pagefit--center{
+.pagefit--center {
   max-width: 1024px;
   width: 100%;
   padding: 0px 20px;
@@ -6,15 +6,19 @@
 }
 
 .object--center,
-.pagefit--center{
+.pagefit--center {
   margin: 0 auto;
   position: relative;
 }
 
-.text--center{
+.text--center {
   text-align: center;
 }
 
-.text--right{
+.text--right {
   text-align: right;
+}
+
+.text--bold{
+  font-weight: 700;
 }

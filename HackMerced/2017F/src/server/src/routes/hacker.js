@@ -48,6 +48,20 @@ export const getMe = {
     }
 };
 
+// [POST] /submit
+export const postSubmit = {
+    path: '/submit',
+    method: 'POST',
+    config: {
+      handler: hackerHandlers.postSubmit,
+      validate: hackerValidators.postSubmit,
+      auth: {
+          strategy: 'token',
+      }
+    }
+};
+
+
 // [POST] /me
 export const postMe = {
     path: '/me',
@@ -66,7 +80,8 @@ const hackerRoutes = [
   postSignup,
   postLogout,
   getMe,
-  postMe
+  postMe,
+  postSubmit
 ]
 
 export default hackerRoutes;

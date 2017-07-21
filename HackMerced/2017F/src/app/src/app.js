@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { homeReducer } from './reducers';
-import { Home, Layout, Login, Signup, Apply, NotFound } from './components'
+import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team , Forget} from './components'
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -42,16 +42,21 @@ function checkAuth(nextState, replaceState) {
 }
 
 export class App extends Component{
-  render(){
+  render(){    
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
           <Route component={Layout}>
             <Route path="/" component={Home} />
+            <Route path="/volunteer" component={Volunteer} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/team" component={Team} />
+            <Route path="/sponsor" component={Sponsor} />
             <Route onEnter={checkAuth}>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/apply" component={Apply}/>
+               <Route path="/forget" component={Forget}/>
             </Route>
             <Route path="*" component={NotFound} />
           </Route>

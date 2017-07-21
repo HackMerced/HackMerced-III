@@ -4,13 +4,12 @@ import fs from 'fs-extra';
 const SERVER_DIR = './src/server/src/templates/'
 const BUILD_DIR = './build/templates/'
 
-function moveFile(fileName){
-  if(!fs.existsSync(SERVER_DIR + fileName)){
-    fs.createReadStream(BUILD_DIR + fileName).pipe(fs.createWriteStream(SERVER_DIR + fileName));
-  }
+export function moveFile(fileName){
+  return new Promise((resolve, reject) => {
+    if(!fs.existsSync(SERVER_DIR + fileName)){
+      fs.createReadStream(BUILD_DIR + fileName).pipe(fs.createWriteStream(SERVER_DIR + fileName));
+    }
+
+    resolve();
+  })
 }
-
-
-// move email template
-
-moveFile('email.template.html');

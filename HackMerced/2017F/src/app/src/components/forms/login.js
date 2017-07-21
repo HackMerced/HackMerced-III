@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
 import { updateLoginForm, login } from '../../actions';
+import { Link } from 'react-router'
 
 const assign = Object.assign || require('object.assign');
 
@@ -31,10 +32,16 @@ export class LoginForm extends Component {
           type='password'
           label='Password'
           emoji={this.props.data.passwordStrength}
-          helper='Passwords must be at least 6 characters long'
           placeholder='Enter a password'/>
 
-        <button style={{ marginTop: '30px' }} className='object--center button--gold'>Return to your Application</button>
+
+
+      <button className='object--center button--gold'>Return to your Application</button>
+        
+       <Link className='disable-hover' href='/forget'><button className='button--gold'>Forgot Password?</button></Link>
+
+       
+
       </form>
     );
   }

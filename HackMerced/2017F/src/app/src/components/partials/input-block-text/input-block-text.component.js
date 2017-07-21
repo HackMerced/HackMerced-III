@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { InputOptions } from '../'
+import { InputOptions, InputFileUpload } from '../'
 
 export class TextInputBlock extends Component{
   constructor(props){
@@ -39,7 +39,10 @@ export class TextInputBlock extends Component{
                       options={this.props.options}
                       current={this.props.value}
                       optionsType={this.props.optionsType}
-                      name={this.props.name}/>)
+                      name={this.props.name}/>),
+      'fileupload' : ( <InputFileUpload
+                          updateRelativeInput={this._updateRelativeInput.bind(this)}
+                          name={this.props.name}/>)
     }
 
     const { labelType = 'small', type = 'text' } = this.props;

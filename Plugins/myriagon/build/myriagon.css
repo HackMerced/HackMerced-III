@@ -1,0 +1,45 @@
+.myr-container{
+  background-color: #fff;
+  position: absolute !important;
+  z-index: 1000;
+  border-radius: 2px;
+  border-top: 1px solid #d9d9d9;
+  font-family: Arial,sans-serif;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  border: 0px;
+  margin-top: 17px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+
+  min-width: 400px;
+}
+
+
+.myr-item{
+  cursor: default;
+  padding: 0 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 30px;
+  text-align: left;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin: 15px 0px;
+  border: 0px;
+  font-size: 15px;
+  color: #000;
+}
+
+.myr-item:hover{
+  background: #F5F5F5;
+}
+
+.myr-matched{
+  font-weight: 500;
+  background: #F8E81C;
+}

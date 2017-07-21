@@ -48,7 +48,7 @@ export class SignupForm extends Component {
           label='Confirm'
           placeholder='Re-enter your password'/>
 
-        <button style={{ marginTop: '30px' }} className='object--center button--gold'>Start your application</button>
+        <button className='object--center button--gold'>Start your application</button>
       </form>
     );
   }

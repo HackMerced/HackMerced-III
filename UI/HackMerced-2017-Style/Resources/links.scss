@@ -12,6 +12,7 @@
 
 a {
   text-decoration: none;
+  cursor: pointer;
   color: $primary-color-blue;
   position: relative;
 }
@@ -19,11 +20,20 @@ a {
 a:not(.disable-hover){
   &::before{
     content: "";
-    transition: 500ms width ease-in-out;
+    transition: 500ms all ease-in-out;
     width: 0%;
   }
 
   &:hover::before{
     @include link--active;
   }
+}
+
+a.link--underlined{
+
+  &::before{
+    @include link--active;
+    background: $primary-color-light-grey;
+  }
+
 }

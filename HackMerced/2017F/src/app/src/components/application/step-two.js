@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
+import { notMercedOptions } from '../../constants';
+
 import { setCurrentApplyStep } from '../../actions';
 
 
 export class StepTwo extends Component {
   render() {
     const { general_location, city_of_residence, pay_20_for_bus } = this.props.data;
-    const notMercedOptions = [
-      'I do not live in Merced and I require a reimbursment to visit',
-      'I do not live in Merced and I require a partial reimbursment to visit',
-      'I do not live in Merced and I do not require a reimbursment to visit',
-    ]
+
 
     return (
       <div id='applyForm-2'>
         <TextInputBlock
           value={general_location}
+          error={this.props.errors.general_location}
           label='Where do you live?'
           labelType='large'
           name='general_location'
@@ -29,6 +28,7 @@ export class StepTwo extends Component {
           (<div>
             <TextInputBlock
               value={city_of_residence}
+              error={this.props.errors.city_of_residence}
               name='city_of_residence'
               type='text'
               label='What city would you start from if you were coming to HackMerced?'
@@ -37,6 +37,7 @@ export class StepTwo extends Component {
               autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
             <TextInputBlock
               value={pay_20_for_bus}
+              error={this.props.errors.pay_20_for_bus}
               label='Would you pay $10-$20 for a round-trip bus to Merced?'
               labelType='large'
               name='pay_20_for_bus'
@@ -51,6 +52,8 @@ export class StepTwo extends Component {
           ''
         }
         <button onClick={this._goToNextStep.bind(this)}>Continue</button>
+        <button className='button--go-back' onClick={this._goToPrevStep.bind(this)}>Go Back</button>
+
       </div>
 
     );
@@ -60,6 +63,10 @@ export class StepTwo extends Component {
   _goToNextStep(e){
     e.preventDefault()
     this.props.dispatch(setCurrentApplyStep(3));
+  }
 
+  _goToPrevStep(e){
+    e.preventDefault()
+    this.props.dispatch(setCurrentApplyStep(1));
   }
 }

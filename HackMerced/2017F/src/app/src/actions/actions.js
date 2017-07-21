@@ -23,34 +23,46 @@
  *    created in the second step
  */
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS } from '../constants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW } from '../constants';
 import { auth } from '../util';
 import { browserHistory } from 'react-router';
-
+import { notMercedOptions } from '../constants'
 
 function mapUserDetailsToApplication(dispatch, details){
-  dispatch(updateApplyStepOne({
+  let stepOne = {
     age: details.age,
     status: details.status,
-    university: details.university,
-    expected_graduation: details.expected_graduation,
-    high_school: details.high_school,
     shirt_size: details.shirt_size
-  }))
+  }
 
-  dispatch(updateApplyStepTwo({
+  if(['Undergraduate University Student','Graduate University Student'].includes(details.status)){
+    stepOne.university = details.university;
+    stepOne.expected_graduation = details.expected_graduation;
+  } else if(['High School Student'].includes(status)){
+    stepOne.high_school = details.high_school;
+  }
+
+  dispatch(updateApplyStepOne(stepOne))
+
+  let stepTwo = {
     general_location: details.general_location,
-    city_of_residence: details.city_of_residence,
-    pay_20_for_bus: details.pay_20_for_bus,
-  }))
+
+  }
+  if(notMercedOptions.includes(details.general_location)){
+    stepTwo.city_of_residence = details.city_of_residence;
+    stepTwo.pay_20_for_bus = details.pay_20_for_bus;
+  }
+
+  dispatch(updateApplyStepTwo(stepTwo));
 
   dispatch(updateApplyStepThree({
     resume: details.resume,
     experience: details.experience,
-    linkedin: details.linkedin,
-    github: details.github,
+    linkedin: details.linkedin || null,
+    github: details.github || null,
+    devpost: details.devpost || null,
     dietary_restrictions: details.dietary_restrictions,
-    allergies: details.allergies,
+    allergies: details.allergies || null,
   }))
 
   dispatch(updateApplyStepFour({
@@ -90,6 +102,46 @@ export function update(details) {
   }
 }
 
+
+export function submit(details) {
+  return (dispatch) => {
+    dispatch(updateUserUpdatingStatus(true));
+    auth.submitApplication(details).then((user) => {
+      dispatch(updateUserData({
+        name: user.name,
+        email: user.email,
+        status: user.status,
+        details: user.details
+      }));
+      dispatch(updateSubmittedView(true));
+
+      dispatch(updateApplyErrors([]));
+      setTimeout(() => {
+        dispatch(updateUserUpdatingStatus(false));
+      }, 500)
+    }).catch(err => {
+      let errorSet = {};
+      if(err.validation && err.validation.errors){
+        err.validation.errors.forEach((error) => {
+          if(['github', 'linkedin', 'devpost'].includes(error.key)){
+            error.message = 'Please properly format your profile link (provide the whole url)'
+          }
+          if(error.key === 'mlh'){
+            error.message = 'Your application will be rejected if you do not accept our code of conduct!'
+          }
+
+          error.message = error.message.replace(/_/g, ' ');
+
+          errorSet[error.key] = error.message;
+        })
+      }
+
+      dispatch(updateApplyErrors(errorSet));
+      dispatch(updateUserUpdatingStatus(false));
+    });
+  }
+}
+
 export function login(user) {
   return (dispatch) => {
 
@@ -100,9 +152,11 @@ export function login(user) {
         email: "",
         password: "",
       }));
+      dispatch(updateLoginErrors([]));
 
       forwardTo('/apply');
     }).catch(err => {
+
       let errorSet = {};
       if(err.validation){
         err.validation.forEach((error) => {
@@ -152,6 +206,8 @@ export function signup(user) {
          password: "",
          passwordStrength: ""
        }));
+
+       dispatch(updateSignupErrors([]));
 
        forwardTo('/apply');
      }).catch(err => {
@@ -219,6 +275,11 @@ export function updateSignupErrors(newState) {
   return { type: UPDATE_SIGNUP_ERRORS, newState };
 }
 
+export function updateApplyErrors(newState) {
+  return { type: UPDATE_APPLY_ERRORS, newState };
+}
+
+
 export function updateLoginForm(newState) {
   return { type: UPDATE_LOGIN_FORM, newState };
 }
@@ -246,6 +307,14 @@ export function updateApplyStepFour(newState) {
 
 export function updateUserUpdatingStatus(newState) {
   return { type: UPDATE_USER_UPDATING_STATUS, newState };
+}
+
+export function updateMobileMenuStatus(newState) {
+  return { type: UPDATE_MOBILE_MENU_STATUS, newState };
+}
+
+export function updateSubmittedView(newState) {
+  return { type: UPDATE_SUBMITTED_VIEW, newState };
 }
 
 

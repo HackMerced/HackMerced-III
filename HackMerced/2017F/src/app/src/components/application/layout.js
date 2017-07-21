@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateApplyStep, update } from '../../actions';
+import { updateApplyStep, update, updateApplyErrors } from '../../actions';
 import { StepOne, StepTwo, StepThree, StepFour } from './';
+import { notMercedOptions } from '../../constants';
 
 const assign = Object.assign || require('object.assign');
 let timeChecker;
@@ -27,7 +28,7 @@ export class ApplicationLayout extends Component {
   }
 
   _mapContent(data, req){
-    const { applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour } = data;
+    const { applyStep, applyStepOne, applyStepTwo, applyStepThree, applyStepFour, applyErrors } = data;
 
     const applyDataMap = [
       {
@@ -36,6 +37,7 @@ export class ApplicationLayout extends Component {
         data: applyStepOne,
         ui: (<StepOne
               data={applyStepOne}
+              errors={applyErrors}
               dispatch={this.props.dispatch}
               onChange={this._onChange.bind(this)} />),
       },
@@ -45,6 +47,7 @@ export class ApplicationLayout extends Component {
         data: applyStepTwo,
         ui: (<StepTwo
                 data={applyStepTwo}
+                errors={applyErrors}
                 onChange={this._onChange.bind(this)}
                 dispatch={this.props.dispatch}
               />),
@@ -55,6 +58,7 @@ export class ApplicationLayout extends Component {
         data: applyStepThree,
         ui: (<StepThree
                 data={applyStepThree}
+                errors={applyErrors}
                 onChange={this._onChange.bind(this)}
                 dispatch={this.props.dispatch}
               />),
@@ -65,7 +69,11 @@ export class ApplicationLayout extends Component {
         data: applyStepFour,
         ui: (<StepFour
                 data={applyStepFour}
+                errors={applyErrors}
+                dispatch={this.props.dispatch}
                 onChange={this._onChange.bind(this)}
+                data={this.props.data}
+                submitApplication={this.props.submitApplication}
                 />),
       },
     ]
@@ -75,12 +83,52 @@ export class ApplicationLayout extends Component {
 
   _onChange(event){
     const { data } = this.props;
+    const { name, value } = event.target;
+    let newState = {};
+    let newErrorState = {}
 
-    let newState = this._mergeWithCurrentState(data, {
-      [event.target.name]: event.target.value
+    newErrorState = assign(data.applyErrors, {
+       [ name ]: undefined
+    }),
+
+    this.props.dispatch(updateApplyErrors(newErrorState));
+
+
+
+    if( name === 'general_location' ){
+      const isNotMerced = notMercedOptions.includes(value);
+      newState = this._mergeWithCurrentState(data, {
+        [ name ]: value,
+        city_of_residence: isNotMerced  ? '' : null,
+        pay_20_for_bus: isNotMerced ? '' : null,
+      });
+
+      this._emitChange(data, newState);
+      return;
+    }
+
+    if( name === 'status' ){
+      const isCollege = ['Undergraduate University Student','Graduate University Student'].includes(value)
+      const isHighSchool = ['High School Student'].includes(value)
+
+      newState = this._mergeWithCurrentState(data, {
+        [ name ]: value,
+        university: isCollege  ? '' : null,
+        expected_graduation: isCollege  ? '' : null,
+        high_school: isHighSchool ? '' : null,
+      });
+
+
+      this._emitChange(data, newState);
+      return;
+    }
+
+    newState = this._mergeWithCurrentState(data, {
+      [ name ]: ( ['github', 'allergies', 'linkedin', 'devpost'].includes(name) ? ( value || null ) : value)
     });
 
     this._emitChange(data, newState);
+    return;
   }
 
   // Merges the current state with a change

@@ -14,6 +14,7 @@
   button{
     font-family: inherit;
     min-width: auto;
+    font-size: $font-size-default;
   }
 }
 
@@ -28,7 +29,7 @@ sidebar{
 .apply__sidebar__header{
   background: $primary-color-gold;
   padding: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .apply__status {
@@ -42,10 +43,21 @@ sidebar{
 
 .apply__status__value{
   text-transform: capitalize;
-  background-color: $secondary-color-grey-1;
-  display: inline;
-  padding: 2px 10px;
+  margin: 14px 0px 0px;
   border-radius: 3px;
+  font-weight: 300;
+}
+
+.apply__submit-button{
+  font-size: $font-size-default;
+  padding: 0px 20px;
+  line-height: 20px;
+  margin: 20px;
+  width: calc(100% - 40px);
+
+  &:hover {
+    color: $primary-color-dark-grey;
+  }
 }
 
 .apply__status__info {
@@ -53,6 +65,17 @@ sidebar{
   color: $primary-color-light-grey;
 }
 
+@mixin appStatusBar{
+  width: 3px;
+  height: 100%;
+  left: 5px;
+  position: absolute;
+  top:0px;
+}
+
+.apply__status__steps{
+  position: relative;
+}
 
 .apply__step__container{
   display: flex;
@@ -62,26 +85,43 @@ sidebar{
 
 
   &::before{
+    @include appStatusBar;
+
     content: '';
-    width: 3px;
-    height: 100%;
-    left: 5px;
-    position: absolute;
-    top:0px;
     background-color: $primary-color-light-grey;
   }
 
+  &.apply__step__container--active {
+    background-color: $secondary-color-grey-1;
+  }
+
   &.apply__step__container--active::before{
-    background-color: $primary-color-gold;
+    background-color: opacify($primary-color-gold, 0.5);
   }
 
   &:hover:not(.apply__step__container--active)::before{
-    background-color: $secondary-color-yellow-1;
+    background-color: opacify($primary-color-gold, 0.5);
   }
 
 }
 
-.apply__step__value{
+.apply__step__container__bar{
+  @include appStatusBar;
+
+  background-color: $primary-color-gold;
+  transition: top 500ms ease-in;
+  z-index: 9;
+  height: 78px;
+}
+
+@for $i from 1 through 4 {
+  .apply__step__container__bar--#{$i} {
+    top: 75px * ($i - 1);
+  }
+}
+
+
+.apply__step__value {
   width: 36px;
   height: 36px;
   position: relative;
@@ -89,7 +129,7 @@ sidebar{
   border-radius: 50%;
   text-align: center;
   line-height: 32px;
-  font-size: $font-size-small;
+  font-size: $font-size-tiny;
 
   &::after,
   &::before {
@@ -98,7 +138,7 @@ sidebar{
     width: 36px;
     height: 36px;
     border-radius: 100%;
-    border-color: #ffd344;
+    border-color:$primary-color-gold;
     border-style: solid;
     left: -2px;
     top: -2px;
@@ -109,10 +149,15 @@ sidebar{
   }
 
   &::after{
-    border-color: $primary-color-gold;
     position: absolute;
     transform: rotate(180deg);
+  }
+}
 
+.apply__step__value--error {
+  &::after,
+  &::before {
+    border-color: $alert-color;
   }
 }
 
@@ -180,4 +225,211 @@ content{
   display: block;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+.apply__submit-button--error {
+  background-color: $alert-color;
+  color: #fff;
+}
+
+.apply__submit-notification{
+  box-sizing: border-box;
+  font-size: 13px;
+  text-align: center;
+  padding: 0px 25px;
+}
+
+.apply__submit-button--submitted{
+  background-color: $secondary-color-gold-1;
+}
+
+.submitted-application {
+  position: fixed;
+  background: #fff;
+  width: 600px;
+  height: 600px;
+  left: 50%;
+  top: 50%;
+  z-index: 9;
+  margin: -300px -300px;
+  box-shadow: 1px 2px 35px 1px rgba(0,0,0,.2);
+  text-align: center;
+  border-radius: 3px;
+
+  @include animation('fadein 400ms forwards');
+}
+
+.submitted-application__container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: 8;
+
+  @include animation('fadein 250ms forwards');
+}
+
+.submitted-application__gif {
+  background: url('https://media4.giphy.com/media/RDbZGZ3O0UmL6/giphy.gif');
+  width: 100%;
+  height: 50%;
+  margin: 0px;
+  background-position: 50%;
+  background-size: cover;
+}
+
+button {
+  &.button--go-back,
+  &.button--submit-application-in-text{
+    display:none;
+
+  }
+}
+
+.submitted-application__buttons {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+}
+
+.submitted-application__content {
+  padding: 40px;
+  height: 300px;
+  position: relative;
+
+  h1 {
+    margin: 0px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  content {
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  sidebar {
+    left: 0px;
+    position: fixed;
+    background: #fff;
+    z-index: 9;
+    height: 60px;
+    height: 100px;
+    bottom: 0px;
+    width: 100%;
+
+    .apply__sidebar__header {
+      display: none;
+    }
+
+    .apply__status {
+      display: flex;
+      background-color: #ffd344;
+      font-size: 13px;
+      justify-content: space-between;
+      padding: 5px 20px;
+
+      > * {
+        margin: 0px;
+      }
+    }
+
+    .apply__status__steps__container {
+      h4 {
+        display: none;
+      }
+
+    }
+
+    .apply__step__container__bar {
+      display: none;
+    }
+
+    .apply__status__steps {
+      display: flex;
+    }
+
+    .apply__step__container {
+      width: 25%;
+      display: block;
+      padding: 5px 0px 9px;
+
+      &::before{
+        height: 3px;
+        left: 0px;
+        width: 100%;
+        bottom: 0px;
+        top: auto;
+      }
+    }
+
+    .apply__step__content {
+      font-weight: 400;
+      text-align: center;
+      font-size: 11px;
+      margin: 0px;
+    }
+
+    .apply__step__value {
+      margin: 5px auto 2px;
+    }
+
+    .apply__step__description {
+      display: none;
+    }
+
+  }
+
+  .application {
+    margin-bottom: 130px;
+
+    .input-block{
+      margin: 0px;
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+
+      &.button--go-back,
+      &.button--submit-application-in-text{
+        display: block;
+        margin-top: 20px;
+        padding: 0px;
+      }
+    }
+
+  }
+
+  .submitted-application {
+    width: 100%;
+    height: calc(100% - 50px);
+    left: 0px;
+    top: 50px;
+    overflow-y: scroll;
+    margin: 0px;
+    box-shadow: none;
+  }
+
+  .submitted-application__content {
+    height: auto;
+  }
+
+  .submitted-application__buttons {
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+
+    button:nth-child(1) {
+      margin-bottom: 20px;
+    }
+  }
+
+
+
 }

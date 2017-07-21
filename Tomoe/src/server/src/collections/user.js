@@ -8,7 +8,7 @@ export class User{
     // user information
     this.id = data.id || uuidv4();
     this.name = data.name || null;
-    this.email = data.email || null;
+    this.email = (data.email) ? data.email.toLowerCase() : null;
     this.password = null;
     this.tempPassword = data.tempPassword || null;
   }
@@ -79,7 +79,7 @@ export class User{
  }
 
   setEmail(email){
-    this.email = email;
+    this.email = (email) ? email.toLowerCase() : null;
   }
 
   setName(name){
@@ -140,6 +140,7 @@ export class User{
         return;
       }
 
+      userData.email = (userData.email) ? userData.email.toLowerCase() : null;
 
       const searchBy = (userData.id) ? 'id' : 'email';
       let query = `FOR user IN @@collection ` +
@@ -180,6 +181,7 @@ export class User{
               return;
             }
 
+            const errMessage = `A user with this ${searchBy} does not exist!`
             const err = Boom.notFound(errMessage);
                   err.output.payload.validation = {
                     errors: [{
@@ -219,7 +221,18 @@ export class User{
           return;
         }
 
-        reject(Boom.unauthorized('Your email or password is incorrect!'));
+        const errMessage = `Your email or password is incorrect!`;
+        const err = Boom.unauthorized(errMessage);
+              err.output.payload.validation = {
+                errors: [{
+                  key: 'email',
+                  constraint: 'email',
+                  message: errMessage,
+                  type: 'any'
+                }]
+              }
+
+        reject(err);
       }).catch((err) => {
         reject(err);
       });

@@ -12,7 +12,7 @@ export class LoginComponent extends Component {
 		const { loginForm, loginErrors } = this.props.data;
 
     return (
-      <div className='signup w420 text--center object--center'>
+      <div className='authorization-object signup w420 text--center object--center'>
         <LogoWithCopy/>
         <LoginForm data={loginForm} errors={loginErrors} dispatch={dispatch}/>
       </div>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const BASE_URI = (process.env.NODE_ENV === 'development') ? 'http://localhost:1954' : '';
 
 export const auth = {
   saveUser(response, resolve) {
@@ -22,7 +23,7 @@ export const auth = {
           headers.append('Content-Type', 'application/json');
           headers.append('Accept', 'application/json');
 
-      axios.post('http://localhost:1954/login', user)
+      axios.post(BASE_URI + '/login', user)
       .then((response) => {
         auth.saveUser(response, resolve);
       })
@@ -35,7 +36,7 @@ export const auth = {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
-        url: 'http://localhost:1954/me',
+        url: BASE_URI + '/me',
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         }
@@ -56,7 +57,7 @@ export const auth = {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
-        url: 'http://localhost:1954/me',
+        url: BASE_URI + '/me',
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         },
@@ -74,13 +75,32 @@ export const auth = {
       });
     })
   },
+  submitApplication(details) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: BASE_URI + '/submit',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+        data: details,
+      })
+      .then((response) => {
+        const user = response.data.results;
+        resolve(user);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+    })
+  },
   logout(callback) {
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
           headers.append('Content-Type', 'application/json');
 
-      axios.post('http://localhost:1954/logout')
+      axios.post(BASE_URI + '/logout')
       .then((response) => {
         localStorage.removeItem('token');
         resolve();
@@ -106,7 +126,7 @@ export const auth = {
           headers.append('Content-Type', 'application/json');
           headers.append('Accept', 'application/json');
 
-      axios.post('http://localhost:1954/signup', user)
+      axios.post(BASE_URI + '/signup', user)
       .then((response) => {
         auth.saveUser(response, resolve);
       })
