@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateLoginForm, login } from '../../actions';
+import { updateForgotPasswordForm} from '../../actions';
 
 const assign = Object.assign || require('object.assign');
 
@@ -46,13 +46,13 @@ export class ForgetForm extends Component {
 
   // Emits a change of the form state to the application state
   _emitChange(newState) {
-    this.props.dispatch(updateLoginForm(newState));
+    this.props.dispatch(updateForgotPasswordForm(newState));
   }
 
   _onSubmit(event){
     event.preventDefault();
 
-    this.props.dispatch(login({
+    this.props.dispatch(updateForgotPasswordForm({
       email: this.props.data.email,
    
     }))

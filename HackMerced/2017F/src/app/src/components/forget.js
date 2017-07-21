@@ -9,12 +9,12 @@ export class ForgetComponent extends Component {
 
   render() {
     const dispatch = this.props.dispatch;
-    const { loginForm, loginErrors } = this.props.data;
+    const { forgotPasswordForm, loginErrors } = this.props.data;
 
     return (
       <div className='authorization-object signup w420 text--center object--center'>
         <LogoWithCopy/>
-        <ForgetForm data={loginForm} errors={loginErrors} dispatch={dispatch}/>
+        <ForgetForm data={forgotPasswordForm} errors={loginErrors} dispatch={dispatch}/>
       </div>
     )
   }
