@@ -8,7 +8,6 @@ export * from './team'
 export * from './sponsor'
 export * from './volunteer'
 export * from './contact'
-<<<<<<< HEAD
+
 export * from './forget'
-=======
->>>>>>> refs/remotes/HackMerced/master
+

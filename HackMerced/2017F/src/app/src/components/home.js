@@ -32,13 +32,12 @@ export class Home extends Component {
             <div className='home-action w400 object--center text--center'>
               <LogoWithCopy/>
               <h1 className='home-action__event-description'>36 hours of a<br></br>hacking’ good time</h1>
-<<<<<<< HEAD
 
               <Link className='disable-hover' href='/signup'><button className='button--gold'>Apply Now</button></Link>
               
-=======
+
               <Link className='disable-hover' href='/signup'><button className='button--gold'>Apply Now</button></Link>
->>>>>>> refs/remotes/HackMerced/master
+
               <div className='home__learn-more'>Scroll to learn more</div>
             </div>
           </div>

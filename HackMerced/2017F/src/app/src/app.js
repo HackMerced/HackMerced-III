@@ -6,11 +6,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { homeReducer } from './reducers';
-<<<<<<< HEAD
+
 import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team , Forget} from './components'
-=======
+
 import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team } from './components'
->>>>>>> refs/remotes/HackMerced/master
+
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
