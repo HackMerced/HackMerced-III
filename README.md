@@ -25,4 +25,7 @@ The following is a list of "distributables" that originate from this package:
 ## Creating your environment
 While HackMerced utilizes a mono-repository it is not required that you set up every environment for developing on HackMerced. Please use the following guides to set up what you want to build with HackMerced:
 
-* [Working on HackMerced 2017 Fall](https://github.com/HackMerced/HackMerced/wiki/Creating-an-instance-of-HackMerced)
+* [Working on the HackMerced 2017 Fall Website](https://github.com/HackMerced/HackMerced/wiki/Creating-an-instance-of-HackMerced)
+
+## Quality Assurance and Testing
+HackMerced is trying to get better at this!
