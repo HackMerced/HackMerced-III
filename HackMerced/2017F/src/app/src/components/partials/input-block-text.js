@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { InputOptions, InputFileUpload } from '../'
+import { InputOptions, InputFileUpload } from './'
 
 export class TextInputBlock extends Component{
   constructor(props){

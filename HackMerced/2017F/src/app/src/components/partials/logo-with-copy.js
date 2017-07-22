@@ -1,7 +1,6 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
-import { Logo } from '../logo'
-import './logo-with-copy.scss'
+import { Logo } from './logo'
 
 export const LogoWithCopy = (props) => {
   return (

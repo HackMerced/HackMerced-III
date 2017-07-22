@@ -48,7 +48,8 @@ const config = {
     new webpack.DefinePlugin(Object.assign({
       'process.env': {
         NODE_ENV: JSON.stringify(project.env),
-        FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY)
+        FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY),
+        GOOGLE_MAPS_API_KEY: JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)
       },
       __DEV__,
       __TEST__,
