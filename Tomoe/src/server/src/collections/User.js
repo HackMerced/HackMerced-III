@@ -114,7 +114,7 @@ export class User{
 
       db.query(query, binds ).then((cursor) => {
         if(!cursor){
-          reject(Boom.badImplementation('Something went wrong...'))
+          reject(Boom.serverUnavailable('ERROR 1: Cursor could not be passed through.'));
           return;
         }
 
@@ -123,10 +123,10 @@ export class User{
              return this._get(user, protectSenstiveData);
            }));
         }).catch((err) => {
-          reject(Boom.badImplementation(err));
+          reject(Boom.badImplementation('ERROR 2: ' + err.stack));
         });
       }).catch((err) => {
-        reject(Boom.badImplementation(err));
+        reject(Boom.badImplementation('ERROR 3: ' + err.stack));
       });
     });
   }
@@ -136,7 +136,7 @@ export class User{
       const collection = this.getCollection();
 
       if(!userData || (userData && !userData.email && !userData.id)){
-        reject(Boom.badRequest('You did not provide an id or email'));
+        reject(Boom.badRequest('id or email is required'));
         return;
       }
 
@@ -150,13 +150,13 @@ export class User{
 
       db.query(query, { '@collection': collection.name, searchBy: userData[searchBy] } ).then((cursor) => {
         if(!cursor){
-          reject(Boom.badImplementation('Something went wrong...'))
+          reject(Boom.serverUnavailable('ERROR 4: Cursor could not be passed through.'))
           return;
         }
          cursor.all().then((users) => {
             if(users && users[0] && users[0].email){
               if(doNotFind) {
-                const errMessage = `A user exists with this ${searchBy}!`
+                const errMessage = `user exists with the provided ${searchBy}`
                 const err = Boom.badRequest(errMessage);
                       err.output.payload.validation = {
                         errors: [{
@@ -181,7 +181,7 @@ export class User{
               return;
             }
 
-            const errMessage = `A user with this ${searchBy} does not exist!`
+            const errMessage = `no user exists with provided ${searchBy}`
             const err = Boom.notFound(errMessage);
                   err.output.payload.validation = {
                     errors: [{
@@ -194,10 +194,10 @@ export class User{
 
             reject(err);
           }).catch((err) => {
-            reject(Boom.badImplementation(err));
+            reject(Boom.badImplementation('ERROR 5: ' + err.stack));
           });
       }).catch((err) => {
-        reject(Boom.badImplementation(err));
+        reject(Boom.badImplementation('ERROR 6: ' + err.stack));
       });
     });
   }
@@ -221,12 +221,12 @@ export class User{
           return;
         }
 
-        const errMessage = `Your email or password is incorrect!`;
+        const errMessage = `password is incorrect`;
         const err = Boom.unauthorized(errMessage);
               err.output.payload.validation = {
                 errors: [{
-                  key: 'email',
-                  constraint: 'email',
+                  key: 'password',
+                  constraint: 'password',
                   message: errMessage,
                   type: 'any'
                 }]
@@ -288,9 +288,9 @@ export class User{
               return;
             }
 
-            reject(Boom.badImplementation('There was an issue creating your user!'));
+            reject(Boom.badImplementation('Error 7: There was an issue creating your user!'));
           }).catch((err) => {
-            reject(Boom.badImplementation(err));
+            reject(Boom.badImplementation('Error 8: ' + err.stack));
           });
 
           return;
@@ -312,11 +312,11 @@ export class User{
                resolve(user);
                return;
           }).catch((err) => {
-            reject(Boom.badImplementation(err));
+            reject(Boom.badImplementation('Error 9: ' + err.stack));
             return;
           });
         }).catch((err) => {
-          reject(Boom.badImplementation(err));
+          reject(Boom.badImplementation('Error 10: ' + err.stack));
         });
       }).catch((err) => {
         reject(err);
@@ -326,8 +326,8 @@ export class User{
 
   remove(){
     return new Promise((resolve, reject) => {
-      this.constructor.remove({ email: this.email}).then((user) => {
-        resolve(user);
+      this.constructor.remove({ email: this.email}).then(() => {
+        resolve();
       }).catch(err => {
         reject(err);
       })
@@ -336,12 +336,12 @@ export class User{
 
   static remove(param){
     return new Promise((resolve, reject) => {
-      this.find(param).then((user) => {
+      this.find(param, false, false).then((user) => {
         this.getCollection().removeByKeys([user._key]).then(() => {
             resolve();
             return;
         }).catch((err) => {
-          reject(Boom.badImplementation(err));
+          reject(Boom.badImplementation('Error 11: ' + err.stack));
           return;
         });
       }).catch((err) => {

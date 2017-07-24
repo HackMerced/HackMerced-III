@@ -62,16 +62,7 @@ export class ApplyComponenet extends Component {
                 step={1}
                 currentStep={applyStep}
                 name='About You'
-                errors={
-                  [
-                    applyErrors.age,
-                    applyErrors.status,
-                    applyErrors.university,
-                    applyErrors.expected_graduation,
-                    applyErrors.high_school,
-                    applyErrors.shirt_size
-                  ]
-                }
+                errors={applyErrors}
                 description='Basic Demographic Information'/>
               <ApplyStep
                 dispatch={dispatch}
@@ -79,9 +70,7 @@ export class ApplyComponenet extends Component {
                 step={2}
                 currentStep={applyStep}
                 name='Travel'
-                errors={
-                  [  applyErrors.general_location,  applyErrors.city_of_residence,  applyErrors.pay_20_for_bus ]
-                }
+                errors={applyErrors}
                 description='Reimbursements and Transport'/>
               <ApplyStep
                 dispatch={dispatch}
@@ -89,23 +78,19 @@ export class ApplyComponenet extends Component {
                 step={3}
                 currentStep={applyStep}
                 name='More You'
-                errors={
-                  [ applyErrors.resume,  applyErrors.experience,  applyErrors.linkedin,  applyErrors.github,  applyErrors.devpost,  applyErrors.dietary_restrictions, applyErrors.allergies ]
-                }
+                errors={applyErrors}
                 description='Resumes, questions, and more'/>
               <ApplyStep
                 dispatch={dispatch}
                 steps={applyStepFour}
-                errors={
-                  [ applyErrors.mlh ]
-                }
+                errors={applyErrors}
                 step={4}
                 currentStep={applyStep}
                 name='Legal'
                 description='Some ground rules.'/>
             </div>
           </div>
-          {getErrorCount(applyErrors) ?
+          { getErrorCount(applyErrors) ?
             <div>
               <button className='apply__submit-button apply__submit-button--error' onClick={this._submitApplication.bind(this)}>Submit Application</button>
               <div className='apply__submit-notification'>There seems to be some errors in your application</div>

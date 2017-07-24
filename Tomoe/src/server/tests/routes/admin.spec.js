@@ -1,6 +1,8 @@
 import Chai from 'chai';
-import { assert } from 'chai';
 import ChaiHttp from 'chai-http';
+import { assert } from 'chai';
+
+import { aql } from 'arangojs';
 
 import { server } from '../../src/server';
 import { Admin } from '../../src/collections';
@@ -35,7 +37,7 @@ describe('route: admin', () => {
     });
   });
 
-  describe('/GET admins', () => {
+  describe('GET /admins', () => {
     it('it should GET all admins', (done) => {
       mockServer
           .get('/admins')
@@ -73,7 +75,7 @@ describe('route: admin', () => {
     });
   });
 
-  describe('/GET admins/{user}', () => {
+  describe('GET /admins/{user}', () => {
     it('it should GET a admin from an email', (done) => {
       mockServer
           .get('/admins/' + sampleAdminData.email)
@@ -99,7 +101,7 @@ describe('route: admin', () => {
     });
 
 
-    it('it return GET a 404 if user is not found', (done) => {
+    it('it return GET a 404 if admin is not found', (done) => {
       mockServer
           .get('/admins/' + 'blah@gmail.com')
           .end((err, res) => {
@@ -109,10 +111,8 @@ describe('route: admin', () => {
     });
   });
 
-  describe('/POST admins', () => {
-
-
-    it('it should not make a admin with no email', (done) => {
+  describe('POST /admins', () => {
+    it('it should not make a admin when an email is not provided', (done) => {
       delete sampleAdminData.email;
 
       mockServer
@@ -121,12 +121,12 @@ describe('route: admin', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not provide an email!');
+            assert.equal('email is required', res.body.message);
             done();
           });
     });
 
-    it('it should not make a admin with no password', (done) => {
+    it('it should not make a admin when a password is not provided', (done) => {
       delete sampleAdminData.password;
 
       mockServer
@@ -135,12 +135,12 @@ describe('route: admin', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not provide a password!');
+            assert.equal('password is required, confirmPassword and password must match', res.body.message);
             done();
           });
     });
 
-    it('it should not make a admin with no confirmed password', (done) => {
+    it('it should not make a admin when a confirmed password is not provided', (done) => {
       delete sampleAdminData.confirmPassword;
 
       mockServer
@@ -149,7 +149,7 @@ describe('route: admin', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not confirm your password!');
+            assert.equal('confirmPassword is required', res.body.message);
             done();
           });
     });
@@ -163,7 +163,7 @@ describe('route: admin', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'Your passwords do not match!');
+            assert.equal('confirmPassword and password must match', res.body.message);
             done();
           });
     });
@@ -177,12 +177,15 @@ describe('route: admin', () => {
             res.body.results.should.be.a('object');
             assert.equal(res.body.results.name, sampleAdminData2.name);
 
-            db.collection('admin').lookupByKeys([res.body.results._key]).then((user) => {
-
-              assert.equal(res.body.results.password, user[0].password);
-              assert.equal(res.body.results.email, user[0].email);
-              assert.equal(res.body.results.name, user[0].name);
-              done();
+            db.query( aql`
+              FOR user IN admin
+              RETURN user
+            `).then((cursor) => {
+              cursor.all().then((users) => {
+                done();
+             }).catch((err) => {
+               done(err);
+             });
             }).catch(err => {
               done(err);
             })
@@ -190,13 +193,12 @@ describe('route: admin', () => {
     });
   });
 
-  describe('/POST admins/{user}', () => {
+  describe('POST /admins/{user}', () => {
     it('it should update a admin from an email', (done) => {
       mockServer
           .post('/admins/' + sampleAdminData.email)
           .send({name: 'blah'})
           .end((err, res) => {
-            adminId = res.body.results.id;
             res.should.have.status(200);
             res.body.results.should.be.a('object');
             assert.equal('blah', res.body.results.name);
@@ -230,7 +232,7 @@ describe('route: admin', () => {
     });
   });
 
-  describe('/POST admins/{user}/validate', () => {
+  describe('POST /admins/{user}/validate', () => {
     it('it should validate a admin from an email', (done) => {
       mockServer
           .post('/admins/' + sampleAdminData.email + '/validate')
@@ -264,7 +266,7 @@ describe('route: admin', () => {
           .send({ password: 'blah' })
           .end((err, res) => {
             res.should.have.status(401);
-            assert.equal('Your email or password is incorrect!', res.body.message);
+            assert.equal('password is incorrect', res.body.message);
             done();
           });
     });
@@ -275,7 +277,7 @@ describe('route: admin', () => {
           .send({})
           .end((err, res) => {
             res.should.have.status(400);
-            assert.equal('You did not provide a password!', res.body.message);
+            assert.equal('password is required', res.body.message);
             done();
           });
     });

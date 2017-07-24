@@ -1,5 +1,21 @@
 @import '../dist/scss/resources/index.scss';
 
+.logo{
+  background-image: url('../components/assets/logo.png');
+  width: 14px;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 49px;
+  height: 102px;
+}
+
+.logo--large{
+
+}
+
+
 .logo-with-copy__name,
 .logo-with-copy__date {
   margin: 5px 0px;

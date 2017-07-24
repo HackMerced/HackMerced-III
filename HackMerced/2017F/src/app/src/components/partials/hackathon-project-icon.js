@@ -10,13 +10,15 @@ export class HackathonProjectIcon extends Component {
     const { image, backgroundColor, backgroundSize, name } = this.props;
     const imageLocation = require(`../assets/hackathon-projects/${image}.png`);
     return (
-      <div className='hackathon-project-icon' name={name} onClick={this._onClick.bind(this)} style={
-        {
-          backgroundImage: 'url(' + imageLocation + ')',
-          backgroundColor: backgroundColor,
-          backgroundSize: backgroundSize
-        }
-      }>
+      <div className='hackathon-project-icon__container'>
+        <div className='hackathon-project-icon' name={name} onClick={this._onClick.bind(this)} style={
+          {
+            backgroundImage: 'url(' + imageLocation + ')',
+            backgroundColor: backgroundColor,
+            backgroundSize: backgroundSize
+          }
+        }>
+        </div>
       </div>
     )
   }

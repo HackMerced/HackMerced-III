@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { Header, PatternScaffold, LogoWithCopy } from './partials'
+import { Header,  LogoWithCopy } from './partials'
 
 export class Contact extends Component {
   render() {
