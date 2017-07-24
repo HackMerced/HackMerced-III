@@ -4,12 +4,12 @@ RUNNER= yarn
 
 test_tomoe:
 		cd ./Tomoe; \
-			$(RUNNER)
+			$(RUNNER) \
 			$(RUNNER) test
 
 test_hackmerced_2017F:
 		cd ./HackMerced/2017F; \
-			$(RUNNER)
+			$(RUNNER) \
 			$(RUNNER) test
 
 test:
