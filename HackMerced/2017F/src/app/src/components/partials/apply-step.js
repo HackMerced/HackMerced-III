@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { IndexLink, Link } from 'react-router'
 import { setCurrentApplyStep } from '../../actions';
-import { getErrorCount } from '../../util';
+import { matchIndices } from '../../util';
 
 const assign = Object.assign || require('object.assign');
 
 export class ApplyStep extends Component{
-  _getStepCompletionStatus(steps, errCount){
+  _getStepCompletionStatus(steps, errors){
 
     let stepsCompleted = 0,
         stepCount = 0;
 
     for(let i in steps){
       if( steps[i] !== null){
-        if((steps[i] || steps[i] === false)){
+        if(((steps[i] || steps[i] === false) && !errors[i])){
           stepsCompleted++;
         }
 
@@ -22,17 +22,17 @@ export class ApplyStep extends Component{
 
     }
 
-    const percentageDone = Math.floor(((stepsCompleted - errCount)/stepCount) * 100);
+    const percentageDone = Math.floor(((stepsCompleted - 0)/stepCount) * 100);
     return (percentageDone < 0) ? 0 : percentageDone;
   }
 
 
   render(){
     const { steps, name, description, currentStep, step, errors } = this.props;
-    const errCount = (getErrorCount(errors));
-    const ifErr = (errCount) ? ' apply__step__value--error' : '';
 
-    const stepStatus = this._getStepCompletionStatus(steps, errCount);
+    const ifErr = (matchIndices(steps, errors)) ? ' apply__step__value--error' : '';
+
+    const stepStatus = this._getStepCompletionStatus(steps, errors);
 
     return (
       <div onClick={this._setApplyStep.bind(this)}
