@@ -1,6 +1,8 @@
 import Chai from 'chai';
-import { assert } from 'chai';
 import ChaiHttp from 'chai-http';
+import { assert } from 'chai';
+
+import { aql } from 'arangojs';
 
 import { server } from '../../src/server';
 import { Hacker } from '../../src/collections';
@@ -35,7 +37,7 @@ describe('route: hacker', () => {
     });
   });
 
-  describe('/GET hackers', () => {
+  describe('GET /hackers', () => {
     it('it should GET all hackers', (done) => {
       mockServer
           .get('/hackers')
@@ -60,20 +62,9 @@ describe('route: hacker', () => {
           });
     });
 
-    it('it should GET a list of hackers from a query', (done) => {
-      mockServer
-          .get('/hackers?details.number.age=20')
-          .end((err, res) => {
-              res.should.have.status(200);
-              res.body.results.should.be.a('array');
-              res.body.results.length.should.be.eql(1);
-
-            done();
-          });
-    });
   });
 
-  describe('/GET hackers/{user}', () => {
+  describe('GET /hackers/{user}', () => {
     it('it should GET a hacker from an email', (done) => {
       mockServer
           .get('/hackers/' + sampleHackerData.email)
@@ -109,10 +100,8 @@ describe('route: hacker', () => {
     });
   });
 
-  describe('/POST hackers', () => {
-
-
-    it('it should not make a hacker with no email', (done) => {
+  describe('POST /hackers', () => {
+    it('it should not make a hacker when an email is not provided', (done) => {
       delete sampleHackerData.email;
 
       mockServer
@@ -121,12 +110,12 @@ describe('route: hacker', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not provide an email!');
+            assert.equal('email is required', res.body.message);
             done();
           });
     });
 
-    it('it should not make a hacker with no password', (done) => {
+    it('it should not make a hacker when a password is not provided', (done) => {
       delete sampleHackerData.password;
 
       mockServer
@@ -135,12 +124,12 @@ describe('route: hacker', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not provide a password!');
+            assert.equal('password is required, confirmPassword and password must match', res.body.message);
             done();
           });
     });
 
-    it('it should not make a hacker with no confirmed password', (done) => {
+    it('it should not make a hacker when a confirmed password is not provided', (done) => {
       delete sampleHackerData.confirmPassword;
 
       mockServer
@@ -149,7 +138,7 @@ describe('route: hacker', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'You did not confirm your password!');
+            assert.equal('confirmPassword is required', res.body.message);
             done();
           });
     });
@@ -163,7 +152,7 @@ describe('route: hacker', () => {
           .end((err, res) => {
             res.should.have.status(400);
             res.body.should.be.a('object');
-            assert.equal(res.body.message, 'Your passwords do not match!');
+            assert.equal('confirmPassword and password must match', res.body.message);
             done();
           });
     });
@@ -177,12 +166,17 @@ describe('route: hacker', () => {
             res.body.results.should.be.a('object');
             assert.equal(res.body.results.name, sampleHackerData2.name);
 
-            db.collection('hacker').lookupByKeys([res.body.results._key]).then((user) => {
-
-              assert.equal(res.body.results.password, user[0].password);
-              assert.equal(res.body.results.email, user[0].email);
-              assert.equal(res.body.results.name, user[0].name);
-              done();
+            db.query( aql`
+              FOR user IN hacker
+              RETURN user
+            `).then((cursor) => {
+              cursor.all().then((users) => {
+                assert.equal(res.body.results.email, users[1].email);
+                assert.equal(res.body.results.name, users[1].name);
+                done();
+             }).catch((err) => {
+               done(err);
+             });
             }).catch(err => {
               done(err);
             })
@@ -190,7 +184,7 @@ describe('route: hacker', () => {
     });
   });
 
-  describe('/POST hackers/{user}', () => {
+  describe('POST /hackers/{user}', () => {
     it('it should update a hacker from an email', (done) => {
       mockServer
           .post('/hackers/' + sampleHackerData.email)
@@ -229,13 +223,13 @@ describe('route: hacker', () => {
     });
   });
 
-  describe('/POST hackers/{user}/validate', () => {
+  describe('POST /hackers/{user}/validate', () => {
     it('it should validate a hacker from an email', (done) => {
       mockServer
           .post('/hackers/' + sampleHackerData.email + '/validate')
           .send({ password: sampleHackerData.password })
           .end((err, res) => {
-            hackerId = res.body.results.id;
+
             res.should.have.status(200);
             res.body.results.should.be.a('object');
             assert.equal(sampleHackerData.name, res.body.results.name);
@@ -264,7 +258,7 @@ describe('route: hacker', () => {
           .send({ password: 'blah' })
           .end((err, res) => {
             res.should.have.status(401);
-            assert.equal('Your email or password is incorrect!', res.body.message);
+            assert.equal('password is incorrect', res.body.message);
             done();
           });
     });
@@ -275,13 +269,13 @@ describe('route: hacker', () => {
           .send({})
           .end((err, res) => {
             res.should.have.status(400);
-            assert.equal('You did not provide a password!', res.body.message);
+            assert.equal('password is required', res.body.message);
             done();
           });
     });
   });
 
-  describe('/POST hackers/{user}/status', () => {
+  describe('POST /hackers/{user}/status', () => {
     it('it should update a hacker status from an email', (done) => {
       sampleHackerData.status = TOMOE_CONFIG.hackerStatuses[1];
 

@@ -27,5 +27,8 @@ While HackMerced utilizes a mono-repository it is not required that you set up e
 
 * [Working on the HackMerced 2017 Fall Website](https://github.com/HackMerced/HackMerced/wiki/Creating-an-instance-of-HackMerced)
 
+## Understanding each project
+Every project in this repository has it's own readme about specific project based information. This can range from API information to finer grained installation instructions.
+
 ## Quality Assurance and Testing
 HackMerced is trying to get better at this!
