@@ -4,13 +4,11 @@ RUNNER= yarn
 
 test_tomoe:
 		cd ./Tomoe; \
-			$(RUNNER) \
-			$(RUNNER) test
+			$(RUNNER) install && $(RUNNER) test
 
 test_hackmerced_2017F:
 		cd ./HackMerced/2017F; \
-			$(RUNNER) \
-			$(RUNNER) test
+			$(RUNNER) install && $(RUNNER) test
 
 test:
 	make test_tomoe
