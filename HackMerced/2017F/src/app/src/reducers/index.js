@@ -24,14 +24,9 @@ const initialState = {
     password: '',
     passwordConfirm: '',
   },
-
-
-
   forgotPasswordForm: {
     email: ''
   },
-
-
   signupErrors:{},
   loginForm: {
     email: '',
@@ -142,19 +137,11 @@ export function homeReducer(state = initialState, action) {
         loginErrors: action.newState
       });
       break;
-
-
-
-
-      case UPDATE_FORGOT_PASSWORD_FORM:
+    case UPDATE_FORGOT_PASSWORD_FORM:
       return assign({}, state, {
         forgotPasswordForm: action.newState
       });
       break;
-
-
-
-
     case SET_AUTH_AS_FALSE:
       return assign({}, state, {
         loggedIn: false
