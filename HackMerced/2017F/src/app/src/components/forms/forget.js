@@ -8,16 +8,15 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateLoginForm, login } from '../../actions';
-import { Link } from 'react-router'
+import { updateForgotPasswordForm} from '../../actions';
 
 const assign = Object.assign || require('object.assign');
 
-export class LoginForm extends Component {
+export class ForgetForm extends Component {
   render() {
     return (
       <form onChange={this._onChange.bind(this)} onSubmit={this._onSubmit.bind(this)} >
-        <h3>Log back into your Application</h3>
+        <h3>Please enter your email to obtain your password</h3>
         <TextInputBlock
           error={this.props.errors.email}
           value={this.props.data.email}
@@ -25,23 +24,9 @@ export class LoginForm extends Component {
           type='email'
           label='Email'
           placeholder='Your Email' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
-        <TextInputBlock
-          error={this.props.errors.password}
-          value={this.props.data.password}
-          name='password'
-          type='password'
-          label='Password'
-          emoji={this.props.data.passwordStrength}
-          placeholder='Enter a password'/>
+   
 
-
-
-      <button className='object--center button--gold'>Return to your Application</button>
-        
-       <Link className='disable-hover' href='/forget'><button className='button--gold'>Forgot Password?</button></Link>
-
-       
-
+        <button className='object--center button--gold'>Submit</button>
       </form>
     );
   }
@@ -61,15 +46,15 @@ export class LoginForm extends Component {
 
   // Emits a change of the form state to the application state
   _emitChange(newState) {
-    this.props.dispatch(updateLoginForm(newState));
+    this.props.dispatch(updateForgotPasswordForm(newState));
   }
 
   _onSubmit(event){
     event.preventDefault();
 
-    this.props.dispatch(login({
+    this.props.dispatch(updateForgotPasswordForm({
       email: this.props.data.email,
-      password: this.props.data.password,
+   
     }))
 
 

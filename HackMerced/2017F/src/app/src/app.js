@@ -6,7 +6,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { homeReducer } from './reducers';
-import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team } from './components'
+
+import { Home, Layout, Login, Signup, Apply, NotFound, Sponsor, Contact, Volunteer, Team , Forget} from './components'
+
+
+
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -56,6 +60,7 @@ export class App extends Component{
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/apply" component={Apply}/>
+               <Route path="/forget" component={Forget}/>
             </Route>
             <Route path="*" component={NotFound} />
           </Route>

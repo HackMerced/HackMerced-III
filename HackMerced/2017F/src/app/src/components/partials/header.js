@@ -9,10 +9,17 @@ export class Header extends Component{
   _generalLinks(that){
     return (
       <nav className='header__nav--center text--center'>
+
+        <a onClick={that._onClickHide.bind(that)} href='https://github.com/hackmerced' activeClassName='header__link--active'>Open Source</a>
+        <a onClick={that._onClickHide.bind(that)} href='https://facebook.com/hackmerced' activeClassName='header__link--active'>Facebook</a>
+        <a onClick={that._onClickHide.bind(that)} href='https://twitter.com/hackmerced' activeClassName='header__link--active'>Twitter</a>
+      	<a onClick={that._onClickHide.bind(that)} href='https://instagram.com/hackmerced' activeClassName='header__link--active'>Instagram</a>
+
         <Link onClick={that._onClickHide.bind(that)} to='/sponsor' activeClassName='header__link--active'>Sponsorships</Link>
         <Link onClick={that._onClickHide.bind(that)} to='/team' activeClassName='header__link--active'>Team</Link>
         <Link onClick={that._onClickHide.bind(that)} to='/volunteer' activeClassName='header__link--active'>Volunteer</Link>
         <Link  onClick={that._onClickHide.bind(that)} to='/contact' activeClassName='header__link--active'>Contact</Link>
+
       </nav>
     )
   }
@@ -73,7 +80,6 @@ export class Header extends Component{
           )
             : ''
         }
-
 
       </header>
     )

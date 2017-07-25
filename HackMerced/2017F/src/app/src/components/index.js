@@ -8,3 +8,6 @@ export * from './team'
 export * from './sponsor'
 export * from './volunteer'
 export * from './contact'
+
+export * from './forget'
+

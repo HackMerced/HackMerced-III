@@ -308,6 +308,9 @@ export function updateSubmittedView(newState) {
   return { type: UPDATE_SUBMITTED_VIEW, newState };
 }
 
+export function updateForgotPasswordForm(newState) {
+  return { type: UPDATE_FORGOT_PASSWORD_FORM, newState };
+}
 
 function forwardTo(location) {
   browserHistory.push(location);
