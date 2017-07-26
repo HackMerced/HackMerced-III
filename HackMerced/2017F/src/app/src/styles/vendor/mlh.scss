@@ -1,0 +1,25 @@
+.mlh-trust-badge {
+  display: block;
+  max-width: 100px;
+  min-width: 60px;
+  position: fixed;
+  right: 50px;
+  right: 5%;
+  top: 88px;
+  width: 10%;
+  z-index: 999;
+
+  img {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .mlh-trust-badge {
+    display: block;
+    right: 5px;
+    top: 69px;
+    width: 10%;
+  }
+}
