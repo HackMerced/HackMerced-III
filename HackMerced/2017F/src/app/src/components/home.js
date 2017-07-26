@@ -1,4 +1,4 @@
-nimport React, { Component } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { Header, LogoWithCopy, HackathonProjectIcon, SponsorImage} from './partials'
 import { onUnload } from '../util'
