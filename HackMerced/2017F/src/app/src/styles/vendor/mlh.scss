@@ -12,6 +12,13 @@
   img {
     width: 100%;
   }
+
+  opacity: 1;
+}
+
+.header--at-path-home:not(.header--cull-animation) .mlh-trust-badge{
+  opacity: 0;
+  @include animation('fadein 1500ms forwards 4.5s');
 }
 
 
