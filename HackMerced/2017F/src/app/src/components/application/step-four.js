@@ -36,14 +36,15 @@ export class StepFour extends Component {
             <li>social media</li>
             <li>any other online media</li>
           </ul>
-          <p> You also agree to <a className='link--underlined' target='_blank' href='https://static.mlh.io/docs/mlh-code-of-conduct.pdf'>MLH Code of Conduct</a></p>
+          <p>You agree to <a className='link--underlined' target='_blank' href='https://static.mlh.io/docs/mlh-code-of-conduct.pdf'>MLH Code of Conduct</a></p>
+          <p>You agree to the terms of both the <a className='link--underlined' target='_blank' href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms and Conditions</a> and the <a className='link--underlined' target='_blank' href='https://mlh.io/privacy'>MLH Privacy Policy</a>. Please note that you may receive pre and post-event informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy.</p>
           <p>Hackathon participants violating these rules may be sanctioned or expelled from the hackathon at the discretion of the hackathon organisers.</p>
         </div>
 
         <TextInputBlock
           value={mlh}
           error={this.props.errors.mlh}
-          label="Do you agree to HackMerced's and MLH's code of conduct above?"
+          label="Do you agree to the statements above?"
           labelType='large'
           name='mlh'
           type='options'
