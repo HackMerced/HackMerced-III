@@ -36,9 +36,9 @@ const initialState = {
 volunteerPersonForm: {
   name: '',
   age: '',
-  avail: '', 
-  diet: '',
-  size: '',
+  availibility: '', 
+  dietary_restrictions: '',
+  shirt_size: '',
   },
 
 

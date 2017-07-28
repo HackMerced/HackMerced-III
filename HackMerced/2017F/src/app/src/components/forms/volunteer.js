@@ -8,11 +8,11 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateVolForm} from '../../actions';
+import { updateVolunteerForm} from '../../actions';
 
 const assign = Object.assign || require('object.assign');
 
-export class VolForm extends Component {
+export class VolunteerForm extends Component {
   render() {
     return (
       <form onChange={this._onChange.bind(this)} onSubmit={this._onSubmit.bind(this)} >
@@ -36,27 +36,27 @@ export class VolForm extends Component {
 
 
           <TextInputBlock
-          error={this.props.errors.avail}
-          value={this.props.data.avail}
-          name='avail'
-          type='avail'
+          error={this.props.errors.availibility}
+          value={this.props.data.availibility}
+          name='availibility'
+          type='availibility'
           label='Availability'
           placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
 
           <TextInputBlock
-          error={this.props.errors.diet}
-          value={this.props.data.diet}
-          name='diet'
-          type='diet'
+          error={this.props.errors.dietary_restrictions}
+          value={this.props.data.dietary_restrictions}
+          name='dietary_restrictions'
+          type='dietary_restrictions'
           label='Dietary Restrictions'
           placeholder=' Dietary Restrictions' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
           <TextInputBlock
-          error={this.props.errors.size}
-          value={this.props.data.size}
-          name='size'
-          type='size'
+          error={this.props.errors.shirt_size}
+          value={this.props.data.shirt_size}
+          name='shirt_size'
+          type='shirt_size'
           label='Shirt Size'
           placeholder='Size' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
    
@@ -82,18 +82,18 @@ export class VolForm extends Component {
 
   // Emits a change of the form state to the application state
   _emitChange(newState) {
-    this.props.dispatch(updateVolForm(newState));
+    this.props.dispatch(updateVolunteerForm(newState));
   }
 
   _onSubmit(event){
     event.preventDefault();
 
-    this.props.dispatch(updateVolForm({
+    this.props.dispatch(updateVolunteerForm({
       name: this.props.data.name,
       age: this.props.data.age,
-      avail: this.props.data.avail,
-      diet: this.props.data.diet,
-      size: this.props.data.size
+      availibility: this.props.data.availibility,
+      dietary_restrictions: this.props.data.dietary_restrictions,
+      shirt_size: this.props.data.shirt_size
     }))
 
 

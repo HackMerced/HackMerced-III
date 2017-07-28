@@ -322,7 +322,7 @@ export function updateForgotPasswordForm(newState) {
 }
 
 
-export function updateVolForm(newState) {
+export function updateVolunteerForm(newState) {
   return { type: UPDATE_VOLUNTEER_FORM, newState };
 }
 
