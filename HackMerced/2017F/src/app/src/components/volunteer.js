@@ -1,3 +1,4 @@
+
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
@@ -6,6 +7,11 @@ import { LogoWithCopy } from './partials'
 
 
 export class VolunteerComponent extends Component {
+
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import { Header,  LogoWithCopy } from './partials'
+
 
   render() {
     const dispatch = this.props.dispatch;

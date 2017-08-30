@@ -23,8 +23,13 @@
  *    created in the second step
  */
 
+
 import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW,UPDATE_FORGOT_PASSWORD_FORM,UPDATE_VOLUNTEER_FORM } from '../constants';
 import { auth } from '../util';
+
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW, UPDATE_FORGOT_PASSWORD_FORM } from '../constants';
+import { auth, parseError } from '../util';
+
 import { browserHistory } from 'react-router';
 import { notMercedOptions } from '../constants'
 
@@ -123,16 +128,7 @@ export function submit(details) {
       let errorSet = {};
       if(err.validation && err.validation.errors){
         err.validation.errors.forEach((error) => {
-          if(['github', 'linkedin', 'devpost'].includes(error.key)){
-            error.message = 'Please properly format your profile link (provide the whole url)'
-          }
-          if(error.key === 'mlh'){
-            error.message = 'Your application will be rejected if you do not accept our code of conduct!'
-          }
-
-          error.message = error.message.replace(/_/g, ' ');
-
-          errorSet[error.key] = error.message;
+          errorSet[error.key] = parseError(error.key, error.message);;
         })
       }
 
@@ -160,7 +156,7 @@ export function login(user) {
       let errorSet = {};
       if(err.validation){
         err.validation.forEach((error) => {
-          errorSet[error.key] = error.message.replace('confirmPassword', '')
+          errorSet[error.key] = parseError(error.key, error.message);
         })
       }
 
@@ -214,7 +210,7 @@ export function signup(user) {
        let errorSet = {};
        if(err.validation){
          err.validation.forEach((error) => {
-           errorSet[error.key] = error.message.replace('confirmPassword', '')
+           errorSet[error.key] = parseError(error.key, error.message);
          })
        }
 

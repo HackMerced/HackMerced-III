@@ -11,7 +11,7 @@ export class SignupComponent extends Component {
 		const { signupForm, signupErrors } = this.props.data;
 
     return (
-      <div className='authorization-object signup w420 text--center object--center'>
+      <div className='authorization-form signup w420 text--center object--center'>
         <LogoWithCopy/>
         <SignupForm data={signupForm} errors={signupErrors} dispatch={dispatch}/>
       </div>

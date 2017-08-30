@@ -34,14 +34,8 @@ export class LoginForm extends Component {
           emoji={this.props.data.passwordStrength}
           placeholder='Enter a password'/>
 
-
-
-      <button className='object--center button--gold'>Return to your Application</button>
-        
-       <Link className='disable-hover' href='/forget'><button className='button--gold'>Forgot Password?</button></Link>
-
-       
-
+        <button className='object--center button--gold'>Return to your Application</button>
+        <Link className='authorization-form__forget-password disable-hover' to='/forget'>Forgot Password?</Link>
       </form>
     );
   }

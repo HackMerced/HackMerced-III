@@ -82,7 +82,7 @@ describe('User', () =>  {
       testUser.save().then((user) => {
         done('A user was created somehow!');
       }).catch((err) => {
-        assert.equal('A user exists with this email!', err.message);
+        assert.equal('user exists with the provided email', err.message);
         done();
       });
     });
@@ -111,16 +111,25 @@ describe('User', () =>  {
       User.find().then((user) => {
         done('This should not happen');
       }).catch((err) => {
-        assert.equal('You did not provide an id or email', err.message);
+        assert.equal('id or email is required', err.message);
         done();
       });
     });
 
-    it('can tell you it cannot find a user', (done) =>  {
+    it('can tell you it cannot find a user via an email search', (done) =>  {
       User.find({email: 'blah'}).then((user) => {
         done('This should not happen');
       }).catch((err) => {
-        assert.equal('No user found with that email exists', err.message);
+        assert.equal('no user exists with provided email', err.message);
+        done();
+      });
+    });
+
+    it('can tell you it cannot find a user via an id search', (done) =>  {
+      User.find({id: 'blah'}).then((user) => {
+        done('This should not happen');
+      }).catch((err) => {
+        assert.equal('no user exists with provided id', err.message);
         done();
       });
     });
@@ -178,7 +187,7 @@ describe('User', () =>  {
       testUser.update().then(() => {
         done('This should not happen');
       }).catch((err) => {
-        assert.equal('No user found with that id exists', err.message);
+        assert.equal('no user exists with provided id', err.message);
         done();
       });
     });
@@ -266,7 +275,7 @@ describe('User', () =>  {
       testUser.validate().then(() => {
         done('This should not happen');
       }).catch((err) => {
-        assert.equal('Your email or password is incorrect!', err.message);
+        assert.equal('password is incorrect', err.message);
         done();
       });
     });
@@ -285,10 +294,10 @@ describe('User', () =>  {
   describe('#remove', () =>  {
     it('can remove a user', (done) =>  {
       testUser.remove().then(() => {
-        User.find({ email: testUser.email }).then(() => {
+        User.find({ email: testUser.email }).then((user) => {
           done('Should not be found');
         }).catch((err) => {
-          assert.equal(err.message, 'No user found with that email exists');
+          assert.equal('no user exists with provided email', err.message);
           done();
         });
       }).catch((err) => {

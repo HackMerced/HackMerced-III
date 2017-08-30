@@ -1,7 +1,7 @@
 const argv = require('yargs').argv
 const webpackConfig = require('./webpack.config')
 
-const TEST_BUNDLER = './tests/test-bundler.js'
+const TEST_BUNDLER = 'tests/test-bundler.js'
 
 const karmaConfig = {
   basePath: '../',
@@ -30,7 +30,7 @@ const karmaConfig = {
     level: '',
   },
   webpack: {
-    entry: TEST_BUNDLER,
+    entry: './src/app/tests/test-bundler.js',
     devtool: 'cheap-module-source-map',
     module: webpackConfig.module,
     plugins: webpackConfig.plugins,

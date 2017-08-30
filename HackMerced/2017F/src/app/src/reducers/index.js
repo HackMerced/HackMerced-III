@@ -24,12 +24,10 @@ const initialState = {
     password: '',
     passwordConfirm: '',
   },
-
-
-
   forgotPasswordForm: {
     email: ''
   },
+
 
 
 
@@ -40,6 +38,7 @@ volunteerPersonForm: {
   dietary_restrictions: '',
   shirt_size: '',
   },
+
 
 
   signupErrors:{},
@@ -152,15 +151,12 @@ export function homeReducer(state = initialState, action) {
         loginErrors: action.newState
       });
       break;
-
-
-
-
-      case UPDATE_FORGOT_PASSWORD_FORM:
+    case UPDATE_FORGOT_PASSWORD_FORM:
       return assign({}, state, {
         forgotPasswordForm: action.newState
       });
       break;
+
 
 
 
