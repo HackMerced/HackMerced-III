@@ -1,23 +1,23 @@
 import Joi from 'joi';
 import Boom from 'boom';
-import { hackerHandlers } from '../handlers'
-import { hackerValidators } from '../validators'
+import { volunteerHandlers } from '../handlers'
+import { volunteerValidators } from '../validators'
 
 // [POST] /login
 export const postVolunteer = {
 	path: '/signup',
 	method: 'POST',
 	config: {
-		handler: hackerHandlers.postVolunteer,
+		handler: volunteerHandlers.postVolunteer,
 	}
-};
+};a
 
 // [GET] /me
 export const getMe = {
     path: '/me',
     method: 'GET',
     config: {
-      handler: hackerHandlers.getMe,
+      handler: volunteerHandlers.getMe,
       auth: {
           strategy: 'token',
       }
@@ -29,20 +29,8 @@ export const postSubmit = {
     path: '/submit',
     method: 'POST',
     config: {
-      handler: hackerHandlers.postSubmit,
-      validate: hackerValidators.postSubmit,
-      auth: {
-          strategy: 'token',
-      }
-    }
-};
-
-// [POST] /me
-export const postMe = {
-    path: '/me',
-    method: 'POST',
-    config: {
-      handler: hackerHandlers.postMe,
+      handler: volunteerHandlers.postSubmit,
+      validate: volunteerValidators.postSubmit,
       auth: {
           strategy: 'token',
       }
@@ -52,7 +40,6 @@ export const postMe = {
 const volunteerRoutes = [
 	postVolunteer,
 	getMe,
-	postMe,
 	postSubmit
 ]
 
