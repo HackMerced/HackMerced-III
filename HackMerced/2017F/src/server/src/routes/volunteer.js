@@ -10,7 +10,7 @@ export const postVolunteer = {
 	config: {
 		handler: volunteerHandlers.postVolunteer,
 	}
-};a
+};
 
 // [GET] /me
 export const getMe = {
