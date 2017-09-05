@@ -1,0 +1,14 @@
+{
+  "name": "Seuda",
+  "version": "0.0.1",
+  "description": "HackMerced Build Tool",
+  "scripts": {
+    "start": "python ./src/index.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HackMerced/Seuda.git"
+  },
+  "author": "Shubham Naik <shub@hackmerced.com>",
+  "license": "MIT"
+}

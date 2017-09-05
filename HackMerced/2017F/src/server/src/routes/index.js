@@ -6,6 +6,10 @@ let routes = [
   ...hackerRoutes,
 ];
 
+let routes = [
+  ...volunteerRoutes,
+];
+
 if(process.env.NODE_ENV === 'production') {
   routes = routes.concat(homeRoutes)
 }

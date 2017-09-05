@@ -1,0 +1,35 @@
+.mlh-trust-badge {
+  max-width: 100px;
+  min-width: 60px;
+  position: fixed;
+  right: 50px;
+  right: 5%;
+  top: 88px;
+  width: 10%;
+  z-index: 999;
+
+  img {
+    width: 100%;
+  }
+
+  display: none;
+  opacity: 1;
+}
+
+.header--at-path-home .mlh-trust-badge{
+  display: block;
+}
+
+.header--at-path-home:not(.header--cull-animation) .mlh-trust-badge{
+  opacity: 0;
+  @include animation('fadein 1500ms forwards 4.5s');
+}
+
+@media (max-width: 600px) {
+  .mlh-trust-badge {
+    display: block;
+    right: 5px;
+    top: 69px;
+    width: 10%;
+  }
+}

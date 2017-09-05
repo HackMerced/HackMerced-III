@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { IndexLink, Link } from 'react-router'
 import { logout, updateMobileMenuStatus } from '../../actions';
 import { Logo } from './'
+import { MLHTrustBadge } from '../vendor';
 import '../../styles/header.scss'
 
 export class Header extends Component{
@@ -73,7 +74,7 @@ export class Header extends Component{
           )
             : ''
         }
-
+      <MLHTrustBadge/>
       </header>
     )
   }
