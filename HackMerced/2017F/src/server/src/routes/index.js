@@ -1,8 +1,13 @@
 import hackerRoutes from './hacker';
 import homeRoutes from './home';
+import volunteerRoutes from './volunteer'
 
 let routes = [
   ...hackerRoutes,
+];
+
+let routes = [
+  ...volunteerRoutes,
 ];
 
 if(process.env.NODE_ENV === 'production') {
