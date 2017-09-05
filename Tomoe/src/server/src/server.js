@@ -6,7 +6,6 @@ const server = new Hapi.Server();
 const Relish = require('relish')({
   stripQuotes: true,
   messages: {
-    'status': 'Please only enter the following statuses: ' + TOMOE_CONFIG.hackerStatuses.join(', '),
     'permissions': 'Please only enter the following permissions: ' + TOMOE_CONFIG.adminPermissions.join(', ')
   }
 })

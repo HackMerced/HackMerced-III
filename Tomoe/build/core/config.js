@@ -18,6 +18,7 @@ export class Config{
     this.apiVersion = params.apiVersion || Definitions.apiVersion;
     this.userTypes = params.userTypes || Definitions.userTypes;
     this.hackerStatuses = params.hackerStatuses || Definitions.defaultHackerStatuses;
+    this.volunteerStatuses = params.hackerStatuses || Definitions.defaultVolunteerStatuses;
     this.build = params.build || ((fs.existsSync('../.hackmerced')) ? Definitions.build.default : Definitions.build.import)
     this.adminPermissions = params.adminPermissions || Definitions.defaultAdminPermissions;
   }
@@ -34,6 +35,7 @@ export class Config{
       apiVersion: this.apiVersion,
       userTypes: this.userTypes,
       hackerStatuses: this.hackerStatuses,
+      volunteerStatuses: this.volunteerStatuses,
       adminPermissions: this.adminPermissions
     }
   }
