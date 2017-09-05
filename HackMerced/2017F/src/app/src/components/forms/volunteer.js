@@ -21,7 +21,7 @@ export class VolunteerForm extends Component {
           error={this.props.errors.name}
           value={this.props.data.name}
           name='name'
-          type='name'
+          type='number'
           label='Name'
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
@@ -29,7 +29,7 @@ export class VolunteerForm extends Component {
           error={this.props.errors.name}
           value={this.props.data.name}
           name='email'
-          type='email'
+          type='text'
           label='Email'
           placeholder='Your Email' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
@@ -37,31 +37,24 @@ export class VolunteerForm extends Component {
           error={this.props.errors.age}
           value={this.props.data.age}
           name='age'
-          type='age'
+          type='number'
           label='Age'
           placeholder='Your Age' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
-
-        <TextInputBlock
-          error={this.props.errors.availibility}
-          value={this.props.data.availibility}
-          name='availibility'
-          type='availibility'
-          label='Availability'
-          placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
           error={this.props.errors.dietary_restrictions}
           value={this.props.data.dietary_restrictions}
           name='dietary_restrictions'
-          type='dietary_restrictions'
+          type='text'
           label='Dietary Restrictions'
+          labelType='large'
           placeholder=' Dietary Restrictions' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
           error={this.props.errors.shirt_size}
           value={this.props.data.shirt_size}
           name='shirt_size'
-          type='shirt_size'
+          type='text'
           label='Shirt Size'
           placeholder='Size' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
   
