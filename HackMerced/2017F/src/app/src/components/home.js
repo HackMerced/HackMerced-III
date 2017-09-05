@@ -50,7 +50,7 @@ export class Home extends Component {
               <p>
                 HackMerced is <text className='text--bold'>open to all indivudals</text> that are either enrolled at a High School/University or between the ages of 14 to 22. This is an opportunity for beginners, pros, and those in-between to have fun building what they desire for cool prizes!
               </p>
-              <p>HackMerced is located in the "Gateway to Yosemite", the city of Merced, California. Come join us from anywhere around the world we have reimbursed students from as far as Europe and Asia!</p>
+              <p>HackMerced is located in the "Gateway to Yosemite", the city of Merced, California. Come join us from anywhere around the world--we have reimbursed students from as far as Europe and Asia!</p>
               <iframe className='quehackmerced__map' src={'//www.google.com/maps/embed/v1/place?q=UC%20Merced&zoom=15&key=' + process.env.GOOGLE_MAPS_API_KEY}>
              </iframe>
             </section>
@@ -106,7 +106,7 @@ export class Home extends Component {
                 <article>
                   <h3>What if I don’t know how to code?</h3>
                   <p>
-                    Don't worry, many of our previous years attendees are new or beginning to code! It’s entirely irrelevant what your experience is going into a hackathon, it’s more about your interest in technology. Our event has many workshops and mentors to help you get started on creating an app!
+                    Don't worry, many of our previous years' attendees were new or only beginning to code! It’s entirely irrelevant what your experience is going into a hackathon, it’s more about your interest in technology. Our event has many workshops and mentors to help you get started on creating an app!
                   </p>
                 </article>
 
