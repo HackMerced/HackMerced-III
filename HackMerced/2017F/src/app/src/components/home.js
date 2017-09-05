@@ -48,7 +48,7 @@ export class Home extends Component {
                 HackMerced is a 36 hour long programming competition where <text className='text--bold'>you</text> and 349 other contestants will team up, learn, code, design and pitch cool and creative projects that you always wanted to try out.
               </p>
               <p>
-                HackMerced is <text className='text--bold'>open to all indivudals</text> that are either enrolled at a High School/University or between the ages of 14 to 22. This is an opportunity for beginners, pros, and those in-between to have fun building what they desire for cool prizes!
+                HackMerced is <text className='text--bold'>open to all individuals</text> that are either enrolled at a High School/University or between the ages of 14 to 22. This is an opportunity for beginners, pros, and those in-between to have fun building what they desire for cool prizes!
               </p>
               <p>HackMerced is located in the "Gateway to Yosemite", the city of Merced, California. Come join us from anywhere around the world--we have reimbursed students from as far as Europe and Asia!</p>
               <iframe className='quehackmerced__map' src={'//www.google.com/maps/embed/v1/place?q=UC%20Merced&zoom=15&key=' + process.env.GOOGLE_MAPS_API_KEY}>
@@ -99,7 +99,7 @@ export class Home extends Component {
                 <article>
                   <h3>Where will the hackathon be located?</h3>
                   <p>
-                   Like last year's hackathon, our venue will be held in UC Merced's COB1 and COB2 buildings. More details concering workshop locations, bus pickups, and a more comprehensive overview
+                   Like last year's hackathon, our venue will be held in UC Merced's COB1 and COB2 buildings. More details concerning workshop locations, bus pickups, and a more comprehensive overview
                    of our venue will be announced before the hackathon.
                   </p>
                 </article>
