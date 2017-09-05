@@ -21,7 +21,7 @@ export class VolunteerForm extends Component {
           error={this.props.errors.name}
           value={this.props.data.name}
           name='name'
-          type='name'
+          type='text'
           label='Name'
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
@@ -30,7 +30,7 @@ export class VolunteerForm extends Component {
           error={this.props.errors.age}
           value={this.props.data.age}
           name='age'
-          type='age'
+          type='number'
           label='Age'
           placeholder='Your Age' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
@@ -39,27 +39,48 @@ export class VolunteerForm extends Component {
           error={this.props.errors.availibility}
           value={this.props.data.availibility}
           name='availibility'
-          type='availibility'
+          type='options'
           label='Availability'
           placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
 
-          <TextInputBlock
+        <TextInputBlock
+          value={dietary_restrictions}
           error={this.props.errors.dietary_restrictions}
-          value={this.props.data.dietary_restrictions}
+          label='Do you have any dietary restrictions?'
+          labelType='large'
           name='dietary_restrictions'
-          type='dietary_restrictions'
-          label='Dietary Restrictions'
-          placeholder=' Dietary Restrictions' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+          type='options'
+          optionsType='small'
+          onChange={this.props.onChange}
+          options={[
+            'None',
+            'Vegetarian',
+            'Vegan',
+            'Halal',
+            'Kosher',
+            'Jain',
+            'Hindu',
+        ]}/>
 
-          <TextInputBlock
+        <TextInputBlock
+          value={shirt_size}
           error={this.props.errors.shirt_size}
-          value={this.props.data.shirt_size}
-          name='shirt_size'
-          type='shirt_size'
           label='Shirt Size'
-          placeholder='Size' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
-   
+          name='shirt_size'
+          type='options'
+          optionsType='small'
+          onChange={this.props.onChange}
+          options={[
+            'XS',
+            'S',
+            'M',
+            'L',
+            'XL',
+            '2XL',
+            '3XL',
+            '4XL'
+          ]}/>
    
 
         <button className='object--center button--gold'>Submit</button>
