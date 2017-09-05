@@ -82,3 +82,33 @@ export class sampleAdmin2{
     }
   }
 }
+
+
+export class sampleVolunteer{
+  constructor(){
+    return {
+      name: 'Mark Santiago',
+      email: 'mark@hackmerced.com',
+      availability: 'all',
+      status: 'denied',
+      details: {
+        age: 21,
+      }
+    }
+  }
+}
+
+
+export class sampleVolunteer2{
+  constructor(){
+    return {
+      name: 'Mimi Pomephimkham',
+      email: 'mimi@hackmerced.com',
+      availability: 'all',
+      status: 'applied',
+      details: {
+        age: 21,
+      }
+    }
+  }
+}
