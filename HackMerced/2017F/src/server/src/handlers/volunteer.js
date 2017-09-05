@@ -50,7 +50,7 @@ export function parseError(err){
 export const volunteerHandlers = {
   postVolunteer: (req, reply) => {
     axios
-      .post(TOMOE_URI + '/hackers/', req.payload)
+      .post(TOMOE_URI + '/volunteers/', req.payload)
       .then((response) => {
         createUserSession(req, response).then((user) => {
           reply(user);
@@ -64,7 +64,7 @@ export const volunteerHandlers = {
 
   getMe: (req, reply) => {
     axios
-      .get(TOMOE_URI + '/hackers/' + req.auth.credentials.id)
+      .get(TOMOE_URI + '/volunteers/' + req.auth.credentials.id)
       .then((response) => {
         const user = response.data;
         reply(user);
@@ -75,7 +75,7 @@ export const volunteerHandlers = {
 
   postSubmit: (req, reply) => {
       axios
-        .post(TOMOE_URI + '/hackers/' + req.auth.credentials.id, {
+        .post(TOMOE_URI + '/volunteers/' + req.auth.credentials.id, {
           status: 'submitted',
           details: req.payload
         })
