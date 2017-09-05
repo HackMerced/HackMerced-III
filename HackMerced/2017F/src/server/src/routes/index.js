@@ -4,10 +4,7 @@ import volunteerRoutes from './volunteer';
 
 let routes = [
   ...hackerRoutes,
-];
-
-let routes = [
-  ...volunteerRoutes,
+  ...volunteerRoutes
 ];
 
 if(process.env.NODE_ENV === 'production') {

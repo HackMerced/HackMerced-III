@@ -5,7 +5,7 @@ import { volunteerValidators } from '../validators'
 
 // [POST] /login
 export const postVolunteer = {
-	path: '/signup',
+	path: '/volunteer/signup',
 	method: 'POST',
 	config: {
 		handler: volunteerHandlers.postVolunteer,
@@ -14,7 +14,7 @@ export const postVolunteer = {
 
 // [GET] /me
 export const getMe = {
-    path: '/me',
+    path: '/volunteer/me',
     method: 'GET',
     config: {
       handler: volunteerHandlers.getMe,
@@ -26,7 +26,7 @@ export const getMe = {
 
 // [POST] /submit
 export const postSubmit = {
-    path: '/submit',
+    path: '/volunteer/submit',
     method: 'POST',
     config: {
       handler: volunteerHandlers.postSubmit,

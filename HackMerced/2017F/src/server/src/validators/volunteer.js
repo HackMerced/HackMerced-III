@@ -8,9 +8,11 @@ export const volunteerValidators = {
 	postVolunteer:{
 		//tomoe
 	},
+	
 	getMe:{
 		payload:{
 	    	id: Joi.string().required()
+	    }
     },
 
     postSubmit:{
