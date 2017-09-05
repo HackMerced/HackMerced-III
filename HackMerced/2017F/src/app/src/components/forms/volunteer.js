@@ -25,8 +25,15 @@ export class VolunteerForm extends Component {
           label='Name'
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
+        <TextInputBlock
+          error={this.props.errors.name}
+          value={this.props.data.name}
+          name='email'
+          type='text'
+          label='Email'
+          placeholder='Your Email' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-          <TextInputBlock
+        <TextInputBlock
           error={this.props.errors.age}
           value={this.props.data.age}
           name='age'
@@ -34,18 +41,16 @@ export class VolunteerForm extends Component {
           label='Age'
           placeholder='Your Age' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-
-          <TextInputBlock
+        <TextInputBlock
           error={this.props.errors.availibility}
           value={this.props.data.availibility}
           name='availibility'
-          type='options'
+          type='text'
           label='Availability'
           placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-
         <TextInputBlock
-          value={dietary_restrictions}
+          value={this.props.data.dietary_restrictions}
           error={this.props.errors.dietary_restrictions}
           label='Do you have any dietary restrictions?'
           labelType='large'
@@ -61,10 +66,10 @@ export class VolunteerForm extends Component {
             'Kosher',
             'Jain',
             'Hindu',
-        ]}/>
+          ]}/>
 
         <TextInputBlock
-          value={shirt_size}
+          value={this.props.data.shirt_size}
           error={this.props.errors.shirt_size}
           label='Shirt Size'
           name='shirt_size'
@@ -81,8 +86,7 @@ export class VolunteerForm extends Component {
             '3XL',
             '4XL'
           ]}/>
-   
-
+  
         <button className='object--center button--gold'>Submit</button>
       </form>
     );
