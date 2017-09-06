@@ -3,8 +3,9 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
 import { VolunteerForm } from './forms';
-import { LogoWithCopy } from './partials'
+import { LogoWithCopy } from './partials';
 
+import '../styles/apply.scss';
 
 export class VolunteerComponent extends Component {
 
@@ -14,10 +15,10 @@ export class VolunteerComponent extends Component {
     const { volunteerPersonForm, loginErrors } = this.props.data;
 
     return (
-      <div className='authorization-object signup w420 text--center object--center'>
-        <LogoWithCopy/>
-        <VolunteerForm data={volunteerPersonForm} errors={loginErrors} dispatch={dispatch}/>
-      </div>
+        <div className='authorization-form signup w420 text--center object--center'>
+          <LogoWithCopy/>
+          <VolunteerForm data={volunteerPersonForm} errors={loginErrors} dispatch={dispatch}/>
+        </div>
     )
   }
 }
