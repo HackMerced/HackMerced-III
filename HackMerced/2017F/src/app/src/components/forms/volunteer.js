@@ -46,10 +46,10 @@ export class VolunteerForm extends Component {
           error={this.props.errors.availibility}
           value={this.props.data.availibility}
           name='availibility'
-          type='text'
+          type='number'
           label='Availability'
           helper='In order to be eligable for free HackMerced goodies, you must volunteer for a minimum of 3 hours'
-          placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+          placeholder='Number Hours Available' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
           value={this.props.data.dietary_restrictions}
