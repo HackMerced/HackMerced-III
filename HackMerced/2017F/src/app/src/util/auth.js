@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const BASE_URI = (process.env.NODE_ENV === 'development') ? 'http://localhost:1954' : '';
+const BASE_URI = (process.env.NODE_ENV === 'development') ? 'http://localhost:' + process.env.PORT : '';
 
 export const auth = {
   saveUser(response, resolve) {
     const user = response.data.results;
-
     localStorage.token = response.data.meta.token;
     localStorage.userName = user.name;
     localStorage.userId = user.id;
@@ -94,6 +93,25 @@ export const auth = {
       });
     })
   },
+  submitVolunteerApplication(details) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: BASE_URI + '/volunteer/submit',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+        data: details
+      })
+      .then((response) => {
+        const user = response.data.results;
+        resolve(user);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      })
+    })
+  },
   logout(callback) {
     return new Promise((resolve, reject) => {
 
@@ -125,7 +143,6 @@ export const auth = {
       let headers = new Headers();
           headers.append('Content-Type', 'application/json');
           headers.append('Accept', 'application/json');
-
       axios.post(BASE_URI + '/signup', user)
       .then((response) => {
         auth.saveUser(response, resolve);

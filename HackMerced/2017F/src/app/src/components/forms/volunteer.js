@@ -8,15 +8,16 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateVolunteerForm} from '../../actions';
+import { signUpVolunteer, updateVolunteerForm } from '../../actions';
 
 const assign = Object.assign || require('object.assign');
 
 export class VolunteerForm extends Component {
+  
   render() {
     return (
       <form onChange={this._onChange.bind(this)} onSubmit={this._onSubmit.bind(this)} >
-        <h3>Volunteer Form</h3>
+        <h3>Volunteer for HackMerced</h3>
         <TextInputBlock
           error={this.props.errors.name}
           value={this.props.data.name}
@@ -26,8 +27,8 @@ export class VolunteerForm extends Component {
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
-          error={this.props.errors.name}
-          value={this.props.data.name}
+          error={this.props.errors.email}
+          value={this.props.data.email}
           name='email'
           type='text'
           label='Email'
@@ -47,6 +48,7 @@ export class VolunteerForm extends Component {
           name='availibility'
           type='text'
           label='Availability'
+          helper='In order to be eligable for free HackMerced goodies, you must volunteer for a minimum of 3 hours'
           placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
@@ -113,7 +115,7 @@ export class VolunteerForm extends Component {
   _onSubmit(event){
     event.preventDefault();
 
-    this.props.dispatch(updateVolunteerForm({
+    this.props.dispatch(signUpVolunteer({
       name: this.props.data.name,
       age: this.props.data.age,
       availibility: this.props.data.availibility,

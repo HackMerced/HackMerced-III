@@ -186,6 +186,14 @@ export function logout() {
   }
 }
 
+export function signUpVolunteer(user) {
+  return (dispatch) => {
+    auth.submitVolunteerApplication(user).catch(err => {
+      // Log the volunteer signup error
+    });
+  }
+}
+
 export function signup(user) {
    return (dispatch) => {
 
@@ -215,6 +223,8 @@ export function signup(user) {
      });
    }
  }
+
+
 
 export function updateApplyStep(index, data){
   const applyStepMap = [

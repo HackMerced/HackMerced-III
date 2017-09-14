@@ -9,7 +9,6 @@ let timeChecker;
 
 export class ApplicationLayout extends Component {
 
-
   render() {
     return (
       <div className='application'>
@@ -86,7 +85,6 @@ export class ApplicationLayout extends Component {
     const { name, value } = event.target;
     let newState = {};
     let newErrorState = {}
-
     newErrorState = assign(data.applyErrors, {
        [ name ]: undefined
     }),
