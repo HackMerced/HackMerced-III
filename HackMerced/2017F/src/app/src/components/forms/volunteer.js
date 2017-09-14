@@ -8,60 +8,87 @@
 
 import React, { Component } from 'react';
 import { TextInputBlock } from '../partials';
-import { updateVolunteerForm} from '../../actions';
+import { signUpVolunteer, updateVolunteerForm } from '../../actions';
 
 const assign = Object.assign || require('object.assign');
 
 export class VolunteerForm extends Component {
+  
   render() {
     return (
       <form onChange={this._onChange.bind(this)} onSubmit={this._onSubmit.bind(this)} >
-        <h3>Volunteer Form</h3>
+        <h3>Volunteer for HackMerced</h3>
         <TextInputBlock
           error={this.props.errors.name}
           value={this.props.data.name}
           name='name'
-          type='name'
+          type='text'
           label='Name'
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
+        <TextInputBlock
+          error={this.props.errors.email}
+          value={this.props.data.email}
+          name='email'
+          type='text'
+          label='Email'
+          placeholder='Your Email' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-          <TextInputBlock
+        <TextInputBlock
           error={this.props.errors.age}
           value={this.props.data.age}
           name='age'
-          type='age'
+          type='number'
           label='Age'
           placeholder='Your Age' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-
-          <TextInputBlock
+        <TextInputBlock
           error={this.props.errors.availibility}
           value={this.props.data.availibility}
           name='availibility'
-          type='availibility'
+          type='text'
           label='Availability'
+          helper='In order to be eligable for free HackMerced goodies, you must volunteer for a minimum of 3 hours'
           placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
-
-          <TextInputBlock
-          error={this.props.errors.dietary_restrictions}
+        <TextInputBlock
           value={this.props.data.dietary_restrictions}
+          error={this.props.errors.dietary_restrictions}
+          label='Do you have any dietary restrictions?'
+          labelType='large'
           name='dietary_restrictions'
-          type='dietary_restrictions'
-          label='Dietary Restrictions'
-          placeholder=' Dietary Restrictions' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
+          type='options'
+          optionsType='small'
+          onChange={this.props.onChange}
+          options={[
+            'None',
+            'Vegetarian',
+            'Vegan',
+            'Halal',
+            'Kosher',
+            'Jain',
+            'Hindu',
+          ]}/>
 
-          <TextInputBlock
-          error={this.props.errors.shirt_size}
+        <TextInputBlock
           value={this.props.data.shirt_size}
-          name='shirt_size'
-          type='shirt_size'
+          error={this.props.errors.shirt_size}
           label='Shirt Size'
-          placeholder='Size' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
-   
-   
-
+          name='shirt_size'
+          type='options'
+          optionsType='small'
+          onChange={this.props.onChange}
+          options={[
+            'XS',
+            'S',
+            'M',
+            'L',
+            'XL',
+            '2XL',
+            '3XL',
+            '4XL'
+          ]}/>
+  
         <button className='object--center button--gold'>Submit</button>
       </form>
     );
@@ -88,7 +115,7 @@ export class VolunteerForm extends Component {
   _onSubmit(event){
     event.preventDefault();
 
-    this.props.dispatch(updateVolunteerForm({
+    this.props.dispatch(signUpVolunteer({
       name: this.props.data.name,
       age: this.props.data.age,
       availibility: this.props.data.availibility,
