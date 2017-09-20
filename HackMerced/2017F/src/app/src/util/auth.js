@@ -75,6 +75,25 @@ export const auth = {
       });
     })
   },
+  submitVolunteerApplication(details) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: BASE_URI + '/volunteer',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.token
+        },
+        data: details,
+      })
+      .then(response => {
+        const user = response.data.results;
+        resolve(user);
+      })
+      .catch(error => {
+        reject(error.response.data);
+      });
+    })
+  },
   submitApplication(details) {
     return new Promise((resolve, reject) => {
       axios({

@@ -27,20 +27,16 @@ const initialState = {
   forgotPasswordForm: {
     email: ''
   },
-
-
-
-
-volunteerPersonForm: {
-  name: '',
-  age: '',
-  availibility: '', 
-  dietary_restrictions: '',
-  shirt_size: '',
+  volunteerPersonForm: {
+    name: '',
+    age: '',
+    email: '',
+    friday_availability: '',
+    saturday_availability: '',
+    sunday_availability: '',
+    dietary_restrictions: '',
+    shirt_size: '',
   },
-
-
-
   signupErrors:{},
   loginForm: {
     email: '',
@@ -156,18 +152,11 @@ export function homeReducer(state = initialState, action) {
         forgotPasswordForm: action.newState
       });
       break;
-
-
-
-
-
-      case UPDATE_VOLUNTEER_FORM:
+    case UPDATE_VOLUNTEER_FORM:
       return assign({}, state, {
         volunteerPersonForm: action.newState
       });
       break;
-
-
     case SET_AUTH_AS_FALSE:
       return assign({}, state, {
         loggedIn: false
@@ -186,8 +175,6 @@ export function homeReducer(state = initialState, action) {
       return assign({}, state, {
         applyErrors: action.newState
       });
-
-
     case SET_AUTH:
       return assign({}, state, {
         loggedIn: action.newState

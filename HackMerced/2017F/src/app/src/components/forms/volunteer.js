@@ -13,11 +13,12 @@ import { signUpVolunteer, updateVolunteerForm } from '../../actions';
 const assign = Object.assign || require('object.assign');
 
 export class VolunteerForm extends Component {
-  
+
   render() {
     return (
       <form onChange={this._onChange.bind(this)} onSubmit={this._onSubmit.bind(this)} >
-        <h3>Volunteer for HackMerced</h3>
+        <h3>Interested in helping out HackMerced?</h3>
+        <h3> Become a volunteer!</h3>
         <TextInputBlock
           error={this.props.errors.name}
           value={this.props.data.name}
@@ -43,15 +44,6 @@ export class VolunteerForm extends Component {
           placeholder='Your Age' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
-          error={this.props.errors.availibility}
-          value={this.props.data.availibility}
-          name='availibility'
-          type='text'
-          label='Availability'
-          helper='In order to be eligable for free HackMerced goodies, you must volunteer for a minimum of 3 hours'
-          placeholder='Availability Hours' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
-
-        <TextInputBlock
           value={this.props.data.dietary_restrictions}
           error={this.props.errors.dietary_restrictions}
           label='Do you have any dietary restrictions?'
@@ -59,7 +51,7 @@ export class VolunteerForm extends Component {
           name='dietary_restrictions'
           type='options'
           optionsType='small'
-          onChange={this.props.onChange}
+          onChange={this._onChange.bind(this)}
           options={[
             'None',
             'Vegetarian',
@@ -77,7 +69,7 @@ export class VolunteerForm extends Component {
           name='shirt_size'
           type='options'
           optionsType='small'
-          onChange={this.props.onChange}
+          onChange={this._onChange.bind(this)}
           options={[
             'XS',
             'S',
@@ -88,7 +80,56 @@ export class VolunteerForm extends Component {
             '3XL',
             '4XL'
           ]}/>
-  
+
+        <TextInputBlock
+          value={this.props.data.friday_availability}
+          error={this.props.errors.availability}
+          label='Friday Availability'
+          labelType='large'
+          name='friday_availability'
+          type='options'
+          onChange={this._onChange.bind(this)}
+          optionsType='small'
+          options={[
+            'None',
+            'Morning',
+            'Afternoon',
+            'Evening',
+          ]}/>
+
+        <TextInputBlock
+          value={this.props.data.saturday_availability}
+          error={this.props.errors.availability}
+          label='Saturday Availability'
+          labelType='large'
+          name='saturday_availability'
+          type='options'
+          onChange={this._onChange.bind(this)}
+          optionsType='small'
+          options={[
+            'None',
+            'Morning',
+            'Afternoon',
+            'Evening',
+          ]}/>
+
+        <TextInputBlock
+          value={this.props.data.sunday_availability}
+          error={this.props.errors.availability}
+          label='Sunday Availability'
+          labelType='large'
+          name='sunday_availability'
+          type='options'
+          onChange={this._onChange.bind(this)}
+          optionsType='small'
+          options={[
+            'None',
+            'Morning',
+            'Afternoon',
+            'Evening',
+          ]}
+          helper='In order to be eligible for free HackMerced goodies, you must volunteer for a minimum of 3 hours'/>
+
         <button className='object--center button--gold'>Submit</button>
       </form>
     );
@@ -117,8 +158,13 @@ export class VolunteerForm extends Component {
 
     this.props.dispatch(signUpVolunteer({
       name: this.props.data.name,
+      email: this.props.data.email,
       age: this.props.data.age,
-      availibility: this.props.data.availibility,
+      availability: {
+        friday: this.props.data.friday_availability,
+        saturday: this.props.data.saturday_availability,
+        sunday: this.props.data.sunday_availability
+      },
       dietary_restrictions: this.props.data.dietary_restrictions,
       shirt_size: this.props.data.shirt_size
     }))

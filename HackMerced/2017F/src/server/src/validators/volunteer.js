@@ -1,8 +1,4 @@
 import Joi from 'joi';
-import fs from 'fs';
-import path from 'path';
-
-import { notMercedOptions } from '../../../app/src/constants'
 
 export const volunteerValidators = {
 	postVolunteer:{

@@ -186,6 +186,33 @@ export function logout() {
   }
 }
 
+/**
+ *
+ * @param user
+ * @returns {function(*)}
+ */
+export function signUpVolunteer(user) {
+  return (dispatch) => {
+    auth.submitVolunteerApplication(user)
+      .then(() => {
+        dispatch(updateVolunteerForm({
+          name: "",
+          email: "",
+          age: "",
+          availability: "",
+          dietary_restrictions: "",
+          shirt_size: ""
+        }));
+
+        forwardTo('/');
+      })
+      .catch(err => {
+      // Log the volunteer sign up error
+
+    });
+  }
+}
+
 export function signup(user) {
    return (dispatch) => {
 
