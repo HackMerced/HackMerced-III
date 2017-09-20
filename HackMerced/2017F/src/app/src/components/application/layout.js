@@ -8,7 +8,6 @@ let timeChecker;
 
 export class ApplicationLayout extends Component {
 
-
   render() {
     return (
       <div className='application'>

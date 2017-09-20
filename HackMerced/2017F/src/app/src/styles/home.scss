@@ -82,7 +82,7 @@
   width: 100%;
   height: 100%;
   top: 40px;
- opacity: 0;
+  opacity: 0;
 
   @include animation('fadein 1500ms forwards 4.5s');
 }

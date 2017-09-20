@@ -208,7 +208,6 @@ export function signUpVolunteer(user) {
       })
       .catch(err => {
       // Log the volunteer sign up error
-
     });
   }
 }
@@ -242,6 +241,8 @@ export function signup(user) {
      });
    }
  }
+
+
 
 export function updateApplyStep(index, data){
   const applyStepMap = [
