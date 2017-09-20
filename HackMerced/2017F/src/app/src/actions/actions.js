@@ -199,7 +199,9 @@ export function signUpVolunteer(user) {
           name: "",
           email: "",
           age: "",
-          availability: "",
+          friday_availability: "",
+          saturday_availability: "",
+          sunday_availability: "",
           dietary_restrictions: "",
           shirt_size: ""
         }));
