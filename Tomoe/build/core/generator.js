@@ -89,7 +89,7 @@ const stage = {
 
         term('\nLearn how to create local ENV files at: https://github.com/HackMerced/HackMerced/tree/master/Tomoe#local-environmnet-variables-in-development'.red);
         term('\n');
-        process.exit();
+        process.exit(1);
       }
 
       stage.next();

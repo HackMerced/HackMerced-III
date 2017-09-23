@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import fs from 'fs';
-
+import packageDetail from '../../package.json';
 
 import { Definitions } from '../templates';
 
@@ -21,6 +21,7 @@ export class Config {
     this.volunteerStatuses = params.hackerStatuses || Definitions.volunteerStatuses;
     this.build = params.build || ((fs.existsSync('../.hackmerced')) ? Definitions.build.default : Definitions.build.import)
     this.adminPermissions = params.adminPermissions || Definitions.adminPermissions;
+    this.version = packageDetail.version;
   }
 
   get(){
@@ -38,6 +39,7 @@ export class Config {
       volunteerStatuses: this.volunteerStatuses,
       adminPermissions: this.adminPermissions,
       build: this.build,
+      version: this.version,
     }
   }
 

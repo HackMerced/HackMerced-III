@@ -1,6 +1,6 @@
 {
   "name": "Tomoe",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Centralized API user platform for Hackathons",
   "main": "production.js",
   "scripts": {
