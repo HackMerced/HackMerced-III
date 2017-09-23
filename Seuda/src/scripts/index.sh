@@ -1,4 +1,4 @@
-git clone origin release
+git pull origin release
 
 cd ../HackMerced/2017F
 
