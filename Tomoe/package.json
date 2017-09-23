@@ -8,6 +8,7 @@
     "compile": "node ./src/app/build/scripts/compile",
     "setup": "npm run generate",
     "generate": "node ./build/core",
+    "renew": "node ./build/update",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "start": "node ./build/imports && cross-env NODE_ENV=development node ./src/app/build/scripts/start",
     "api": "node ./src/server/index.js",

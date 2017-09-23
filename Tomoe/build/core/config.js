@@ -6,7 +6,7 @@ import { Definitions } from '../templates';
 
 const TOMOE_CONFIG_PATH = `./${Definitions.configName}`
 
-export class Config{
+export class Config {
   constructor(params = {}){
     this.hackathon = params.hackathon || '';
     this.beta = params.beta || false;
@@ -17,10 +17,10 @@ export class Config{
     this.server = params.server || this.database;
     this.apiVersion = params.apiVersion || Definitions.apiVersion;
     this.userTypes = params.userTypes || Definitions.userTypes;
-    this.hackerStatuses = params.hackerStatuses || Definitions.defaultHackerStatuses;
-    this.volunteerStatuses = params.hackerStatuses || Definitions.defaultVolunteerStatuses;
+    this.hackerStatuses = params.hackerStatuses || Definitions.hackerStatuses;
+    this.volunteerStatuses = params.hackerStatuses || Definitions.volunteerStatuses;
     this.build = params.build || ((fs.existsSync('../.hackmerced')) ? Definitions.build.default : Definitions.build.import)
-    this.adminPermissions = params.adminPermissions || Definitions.defaultAdminPermissions;
+    this.adminPermissions = params.adminPermissions || Definitions.adminPermissions;
   }
 
   get(){
@@ -36,7 +36,8 @@ export class Config{
       userTypes: this.userTypes,
       hackerStatuses: this.hackerStatuses,
       volunteerStatuses: this.volunteerStatuses,
-      adminPermissions: this.adminPermissions
+      adminPermissions: this.adminPermissions,
+      build: this.build,
     }
   }
 
@@ -53,6 +54,11 @@ export class Config{
         resolve()
       });
     })
+  }
+
+
+  static current(){
+    return require(`../.${TOMOE_CONFIG_PATH}`).Tomoe;
   }
 
   delete(){
