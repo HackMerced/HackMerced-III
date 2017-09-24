@@ -11,12 +11,12 @@ export class VolunteerComponent extends Component {
 
   render() {
     const dispatch = this.props.dispatch;
-    const { volunteerPersonForm, loginErrors } = this.props.data;
+    const { volunteerPersonForm, volunteerErrors } = this.props.data;
 
     return (
       <div className='authorization-form signup w420 text--center object--center'>
           <LogoWithCopy/>
-          <VolunteerForm data={volunteerPersonForm} errors={loginErrors} dispatch={dispatch}/>
+          <VolunteerForm data={volunteerPersonForm} errors={volunteerErrors} dispatch={dispatch}/>
       </div>
     )
   }

@@ -83,7 +83,7 @@ export class VolunteerForm extends Component {
 
         <TextInputBlock
           value={this.props.data.friday_availability}
-          error={this.props.errors.availability}
+          error={this.props.errors.friday}
           label='Friday Availability'
           labelType='large'
           name='friday_availability'
@@ -99,7 +99,7 @@ export class VolunteerForm extends Component {
 
         <TextInputBlock
           value={this.props.data.saturday_availability}
-          error={this.props.errors.availability}
+          error={this.props.errors.saturday}
           label='Saturday Availability'
           labelType='large'
           name='saturday_availability'
@@ -115,7 +115,7 @@ export class VolunteerForm extends Component {
 
         <TextInputBlock
           value={this.props.data.sunday_availability}
-          error={this.props.errors.availability}
+          error={this.props.errors.sunday}
           label='Sunday Availability'
           labelType='large'
           name='sunday_availability'

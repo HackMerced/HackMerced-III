@@ -24,11 +24,12 @@
  */
 
 
-import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW,UPDATE_FORGOT_PASSWORD_FORM,UPDATE_VOLUNTEER_FORM } from '../constants';
+import { SET_AUTH, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SIGNUP_FORM, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, UPDATE_VOLUNTEER_ERRORS, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS, UPDATE_SUBMITTED_VIEW,UPDATE_FORGOT_PASSWORD_FORM,UPDATE_VOLUNTEER_FORM } from '../constants';
 import { auth } from '../util';
 
 import { browserHistory } from 'react-router';
 import { notMercedOptions } from '../constants'
+import { parseError } from '../util'
 
 function mapUserDetailsToApplication(dispatch, details){
   let stepOne = {
@@ -208,8 +209,15 @@ export function signUpVolunteer(user) {
 
         forwardTo('/');
       })
-      .catch(err => {
-      // Log the volunteer sign up error
+      .catch(({ validation }) => {
+        let errorSet = {};
+        if(validation.errors){
+          validation.errors.forEach((error) => {
+            errorSet[error.key] = parseError(error.key, error.message);
+          })
+        }
+
+        dispatch(updateVolunteerErrors(errorSet));
     });
   }
 }
@@ -296,6 +304,11 @@ export function updateSignupForm(newState) {
 
 export function updateSignupErrors(newState) {
   return { type: UPDATE_SIGNUP_ERRORS, newState };
+}
+
+
+export function updateVolunteerErrors(newState) {
+  return { type: UPDATE_VOLUNTEER_ERRORS, newState };
 }
 
 export function updateApplyErrors(newState) {

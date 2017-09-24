@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URI = (process.env.NODE_ENV === 'development') ? 'http://localhost:' + process.env.PORT : '';
+const BASE_URI = (process.env.NODE_ENV === 'development') ? 'http://localhost:' + (process.env.PORT || 1954) : '';
 
 export const auth = {
   saveUser(response, resolve) {
@@ -114,9 +114,10 @@ export const auth = {
   },
   submitVolunteerApplication(details) {
     return new Promise((resolve, reject) => {
+      console.log(BASE_URI + '/volunteer')
       axios({
         method: 'post',
-        url: BASE_URI + '/volunteer/submit',
+        url: BASE_URI + '/volunteer',
         headers: {
           'Authorization': 'Bearer ' + localStorage.token
         },
@@ -127,6 +128,7 @@ export const auth = {
         resolve(user);
       })
       .catch((error) => {
+        console.log(error)
         reject(error.response.data);
       })
     })
