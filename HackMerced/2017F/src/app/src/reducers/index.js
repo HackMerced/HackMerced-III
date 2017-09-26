@@ -10,7 +10,7 @@
  *   });
  */
 
-import { UPDATE_SIGNUP_FORM, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SUBMITTED_VIEW, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH, SENDING_REQUEST, SET_ERROR_MESSAGE, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS,UPDATE_FORGOT_PASSWORD_FORM, UPDATE_VOLUNTEER_FORM} from '../constants';
+import { UPDATE_SIGNUP_FORM, UPDATE_LOGIN_FORM, UPDATE_USER_DATA, UPDATE_SUBMITTED_VIEW, UPDATE_SIGNUP_ERRORS, UPDATE_LOGIN_ERRORS, SET_AUTH, SENDING_REQUEST, SET_ERROR_MESSAGE, SET_AUTH_AS_FALSE, SET_USER_NAME_AS_FALSE, SET_USER_NAME, SET_USER_ID_AS_FALSE, SET_USER_ID, UPDATE_APPLY_STEP_ONE, UPDATE_APPLY_STEP_TWO, UPDATE_APPLY_STEP_THREE, UPDATE_APPLY_STEP_FOUR, SET_CURRENT_APPLY_STEP, UPDATE_USER_UPDATING_STATUS, UPDATE_APPLY_ERRORS, UPDATE_MOBILE_MENU_STATUS,UPDATE_FORGOT_PASSWORD_FORM, UPDATE_VOLUNTEER_FORM, UPDATE_VOLUNTEER_ERRORS } from '../constants';
 // Object.assign is not yet fully supported in all browsers, so we fallback to
 // a polyfill
 const assign = Object.assign || require('object.assign');
@@ -27,25 +27,22 @@ const initialState = {
   forgotPasswordForm: {
     email: ''
   },
-
-
-
-
-volunteerPersonForm: {
-  name: '',
-  age: '',
-  availibility: '', 
-  dietary_restrictions: '',
-  shirt_size: '',
+  volunteerPersonForm: {
+    name: '',
+    age: '',
+    email: '',
+    friday_availability: '',
+    saturday_availability: '',
+    sunday_availability: '',
+    dietary_restrictions: '',
+    shirt_size: '',
   },
-
-
-
   signupErrors:{},
   loginForm: {
     email: '',
     password: '',
   },
+  volunteerErrors: {},
   loginErrors:{},
   user:{},
   currentlySending: false,
@@ -141,9 +138,14 @@ export function homeReducer(state = initialState, action) {
         signupErrors: action.newState
       });
       break;
+    case UPDATE_VOLUNTEER_ERRORS:
+      return assign({}, state, {
+        volunteerErrors: action.newState
+      });
+      break;
     case UPDATE_LOGIN_FORM:
       return assign({}, state, {
-        loginFom: action.newState
+        loginForm: action.newState
       });
       break;
     case UPDATE_LOGIN_ERRORS:
@@ -156,18 +158,11 @@ export function homeReducer(state = initialState, action) {
         forgotPasswordForm: action.newState
       });
       break;
-
-
-
-
-
-      case UPDATE_VOLUNTEER_FORM:
+    case UPDATE_VOLUNTEER_FORM:
       return assign({}, state, {
         volunteerPersonForm: action.newState
       });
       break;
-
-
     case SET_AUTH_AS_FALSE:
       return assign({}, state, {
         loggedIn: false
@@ -186,8 +181,6 @@ export function homeReducer(state = initialState, action) {
       return assign({}, state, {
         applyErrors: action.newState
       });
-
-
     case SET_AUTH:
       return assign({}, state, {
         loggedIn: action.newState

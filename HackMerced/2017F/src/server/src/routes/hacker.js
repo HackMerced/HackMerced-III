@@ -1,10 +1,6 @@
 /*
 
 */
-
-
-import Joi from 'joi';
-import Boom from 'boom';
 import { hackerHandlers } from '../handlers'
 import { hackerValidators } from '../validators'
 
