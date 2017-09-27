@@ -7,7 +7,7 @@ export class StepThree extends Component {
 
 
   render() {
-    const { resume, question, experience, dietary_restrictions, allergies, github, linkedin, devpost } = this.props.data;
+    const { resume, experience, dietary_restrictions, allergies, github, linkedin, devpost } = this.props.data;
 
     return (
       <div id='applyForm-3'>

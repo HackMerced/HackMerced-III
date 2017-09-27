@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { TextInputBlock } from '../partials';
 import { updateApplyStep, update, updateApplyErrors } from '../../actions';
 import { StepOne, StepTwo, StepThree, StepFour } from './';
 import { notMercedOptions } from '../../constants';
@@ -8,7 +7,6 @@ const assign = Object.assign || require('object.assign');
 let timeChecker;
 
 export class ApplicationLayout extends Component {
-
 
   render() {
     return (
@@ -85,7 +83,7 @@ export class ApplicationLayout extends Component {
     const { data } = this.props;
     const { name, value } = event.target;
     let newState = {};
-    let newErrorState = {}
+    let newErrorState = {};
 
     newErrorState = assign(data.applyErrors, {
        [ name ]: undefined
