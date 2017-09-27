@@ -30,7 +30,7 @@ export class VolunteerForm extends Component {
           placeholder='Your Full Name' autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 
         <TextInputBlock
-          error={ errors.email}
+          error={errors.email}
           value={data.email}
           name='email'
           type='text'
@@ -80,7 +80,7 @@ export class VolunteerForm extends Component {
             'XL',
             '2XL',
             '3XL',
-            '4XL'
+            '4XL',
           ]}/>
 
         <TextInputBlock
@@ -137,7 +137,7 @@ export class VolunteerForm extends Component {
     );
   }
 
-  _onChange(event){
+  _onChange(event) {
     let newState = this._mergeWithCurrentState({
       [event.target.name]: event.target.value
     });
@@ -146,33 +146,30 @@ export class VolunteerForm extends Component {
   }
 
   // Merges the current state with a change
-  _mergeWithCurrentState(change) {
+  _mergeWithCurrentState (change) {
+    const { data } = this.props;
     return assign(data, change);
   }
 
   // Emits a change of the form state to the application state
-  _emitChange(newState) {
+  _emitChange (newState) {
     this.props.dispatch(updateVolunteerForm(newState));
   }
 
-  _onSubmit(event){
-    const { dispatch, data } = this.props;
+  _onSubmit (event) {
+    const { dispatch, data } = this.props
 
-    event.preventDefault();
+    event.preventDefault()
 
     dispatch(signUpVolunteer({
       name: data.name,
       email: data.email,
       age: data.age,
-      availability: {
-        friday: data.friday_availability,
-        saturday: data.saturday_availability,
-        sunday: data.sunday_availability
-      },
+      friday_availability: data.friday_availability,
+      saturday_availability: data.saturday_availability,
+      sunday_availability: data.sunday_availability,
       dietary_restrictions: data.dietary_restrictions,
-      shirt_size: this.props.data.shirt_size
+      shirt_size: data.shirt_size,
     }))
-
-
   }
 }

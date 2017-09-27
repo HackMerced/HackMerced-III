@@ -192,26 +192,26 @@ export function logout() {
  * @param user
  * @returns {function(*)}
  */
-export function signUpVolunteer(user) {
+export function signUpVolunteer (user) {
   return (dispatch) => {
     auth.submitVolunteerApplication(user)
       .then(() => {
         dispatch(updateVolunteerForm({
-          name: "",
-          email: "",
-          age: "",
-          friday_availability: "",
-          saturday_availability: "",
-          sunday_availability: "",
-          dietary_restrictions: "",
-          shirt_size: ""
-        }));
+          name: '',
+          email: '',
+          age: '',
+          friday_availability: '',
+          saturday_availability: '',
+          sunday_availability: '',
+          dietary_restrictions: '',
+          shirt_size: '',
+        }))
 
-        forwardTo('/');
+        forwardTo('/')
       })
       .catch(({ validation }) => {
-        let errorSet = {};
-        if(validation.errors){
+        let errorSet = {}
+        if(validation.errors) {
           validation.errors.forEach((error) => {
             errorSet[error.key] = parseError(error.key, error.message);
           })
