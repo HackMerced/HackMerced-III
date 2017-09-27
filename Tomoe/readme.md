@@ -51,7 +51,7 @@ Access the server and gui locally at:
 http://localhost:4925
 ```
 
-### Local environmnet variables in development
+### Local environment variables in development
 If you do not want to setup environmental variables globally, Tomoe allows you to locally set environmental variables by creating file called `.env` in the root directory of Tomoe
 
 ```terminal
@@ -67,6 +67,14 @@ NODE_ENV={Either DEVELOPMENT or PRODUCTIOn}
  <br>
 
 [<b>⬆ back to top](#table-of-contents)</b>
+
+### Updating
+In the case of updating to a newer version of Tomoe, please run the following commands after pulling a new repo:
+
+```
+yarn # installs all new pacakges
+yarn renew # updates your tomoe.config.js and databases
+```
 
 # Documentation
 ## Shortcuts

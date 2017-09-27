@@ -1,6 +1,7 @@
 const fs = require('fs'),
       ENV_PATH = './.env';
 const colors = require('colors');
+const checkVersion = require('../../build/util/check-version.js');
 
 // support for local .env files
 if(!fs.existsSync(ENV_PATH)){
@@ -11,10 +12,11 @@ if(!fs.existsSync(ENV_PATH)){
 if(fs.existsSync('./tomoe.config.js')){
   global.TOMOE_CONFIG = require('../../tomoe.config.js').Tomoe;
 
-  require( 'babel-core/register' );
-  require('./src/database.js')
-  require('./src/server.js');
-
+  checkVersion(function(){
+    require( 'babel-core/register' );
+    require('./src/database.js')
+    require('./src/server.js');
+  })
 } else {
   console.log(colors.red('\n\nWe cannot find your tomoe.config.js file!'));
   console.log(colors.grey('Please install Tomoe before turning on the server by entering the following command:'));

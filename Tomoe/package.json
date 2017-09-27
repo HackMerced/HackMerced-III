@@ -1,6 +1,6 @@
 {
   "name": "Tomoe",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Centralized API user platform for Hackathons",
   "main": "production.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "compile": "node ./src/app/build/scripts/compile",
     "setup": "npm run generate",
     "generate": "node ./build/core",
+    "renew": "node ./build/update",
     "build": "npm run clean && cross-env NODE_ENV=production npm run compile",
     "start": "node ./build/imports && cross-env NODE_ENV=development node ./src/app/build/scripts/start",
     "api": "nodemon -e js -w ./src/server ./src/server/index.js",

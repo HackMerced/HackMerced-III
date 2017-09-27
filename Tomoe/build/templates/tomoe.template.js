@@ -15,7 +15,7 @@ const standardDBCollections = [
   'hacker', // hacker users
   'volunteer', // volunteer users
   'oauth', // oauth keys information
-  'meta' // meta Tomoe information
+  'meta', // meta Tomoe information
 ]
 
 const dbCollections = {
@@ -32,7 +32,7 @@ export const Definitions = {
   server: serverNames[process.env.NODE_ENV],
   userTypes:['admin', 'hacker', 'volunteer'],
   apiVersion: '2.0',
-  defaultHackerStatuses:[
+  hackerStatuses:[
     'registered',
     'applied',
     'accepted',
@@ -41,12 +41,12 @@ export const Definitions = {
     'attending',
     'inactive'
   ],
-  defaultVolunteerStatuses: [
+  volunteerStatuses: [
       "applied",
       "denied",
       "approved",
   ],
-  defaultAdminPermissions: [
+  adminPermissions: [
     'read',
     'read+write', // read + write
     'admin' // super admin (controls group settings)
