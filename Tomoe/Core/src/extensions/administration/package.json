@@ -1,0 +1,11 @@
+{
+  "name": "Tomoe-Admin",
+  "version": "1.0.0",
+  "description": "Admin utility for Tomoe",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HackMerced",
+  "license": "MIT"
+}

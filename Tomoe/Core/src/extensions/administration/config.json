@@ -1,0 +1,6 @@
+{
+  "name": "administration",
+  "displayName": "Admin",
+  "injectables": {
+  }
+}

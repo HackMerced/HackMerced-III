@@ -1,0 +1,7 @@
+{
+  "name": "admissions",
+  "displayName": "Admissions",
+  "injectables": {
+    "routes": "server/routes/index.js"
+  }
+}
