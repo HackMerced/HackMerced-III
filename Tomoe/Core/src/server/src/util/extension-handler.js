@@ -4,6 +4,11 @@ const EXTENSION_ROOT = '../../../extensions';
 export function getExtensionContent(extensionType){
   return extensions.map((extName) => {
       const extRoute = require(`${EXTENSION_ROOT}/${extName}/config.json`).injectables[extensionType];
-      return require(`${EXTENSION_ROOT}/${extName}/src/${extRoute}`).default;
+
+      if(extRoute) {
+        return require(`${EXTENSION_ROOT}/${extName}/src/${extRoute}`).default;
+      }
+
+      return null;
   });
 };

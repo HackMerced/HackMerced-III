@@ -13,7 +13,6 @@ const transporter = nodemailer.createTransport({
 
 export class Email {
   constructor(data = {}){
-    super(data);
 
   }
 

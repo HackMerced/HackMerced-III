@@ -1,9 +1,10 @@
 import { aql } from 'arangojs';
+import { Tomoe } from './';
 import uuidv4 from 'uuid/v4'
 import sha256 from 'sha256';
 import Boom from 'boom';
 
-export class User{
+export class User {
   constructor(data = {}){
     // user information
     this.id = data.id || uuidv4();

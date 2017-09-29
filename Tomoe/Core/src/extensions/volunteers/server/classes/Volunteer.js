@@ -1,4 +1,4 @@
-import { User } from './';
+import { User } from '../../../importable';
 
 export class Volunteer extends User{
   constructor(data = {}){

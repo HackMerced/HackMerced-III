@@ -3,5 +3,6 @@
   "displayName": "Admissions",
   "injectables": {
     "routes": "server/routes/index.js"
-  }
+  },
+  "interface": "sidebar"
 }

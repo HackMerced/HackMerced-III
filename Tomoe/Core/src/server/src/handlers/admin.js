@@ -1,4 +1,4 @@
-import { Admin } from '../collections'
+import { Admin } from '../classes'
 import { operatorSearch, respond, transformData, setSearchParam } from '../util';
 import Joi from 'joi';
 import Boom from 'boom';

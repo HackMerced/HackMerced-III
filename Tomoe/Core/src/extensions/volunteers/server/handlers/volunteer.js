@@ -1,5 +1,5 @@
-import { Volunteer } from '../collections'
-import { operatorSearch, respond, transformData, setSearchParam } from '../util';
+import { Volunteer } from '../classes'
+import { operatorSearch, respond, transformData, setSearchParam } from '../../../importable';
 import Joi from 'joi';
 import Boom from 'boom';
 
