@@ -1,0 +1,7 @@
+{
+  "name": "template",
+  "displayName": "template",
+  "injectables": {
+  },
+  "interface":"sidebar", 
+}

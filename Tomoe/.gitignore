@@ -1,6 +1,0 @@
-# configuration files
-tomoe.config.js
-tomoe-test.config.js
-
-# template files
-src/**/templates/*.template*

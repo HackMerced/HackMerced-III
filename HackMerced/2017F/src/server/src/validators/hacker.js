@@ -6,10 +6,8 @@ import { notMercedOptions } from '../../../app/src/constants'
 
 export const hackerValidators = {
   postLogin: {
-    // tomoe handles this
   },
   postSignup: {
-    // tomoe handles this
   },
   getMe:{
     payload:{
