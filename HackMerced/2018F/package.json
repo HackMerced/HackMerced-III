@@ -1,0 +1,9 @@
+{
+  "name": "2018F",
+  "version": "1.0.0",
+  "description": "HackMerced 2018 website",
+  "main": "index.js",
+  "repository": "https://github.com/HackMerced/HackMerced/tree/master/HackMerced",
+  "author": "Mark Renzo Santiago",
+  "license": "MIT"
+}
